@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.hibernate.Query;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,7 +17,6 @@ import com.yuan.hspot.Entity.Message;
 import com.yuan.hspot.Entity.Review;
 import com.yuan.hspot.Entity.UserDetails;
 
-import junit.framework.Assert;
 
 public class UserDAOTest extends DAOTests {
 	private UserDAO userDAO;

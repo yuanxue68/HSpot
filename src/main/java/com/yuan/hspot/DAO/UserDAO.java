@@ -22,25 +22,30 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 		return get(id);
 	}
 	
-	public int create(UserDetails user){
-		return persist(user).getUserID();
+	public UserDetails create(UserDetails user){
+		return persist(user);
+	}
+	
+	public UserDetails update(UserDetails user){
+		return persist(user);
 	}
 	
 	public List<UserDetails> findAll(){
 		return list(namedQuery("UserDetails.findAll"));
 	}
-
+	
+	// filter user based on the criteria provided by the user such as role, skills etc
 	public List<UserDetails> filterUsers(List<String> skills, String role) {
 
 		Criteria criteria = currentSession().createCriteria(UserDetails.class);
 		criteria = criteria.setProjection(Projections.distinct(Projections.property("userID")));
 		
-		if(role!=null){
+		if(role != null){
 			criteria = criteria.add(Restrictions.eq("role", role));
 		}
 		
 		Disjunction or = Restrictions.disjunction();
-		if(skills != null){
+		if(skills.size() > 0){
 			criteria = criteria.createCriteria("skills");
 			for(String skill:skills){
 				or = (Disjunction) or.add(Restrictions.eq("elements", skill));
@@ -49,6 +54,7 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 		}
 		
 		List<UserDetails> result = (List<UserDetails>)criteria.list();
+		
 		return result;
 	}
 
