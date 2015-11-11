@@ -23,7 +23,7 @@ public class DAOTests {
         config.setProperty("hibernate.connection.password","1234");
         config.setProperty("hibernate.connection.driver_class","org.postgresql.Driver");
         config.setProperty("hibernate.current_session_context_class", "thread");
-        config.setProperty("hibernate.show_sql", "false");
+        config.setProperty("hibernate.show_sql", "true");
         config.setProperty("hibernate.hbm2ddl.auto", "create");
         config.addAnnotatedClass(UserDetails.class);
         config.addAnnotatedClass(Message.class);

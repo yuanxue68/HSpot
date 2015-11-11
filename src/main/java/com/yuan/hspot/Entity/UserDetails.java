@@ -15,7 +15,7 @@ import javax.persistence.OneToMany;
 @Entity
 @NamedQueries({
 @NamedQuery(name="UserDetails.findAll", query="from UserDetails"),
-@NamedQuery(name="UserDetails.deleteAll", query="delete from UserDetails")
+@NamedQuery(name="UserDetails.deleteAll", query="delete from UserDetails"),
 })
 public class UserDetails {
 	@Id
@@ -27,9 +27,9 @@ public class UserDetails {
 	private String password;
 	private String firstName;
 	private String lastName;
-	private String Role;
+	private String role;
 	@ElementCollection
-	private Collection<String> Skills = new ArrayList<String>();
+	private Collection<String> skills = new ArrayList<String>();
 	
 	@OneToMany(mappedBy="reviewReceiver")
 	private Collection<Review> reviewReceived = new ArrayList<Review>();
@@ -74,16 +74,16 @@ public class UserDetails {
 		this.lastName = lastName;
 	}
 	public String getRole() {
-		return Role;
+		return role;
 	}
 	public void setRole(String role) {
-		Role = role;
+		this.role = role;
 	}
 	public Collection<String> getSkills() {
-		return Skills;
+		return skills;
 	}
 	public void setSkills(Collection<String> skills) {
-		Skills = skills;
+		this.skills = skills;
 	}
 	public Collection<Review> getReviewReceived() {
 		return reviewReceived;

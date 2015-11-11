@@ -1,6 +1,9 @@
 package com.yuan.hspot.DAOTest;
 
+import java.util.ArrayList;
+
 import org.hibernate.Query;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,6 +38,10 @@ public class UserDAOTest extends DAOTests {
 		UserDetails userOne = new UserDetails();
 		userOne.setEmail("user1@email.example.com");
 		userOne.setPassword("password");
+		ArrayList<String> skills = new ArrayList<String>();
+		skills.add("Python");
+		skills.add("Ruby");
+		userOne.setSkills(skills);
 		userDAO.create(userOne);
 		
 		UserDetails userTwo = new UserDetails();
@@ -67,8 +74,13 @@ public class UserDAOTest extends DAOTests {
 		getSession().getTransaction().commit();
 	}
 	
+	@After
+	public void tearDown(){
+		getSession().close();
+	}
+	
 	@Test
-	public void finaAllTest(){
+	public void testFindAll(){
 		getSession().beginTransaction();
 		userDAO = new UserDAO(sessionFactory);
 		conversationDAO = new ConversationDAO(sessionFactory);
@@ -79,6 +91,17 @@ public class UserDAOTest extends DAOTests {
 		Assert.assertEquals(1,conversationDAO.findAll().size());
 		Assert.assertEquals(1,reviewDAO.findAll().size());
 		getSession().getTransaction().commit();
+	}
+	
+	@Test
+	public void testFilterUser(){
+		getSession().beginTransaction();
+		userDAO = new UserDAO(sessionFactory);
+		ArrayList<String> skills = new ArrayList<String>();
+		skills.add("Python");
+		skills.add("Ruby");
+		Assert.assertEquals(1,userDAO.filterUsers(skills, null).size());
+		getSession().getTransaction().commit();		
 	}
 
 }
