@@ -7,7 +7,6 @@ import com.yuan.hspot.DAOTest.UserDAOTest;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
   UserDAOTest.class,
-
 })
 
 public class AppTest {
