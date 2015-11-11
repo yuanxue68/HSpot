@@ -1,0 +1,121 @@
+package com.yuan.hspot.Entity;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+
+@Entity
+@NamedQueries({
+@NamedQuery(name="UserDetails.findAll", query="from UserDetails"),
+@NamedQuery(name="UserDetails.deleteAll", query="delete from UserDetails")
+})
+public class UserDetails {
+	@Id
+	@GeneratedValue
+	private int userID;
+	@Column(unique=true)
+	private String email;
+	@Column(nullable=false)
+	private String password;
+	private String firstName;
+	private String lastName;
+	private String Role;
+	@ElementCollection
+	private Collection<String> Skills = new ArrayList<String>();
+	
+	@OneToMany(mappedBy="reviewReceiver")
+	private Collection<Review> reviewReceived = new ArrayList<Review>();
+	@OneToMany(mappedBy="reviewGiver")
+	private Collection<Review> reviewGiven = new ArrayList<Review>();
+	@OneToMany(mappedBy="userOne")
+	private Collection<Conversation> userOneConversations = new ArrayList<Conversation>();
+	@OneToMany(mappedBy="userTwo")
+	private Collection<Conversation> userTwoConversations = new ArrayList<Conversation>();
+	@OneToMany(mappedBy="userDetails")
+	private Collection<Message> messages = new ArrayList<Message>();
+	
+	
+	public int getUserID() {
+		return userID;
+	}
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getFirstName() {
+		return firstName;
+	}
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getRole() {
+		return Role;
+	}
+	public void setRole(String role) {
+		Role = role;
+	}
+	public Collection<String> getSkills() {
+		return Skills;
+	}
+	public void setSkills(Collection<String> skills) {
+		Skills = skills;
+	}
+	public Collection<Review> getReviewReceived() {
+		return reviewReceived;
+	}
+	public void setReviewReceived(Collection<Review> reviewReceived) {
+		this.reviewReceived = reviewReceived;
+	}
+	public Collection<Review> getReviewGiven() {
+		return reviewGiven;
+	}
+	public void setReviewGiven(Collection<Review> reviewGiven) {
+		this.reviewGiven = reviewGiven;
+	}
+	public Collection<Conversation> getUserOneConversations() {
+		return userOneConversations;
+	}
+	public void setUserOneConversations(Collection<Conversation> userOneConversations) {
+		this.userOneConversations = userOneConversations;
+	}
+	public Collection<Conversation> getUserTwoConversations() {
+		return userTwoConversations;
+	}
+	public void setUserTwoConversations(Collection<Conversation> userTwoConversations) {
+		this.userTwoConversations = userTwoConversations;
+	}
+	public Collection<Message> getMessages() {
+		return messages;
+	}
+	public void setMessages(Collection<Message> messages) {
+		this.messages = messages;
+	}
+	
+	
+
+}
