@@ -11,6 +11,9 @@ import com.yuan.hspot.Entity.UserDetails;
 import com.yuan.hspot.Resource.UserResource;
 
 import io.dropwizard.Application;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.db.DataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
@@ -43,7 +46,13 @@ public class App extends Application<HspotConfiguration>
 	public void run(HspotConfiguration configuration, Environment environment) throws Exception {
 		LOGGER.info("Method App#run called");
 		final UserDAO userDAO = new UserDAO(hibernate.getSessionFactory());
+		environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.
+				Builder<User>()
+				.setAuthenticator(new BasicAuthenticator(userDAO,hibernate.getSessionFactory()))
+				.buildAuthFilter()));
+		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
 		environment.jersey().register(new UserResource(userDAO));
+
 		
 	}
 }

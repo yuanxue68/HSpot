@@ -16,9 +16,11 @@ import javax.ws.rs.core.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.yuan.hspot.User;
 import com.yuan.hspot.DAO.UserDAO;
 import com.yuan.hspot.Entity.UserDetails;
 
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 
 @Path("/user")
@@ -54,8 +56,9 @@ public class UserResource {
 	@Path("/{id}")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@UnitOfWork
-	public Response editUser(UserDetails userDetails){
-		UserDetails newUser = userDAO.create(userDetails);
+	public Response editUser(@PathParam("id") int id,UserDetails userDetails,@Auth User user){
+		userDetails.setUserID(id);
+		UserDetails newUser = userDAO.update(userDetails);
 		return Response.ok(newUser).build();
 	}
 	

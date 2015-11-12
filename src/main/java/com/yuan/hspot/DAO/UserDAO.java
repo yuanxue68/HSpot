@@ -22,6 +22,12 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 		return get(id);
 	}
 	
+	public List<UserDetails> findByEmail(String email){
+		Criteria criteria = currentSession().createCriteria(UserDetails.class);
+		List<UserDetails> result = criteria.add(Restrictions.eq("email", email)).list();
+		return result;
+	}
+	
 	public UserDetails create(UserDetails user){
 		return persist(user);
 	}
