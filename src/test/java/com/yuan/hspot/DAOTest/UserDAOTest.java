@@ -25,9 +25,7 @@ public class UserDAOTest extends DAOTests {
 	private ConversationDAO conversationDAO;
 
 	@Before
-	public void initialize() {
-		userDAO = new UserDAO(sessionFactory);
-   
+	public void setUp() {
 		// Delete all the old junk...
 		getSession().beginTransaction();
 		Query q = getSession().createQuery("delete from UserDetails");
@@ -72,6 +70,7 @@ public class UserDAOTest extends DAOTests {
 		review.setReviewReceiver(userTwo);
 		reviewDAO.create(review);
 		getSession().getTransaction().commit();
+		
 	}
 	
 	@After
@@ -81,27 +80,35 @@ public class UserDAOTest extends DAOTests {
 	
 	@Test
 	public void testFindAll(){
-		getSession().beginTransaction();
-		userDAO = new UserDAO(sessionFactory);
-		conversationDAO = new ConversationDAO(sessionFactory);
-		messageDAO = new MessageDAO(sessionFactory);
-		reviewDAO = new ReviewDAO(sessionFactory);
-		Assert.assertEquals(2,userDAO.findAll().size());
-		Assert.assertEquals(1,messageDAO.findAll().size());
-		Assert.assertEquals(1,conversationDAO.findAll().size());
-		Assert.assertEquals(1,reviewDAO.findAll().size());
-		getSession().getTransaction().commit();
+		try{
+			getSession().beginTransaction();
+			userDAO = new UserDAO(sessionFactory);
+			conversationDAO = new ConversationDAO(sessionFactory);
+			messageDAO = new MessageDAO(sessionFactory);
+			reviewDAO = new ReviewDAO(sessionFactory);
+			Assert.assertEquals(2,userDAO.findAll().size());
+			Assert.assertEquals(1,messageDAO.findAll().size());
+			Assert.assertEquals(1,conversationDAO.findAll().size());
+			Assert.assertEquals(1,reviewDAO.findAll().size());
+			getSession().getTransaction().commit();
+		} finally{
+			getSession().close();
+		}
 	}
 	
 	@Test
 	public void testFilterUser(){
-		getSession().beginTransaction();
-		userDAO = new UserDAO(sessionFactory);
-		ArrayList<String> skills = new ArrayList<String>();
-		skills.add("Python");
-		skills.add("Ruby");
-		Assert.assertEquals(1,userDAO.filterUsers(skills, null).size());
-		getSession().getTransaction().commit();		
+		try{
+			getSession().beginTransaction();
+			userDAO = new UserDAO(sessionFactory);
+			ArrayList<String> skills = new ArrayList<String>();
+			skills.add("Python");
+			skills.add("Ruby");
+			Assert.assertEquals(1,userDAO.filterUsers(skills, null).size());
+			getSession().getTransaction().commit();		
+		} finally {
+			getSession().close();
+		}
 	}
 
 }

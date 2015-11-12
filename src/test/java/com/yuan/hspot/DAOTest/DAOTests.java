@@ -14,7 +14,7 @@ import com.yuan.hspot.Entity.UserDetails;
 
 
 public class DAOTests {
-    SessionFactory sessionFactory;
+    public SessionFactory sessionFactory;
 
     public DAOTests() {
         Configuration config=new Configuration();

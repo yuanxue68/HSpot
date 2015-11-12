@@ -36,7 +36,8 @@ public class UserResource {
 	@UnitOfWork
 	public Response filterUsers(
 			@QueryParam("skills") final List<String> skills,
-			@QueryParam("role") final String role){
+			@QueryParam("role") final String role,
+			@Auth User user){
 		logger.info("role is "+role);
 		logger.info("skills is "+skills.toString());
 		List<UserDetails> filteredUsers = userDAO.filterUsers(skills,role);
