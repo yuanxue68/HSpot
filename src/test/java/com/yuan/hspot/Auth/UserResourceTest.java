@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.ClassRule;
 import org.junit.Test;
 
-import com.google.common.base.Optional;
 import com.yuan.hspot.DAO.UserDAO;
 import com.yuan.hspot.Entity.UserDetails;
 import com.yuan.hspot.Resource.UserResource;
@@ -41,12 +40,12 @@ public class UserResourceTest{
 	
 	@Test
 	public void getUserSuccess(){
-		/*
+		
 		when(DAO.findById(1)).thenReturn(user);
 		UserDetails found = RULE.getJerseyTest().target("/user/1").request().get(UserDetails.class);
 		Assert.assertEquals(found.getUserID(), user.getUserID());
         verify(DAO).findById(1);
-        */
+        
 	}
 	
 	@Test
