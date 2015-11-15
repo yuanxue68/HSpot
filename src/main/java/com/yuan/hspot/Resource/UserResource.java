@@ -59,8 +59,8 @@ public class UserResource {
 	@UnitOfWork
 	public Response editUser(
 			@PathParam("id") int id, 
-			UserDetails userDetails/*
-			, @Auth User user*/){
+			UserDetails userDetails
+			, @Auth User user){
 		userDetails.setUserID(id);
 		UserDetails newUser = userDAO.update(userDetails);
 		return Response.ok(newUser).build();
