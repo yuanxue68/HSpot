@@ -12,6 +12,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Conversation.findAll", query="from Conversation")
@@ -26,6 +29,7 @@ public class Conversation {
 	@ManyToOne
 	private UserDetails userTwo;
 	@OneToMany(mappedBy="conversation")
+	@Cascade({CascadeType.DELETE})
 	private Collection<Message> messages = new ArrayList<Message>();
 	
 	

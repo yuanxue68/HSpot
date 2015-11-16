@@ -41,7 +41,7 @@ public class BasicAuthenticator implements Authenticator<BasicCredentials, User>
         		}
         		if (userDetails.get(0).getPassword().equals(password)) {
                     transaction.commit();
-        			return Optional.of(new User(username));
+        			return Optional.of(new User(userDetails.get(0).getUserID(),username));
         		}
                 transaction.commit();
         		return Optional.absent();

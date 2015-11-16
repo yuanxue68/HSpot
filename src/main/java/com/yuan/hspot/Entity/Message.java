@@ -13,7 +13,8 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Message.findAll",query="from Message")
+	@NamedQuery(name="Message.findAll",query="from Message"),
+	@NamedQuery(name="Message.deleteById", query="delete from Message where messageId = :msgId")
 })
 public class Message {
 	@Id

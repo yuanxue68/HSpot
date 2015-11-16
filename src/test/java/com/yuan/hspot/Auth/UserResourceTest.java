@@ -39,7 +39,7 @@ public class UserResourceTest{
 
 				@Override
 				public Optional<User> authenticate(BasicCredentials credentials) throws AuthenticationException {
-					return Optional.of(new User("Yuan"));
+					return Optional.of(new User(1, "Yuan"));
 				}
 		
 	};
@@ -65,9 +65,11 @@ public class UserResourceTest{
 	public void setUp(){
 		user1 = new UserDetails();
 		user1.setUserID(1);
+		user1.setFirstName("yuan");
 		
 		user2 = new UserDetails();
 		user2.setUserID(2);
+		user2.setFirstName("changed");
 	}
 	
 	@After
@@ -86,7 +88,6 @@ public class UserResourceTest{
 	@Test
 	public void editPersonWithAuth(){
 		Entity<UserDetails> entity = Entity.entity(user2, MediaType.APPLICATION_JSON_TYPE);
-		user2.setFirstName("changed");
 		when(DAO.update(anyObject())).thenReturn(user2);
 		UserDetails updated = RULE.getJerseyTest().target("/user/1").request().header(HttpHeaders.AUTHORIZATION, "Basic Z29vZC1ndXk6c2VjcmV0").put(entity,UserDetails.class);
 		verify(DAO).update(anyObject());
@@ -95,7 +96,11 @@ public class UserResourceTest{
 	}
 	
 	@Test
-	public void getPersonNotFound(){
-		
+	public void createUser(){
+		Entity<UserDetails> entity = Entity.entity(user1, MediaType.APPLICATION_JSON_TYPE);
+		when(DAO.create(anyObject())).thenReturn(user1);
+		UserDetails created = RULE.getJerseyTest().target("/user").request().post(entity,UserDetails.class);
+		verify(DAO).create(anyObject());
+		Assert.assertEquals("yuan", created.getFirstName());
 	}
 }

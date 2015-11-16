@@ -2,7 +2,9 @@ package com.yuan.hspot.DAO;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 import com.yuan.hspot.Entity.Conversation;
 
@@ -14,8 +16,8 @@ public class ConversationDAO extends AbstractDAO<Conversation>{
 		super(sessionFactory);
 	}
 	
-	public int create(Conversation conversation){
-		return persist(conversation).getConversationID();
+	public Conversation create(Conversation conversation){
+		return persist(conversation);
 	}
 	
 	public Conversation findById(int id){
@@ -26,5 +28,10 @@ public class ConversationDAO extends AbstractDAO<Conversation>{
 		return list(namedQuery("Conversation.findAll"));
 	}
 	
-
+	public List<Conversation> findConvoByUserId(int userId){
+		Criteria criteria = currentSession().createCriteria(Conversation.class);
+		criteria = criteria.add(Restrictions.or(Restrictions.eq("userOne",userId ),Restrictions.eq("userTwo", userId)));
+		List<Conversation> conversations = criteria.list();
+		return conversations;
+	}
 }
