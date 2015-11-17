@@ -1,4 +1,4 @@
-Itarget/
+target/*
 .settings
 .classpath
 .project

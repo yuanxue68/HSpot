@@ -17,6 +17,10 @@ import javax.persistence.OneToMany;
 @NamedQueries({
 @NamedQuery(name="UserDetails.findAll", query="from UserDetails"),
 @NamedQuery(name="UserDetails.deleteAll", query="delete from UserDetails"),
+@NamedQuery(name="UserDetails.accessToConvo", query="from UserDetails u, Conversation c where"
+		+ "(u.userID = c.userOne or u.userID = c.userTwo) and c.conversationID = :convoId and u.userID = :userId"),
+@NamedQuery(name="UserDetails.accessToMsg", query="from UserDetails u, Message m where "
+		+ "u.userID = m.userDetails  and m.messageID = :msgId and u.userID = :userId")
 })
 public class UserDetails {
 	@Id

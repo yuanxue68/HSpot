@@ -38,8 +38,9 @@ public class MessageDAO extends AbstractDAO<Message>{
 		return messages;
 	}
 	
-	public void deleteMessageById(int msgId, User user){
-		currentSession().getNamedQuery("Message.deleteById").setInteger("msgId", msgId).executeUpdate();
+	public int deleteMessageById(int msgId, User user){
+		int numDeleted = currentSession().getNamedQuery("Message.deleteById").setInteger("msgId", msgId).executeUpdate();
+		return numDeleted;
 	}
 
 }

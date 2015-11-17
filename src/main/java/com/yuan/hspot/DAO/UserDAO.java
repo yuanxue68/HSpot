@@ -8,6 +8,7 @@ import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import com.yuan.hspot.User;
 import com.yuan.hspot.Entity.UserDetails;
 
 import io.dropwizard.hibernate.AbstractDAO;
@@ -62,6 +63,14 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 		List<UserDetails> result = (List<UserDetails>)criteria.list();
 		
 		return result;
+	}
+
+	public List<UserDetails> authToConvo(User user, int convoId) {
+		return list(namedQuery("UserDetails.accessToConvo").setInteger("convoId", convoId).setInteger("userId",user.getUserId()));
+	}
+	
+	public List<UserDetails> authToMsg(User user, int msgId) {
+		return list(namedQuery("UserDetails.accessToMsg").setInteger("msgId", msgId).setInteger("userId",user.getUserId() ));
 	}
 
 }

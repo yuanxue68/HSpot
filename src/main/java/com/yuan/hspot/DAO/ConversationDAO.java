@@ -30,7 +30,7 @@ public class ConversationDAO extends AbstractDAO<Conversation>{
 	
 	public List<Conversation> findConvoByUserId(int userId){
 		Criteria criteria = currentSession().createCriteria(Conversation.class);
-		criteria = criteria.add(Restrictions.or(Restrictions.eq("userOne",userId ),Restrictions.eq("userTwo", userId)));
+		criteria = criteria.add(Restrictions.or(Restrictions.eq("userOne.userID",userId ),Restrictions.eq("userTwo.userID", userId)));
 		List<Conversation> conversations = criteria.list();
 		return conversations;
 	}
