@@ -1,5 +1,7 @@
 package com.yuan.hspot.Resource;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -37,8 +39,8 @@ public class MessageResource {
 			return Response.status(401).build();
 		}
 		userDAO.authToConvo(user, convoId);
-		messageDAO.findMessageByConvoId(convoId, user);
-		return Response.noContent().build();
+		List<Message> messages = messageDAO.findMessageByConvoId(convoId, user);
+		return Response.ok(messages).build();
 	}
 	
 	
@@ -58,11 +60,11 @@ public class MessageResource {
 	@Path("/{msgId}")
 	@UnitOfWork
 	public Response deleteMessage(@PathParam("convoId") int convoId,@PathParam("msgId") int msgId, @Auth User user){
-		if(userDAO.authToConvo(user, msgId).size()<1) {
+		if(userDAO.authToMsg(user, msgId).size()<1) {
 			return Response.status(401).build();
 		}
-		messageDAO.deleteMessageById(msgId, user);
-		return Response.ok().build();
+		int numDeleted = messageDAO.deleteMessageById(msgId, user);
+		return Response.ok(numDeleted).build();
 	}
 
 }

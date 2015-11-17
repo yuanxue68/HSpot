@@ -33,7 +33,7 @@ public class MessageDAO extends AbstractDAO<Message>{
 	
 	public List<Message> findMessageByConvoId(int convoId, User user){
 		Criteria criteria = currentSession().createCriteria(Message.class);
-		criteria = criteria.add(Restrictions.eq("conversation", convoId));
+		criteria = criteria.add(Restrictions.eq("conversation.conversationID", convoId));
 		List<Message> messages = criteria.list();
 		return messages;
 	}
