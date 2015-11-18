@@ -17,6 +17,7 @@ import com.yuan.hspot.Resource.ReviewResource;
 import com.yuan.hspot.Resource.UserResource;
 
 import io.dropwizard.Application;
+import io.dropwizard.assets.AssetsBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
@@ -42,6 +43,7 @@ public class App extends Application<HspotConfiguration>
 	@Override
 	public void initialize(Bootstrap<HspotConfiguration> bootstrap){
 		bootstrap.addBundle(hibernate);
+		bootstrap.addBundle(new AssetsBundle("/assets","/","index.html"));
 	}
     public static void main( String[] args ) throws Exception
     {
@@ -61,6 +63,7 @@ public class App extends Application<HspotConfiguration>
 				.setAuthenticator(new BasicAuthenticator(userDAO,hibernate.getSessionFactory()))
 				.buildAuthFilter()));
 		
+		environment.jersey().setUrlPattern("/api/*");
 		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
 		environment.jersey().register(new UserResource(userDAO));
 		environment.jersey().register(new MessageResource(messageDAO, userDAO));

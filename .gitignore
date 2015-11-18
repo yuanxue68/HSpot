@@ -1,4 +1,6 @@
+node_modules/
 src/main/public/lib/
+src/main/public/dist/
 target/*
 .settings
 .classpath

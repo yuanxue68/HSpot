@@ -1,0 +1,30 @@
+{
+  "name": "yuan-hspot",
+  "version": "1.0.0",
+  "description": "[![Build Status](https://travis-ci.org/yuanxue68/HSpot.svg?branch=master)](https://travis-ci.org/yuanxue68/HSpot)",
+  "main": "index.js",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "babelify": "^7.2.0"
+  },
+  "devDependencies": {
+    "babelify": "^7.2.0",
+    "grunt": "^0.4.5",
+    "grunt-browserify": "^4.0.1",
+    "grunt-contrib-jshint": "^0.11.3",
+    "grunt-contrib-watch": "^0.6.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuanxue68/HSpot.git"
+  },
+  "author": "yuan xue",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuanxue68/HSpot/issues"
+  },
+  "homepage": "https://github.com/yuanxue68/HSpot#readme"
+}
