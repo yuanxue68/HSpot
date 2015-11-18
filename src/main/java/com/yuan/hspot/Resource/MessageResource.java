@@ -13,6 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.yuan.hspot.User;
+import com.yuan.hspot.Constants.ResponseConstants;
 import com.yuan.hspot.DAO.MessageDAO;
 import com.yuan.hspot.DAO.UserDAO;
 import com.yuan.hspot.Entity.Message;
@@ -36,7 +37,7 @@ public class MessageResource {
 	@UnitOfWork
 	public Response getConvoById(@PathParam("convoId") int convoId,@Auth User user){
 		if(userDAO.authToConvo(user, convoId).size()<1) {
-			return Response.status(401).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.MESSAGE_NO_VIEW_RIGHT).build();
 		}
 		userDAO.authToConvo(user, convoId);
 		List<Message> messages = messageDAO.findMessageByConvoId(convoId, user);
@@ -50,7 +51,7 @@ public class MessageResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createNewMessage(@PathParam("convoId") int convoId, @Auth User user, Message message){
 		if(userDAO.authToConvo(user, convoId).size()<1) {
-			return Response.status(401).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.MESSAGE_NO_CREATION_RIGHT).build();
 		}
 		Message newMessage = messageDAO.create(message);
 		return Response.ok(newMessage).build();
@@ -61,9 +62,9 @@ public class MessageResource {
 	@UnitOfWork
 	public Response deleteMessage(@PathParam("convoId") int convoId,@PathParam("msgId") int msgId, @Auth User user){
 		if(userDAO.authToMsg(user, msgId).size()<1) {
-			return Response.status(401).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.MESSAGE_NO_DELETE_RIGHT).build();
 		}
-		int numDeleted = messageDAO.deleteMessageById(msgId, user);
+		int numDeleted = messageDAO.deleteMessageById(msgId);
 		return Response.ok(numDeleted).build();
 	}
 

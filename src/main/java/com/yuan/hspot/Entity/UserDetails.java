@@ -20,7 +20,9 @@ import javax.persistence.OneToMany;
 @NamedQuery(name="UserDetails.accessToConvo", query="from UserDetails u, Conversation c where"
 		+ "(u.userID = c.userOne or u.userID = c.userTwo) and c.conversationID = :convoId and u.userID = :userId"),
 @NamedQuery(name="UserDetails.accessToMsg", query="from UserDetails u, Message m where "
-		+ "u.userID = m.userDetails  and m.messageID = :msgId and u.userID = :userId")
+		+ "u.userID = m.userDetails  and m.messageID = :msgId and u.userID = :userId"),
+@NamedQuery(name="UserDetails.accessToEditReview", query="from UserDetails u, Review r where "
+		+ "u.userID = r.reviewGiver  and r.reviewID = :reviewId and u.userID = :userId")
 })
 public class UserDetails {
 	@Id
@@ -47,7 +49,14 @@ public class UserDetails {
 	@OneToMany(mappedBy="userDetails")
 	private Collection<Message> messages = new ArrayList<Message>();
 	
+	public UserDetails(int id){
+		this.userID=id;
+	}
 	
+	public UserDetails() {
+	
+	}
+
 	public int getUserID() {
 		return userID;
 	}

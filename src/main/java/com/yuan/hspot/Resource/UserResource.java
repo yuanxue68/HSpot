@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.yuan.hspot.User;
+import com.yuan.hspot.Constants.ResponseConstants;
 import com.yuan.hspot.DAO.UserDAO;
 import com.yuan.hspot.Entity.Review;
 import com.yuan.hspot.Entity.UserDetails;
@@ -26,8 +27,8 @@ import io.dropwizard.hibernate.UnitOfWork;
 @Produces(MediaType.APPLICATION_JSON)
 public class UserResource {
 	private UserDAO userDAO;
-	public UserResource(UserDAO _userDAO) {
-		userDAO = _userDAO;
+	public UserResource(UserDAO userDAO) {
+		this.userDAO = userDAO;
 	}
 
 	@GET
@@ -55,6 +56,9 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@UnitOfWork
 	public Response editUser(@PathParam("id") int id, UserDetails userDetails, @Auth User user){
+		if(id != user.getUserId()){
+			Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.USER_NO_EDIT_RIGHT).build();
+		}
 		userDetails.setUserID(id);
 		UserDetails newUser = userDAO.update(userDetails);
 		return Response.ok(newUser).build();

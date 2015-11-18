@@ -34,7 +34,8 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 	}
 	
 	public UserDetails update(UserDetails user){
-		return persist(user);
+		currentSession().merge(user);
+		return user;
 	}
 	
 	public List<UserDetails> findAll(){
@@ -71,6 +72,10 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 	
 	public List<UserDetails> authToMsg(User user, int msgId) {
 		return list(namedQuery("UserDetails.accessToMsg").setInteger("msgId", msgId).setInteger("userId",user.getUserId() ));
+	}
+	
+	public List<UserDetails> authToReview(User user, int reviewId) {
+		return list(namedQuery("UserDetails.accessToEditReview").setInteger("reviewId", reviewId).setInteger("userId",user.getUserId() ));
 	}
 
 }

@@ -11,7 +11,10 @@ import javax.persistence.NamedQuery;
 
 @Entity
 @NamedQueries({
-	@NamedQuery(name="Review.findAll",query="from Review")
+	@NamedQuery(name="Review.findAll",query="from Review"),
+	@NamedQuery(name="Review.deleteById",query="delete from Review where reviewID = :reviewId"),
+	@NamedQuery(name="Review.reviewsByUser",query="from Review r, UserDetails u where "
+			+ "r.reviewReceiver = :reviewReceiver and u.userID = :reviewReceiver")
 })
 public class Review {
 	@Id

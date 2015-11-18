@@ -18,12 +18,27 @@ public class ReviewDAO extends AbstractDAO<Review>{
 		return get(id);
 	}
 	
-	public int create(Review review){
-		return persist(review).getReviewID();
+	public Review create(Review review){
+		return persist(review);
+	}
+	
+	public Review update(Review review){
+		currentSession().merge(review);
+		return review;
 	}
 	
 	public List<Review> findAll(){
 		return list(namedQuery("Review.findAll"));
+	}
+	
+	public int deleteReviewById(int reviewId){
+		int numDeleted = currentSession().getNamedQuery("Review.deleteById").setInteger("reviewId", reviewId).executeUpdate();
+		return numDeleted;
+	}
+
+	public List<Review> findReviewByUser(int userId) {
+		List<Review> reviews = list(currentSession().getNamedQuery("Review.reviewsByUser").setInteger("reviewReceiver", userId));
+		return reviews;
 	}
 
 }

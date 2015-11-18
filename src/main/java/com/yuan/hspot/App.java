@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import com.yuan.hspot.DAO.ConversationDAO;
 import com.yuan.hspot.DAO.MessageDAO;
+import com.yuan.hspot.DAO.ReviewDAO;
 import com.yuan.hspot.DAO.UserDAO;
 import com.yuan.hspot.Entity.Conversation;
 import com.yuan.hspot.Entity.Message;
@@ -12,6 +13,7 @@ import com.yuan.hspot.Entity.Review;
 import com.yuan.hspot.Entity.UserDetails;
 import com.yuan.hspot.Resource.ConversationResource;
 import com.yuan.hspot.Resource.MessageResource;
+import com.yuan.hspot.Resource.ReviewResource;
 import com.yuan.hspot.Resource.UserResource;
 
 import io.dropwizard.Application;
@@ -52,15 +54,18 @@ public class App extends Application<HspotConfiguration>
 		final UserDAO userDAO = new UserDAO(hibernate.getSessionFactory());
 		final ConversationDAO conversationDAO = new ConversationDAO(hibernate.getSessionFactory());
 		final MessageDAO messageDAO = new MessageDAO(hibernate.getSessionFactory());
+		final ReviewDAO reviewDAO = new ReviewDAO(hibernate.getSessionFactory());
+		
 		environment.jersey().register(new AuthDynamicFeature(new BasicCredentialAuthFilter.
 				Builder<User>()
 				.setAuthenticator(new BasicAuthenticator(userDAO,hibernate.getSessionFactory()))
 				.buildAuthFilter()));
+		
 		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
 		environment.jersey().register(new UserResource(userDAO));
 		environment.jersey().register(new MessageResource(messageDAO, userDAO));
+		environment.jersey().register(new ReviewResource(reviewDAO, userDAO));
 		environment.jersey().register(new ConversationResource(conversationDAO));
-
 		
 	}
 }
