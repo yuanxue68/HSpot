@@ -1,3 +1,4 @@
+src/main/public/lib/
 target/*
 .settings
 .classpath
