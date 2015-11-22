@@ -11,18 +11,18 @@ module.exports = function (grunt) {
                // if the source file has an extension of es6 then
                // we change the name of the source file accordingly.
                // The result file's extension is always .js
-               "./src/main/public/dist/module.js": ["./src/main/public/app/**/*.js"]
+               "./dist/module.js": ["./app/**/*.js"]
             }
          }
       },
       watch: {
          scripts: {
-            files: ["./src/main/public/app/**/*.js"],
+            files: ["./app/**/*.js"],
             tasks: ["browserify"]
          }
       },
       jshint: {
-         all: ['Gruntfile.js', '../src/main/public/app/**/*.js']
+         all: ['Gruntfile.js', './app/**/*.js']
          },
    });
 

@@ -1,4 +1,4 @@
-node_modules/
+src/main/public/node_modules/
 src/main/public/lib/
 src/main/public/dist/
 target/*
