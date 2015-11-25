@@ -21,15 +21,12 @@ module.exports = function (grunt) {
             tasks: ["browserify"]
          }
       },
-      jshint: {
-         all: ['Gruntfile.js', './app/**/*.js']
-         },
+
    });
 
    grunt.loadNpmTasks("grunt-browserify");
    grunt.loadNpmTasks("grunt-contrib-watch");
-   grunt.loadNpmTasks("grunt-contrib-jshint");
 
-   grunt.registerTask("default", ["jshint","browserify","watch"]);
+   grunt.registerTask("default", ["browserify","watch"]);
    grunt.registerTask("build", ["browserify"]);
 };
