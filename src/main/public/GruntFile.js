@@ -19,14 +19,26 @@ module.exports = function (grunt) {
          scripts: {
             files: ["./app/**/*.js"],
             tasks: ["browserify"]
+         },
+         sass: {
+            file: ["./style/**/*.scss"],
+            tasks: ["sass"]
          }
       },
+      sass: {
+         dist: {
+            files: [{
+               "./dist/main.css": "./style/main.scss"
+            }]
+         }
+      }
 
    });
 
    grunt.loadNpmTasks("grunt-browserify");
    grunt.loadNpmTasks("grunt-contrib-watch");
+   grunt.loadNpmTasks("grunt-contrib-sass");
 
-   grunt.registerTask("default", ["browserify","watch"]);
-   grunt.registerTask("build", ["browserify"]);
+   grunt.registerTask("default", ["browserify","sass","watch"]);
+   grunt.registerTask("build", ["browserify","sass"]);
 };
