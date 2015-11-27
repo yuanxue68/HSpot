@@ -1,5 +1,8 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
+import { connect } from 'react-redux'
 import Header from './../components/Header'
+import { pushState } from 'redux-router'
+import { resetErrorMessage } from './../actions/indexAction'
 
 class App extends Component {
   constructor(props) {
@@ -37,6 +40,7 @@ class App extends Component {
   }
 
   render(){
+    const { children, inputValue } = this.props
     return(
       <div className='container-fluid'>
         <Header/>
@@ -61,7 +65,7 @@ App.propTypes = {
 function mapStateToProps (state) {
   return {
     errorMessage: state.errorMessage,
-    inputValue: this.state.router.location.pathname.substring(1)
+    inputValue: state.router.location.pathname.substring(1)
   }
 }
 

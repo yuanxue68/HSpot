@@ -43,7 +43,7 @@ public class App extends Application<HspotConfiguration>
 	@Override
 	public void initialize(Bootstrap<HspotConfiguration> bootstrap){
 		bootstrap.addBundle(hibernate);
-		bootstrap.addBundle(new AssetsBundle("/assets","/","index.html"));
+		bootstrap.addBundle(new AssetsBundle("/public","/","index.html"));
 	}
     public static void main( String[] args ) throws Exception
     {
@@ -63,7 +63,7 @@ public class App extends Application<HspotConfiguration>
 				.setAuthenticator(new BasicAuthenticator(userDAO,hibernate.getSessionFactory()))
 				.buildAuthFilter()));
 		
-		environment.jersey().setUrlPattern("/api/*");
+		//environment.jersey().setUrlPattern("/api/*");
 		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
 		environment.jersey().register(new UserResource(userDAO));
 		environment.jersey().register(new MessageResource(messageDAO, userDAO));

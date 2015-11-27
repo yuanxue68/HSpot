@@ -1,6 +1,7 @@
-src/main/public/node_modules/
-src/main/public/lib/
-src/main/public/dist/
+src/main/resources/public/node_modules/
+src/main/resources/public/lib/
+src/main/resources/public/dist/
+src/main/resources/public/.sass-cache
 target/*
 .settings
 .classpath

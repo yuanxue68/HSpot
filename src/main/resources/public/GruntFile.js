@@ -1,27 +1,27 @@
 module.exports = function (grunt) {
    grunt.initConfig({
       browserify: {
-         dist: {
-            options: {
-               transform: [
-                  ["babelify", {"presets":["es2015","react"]}]
-               ]
-            },
-            files: {
-               // if the source file has an extension of es6 then
-               // we change the name of the source file accordingly.
-               // The result file's extension is always .js
-               "./dist/module.js": ["./app/**/*.js"]
-            }
-         }
+          dev: {
+              options: {
+                  browserifyOptions: {
+                      debug: true
+                  },
+                  transform: [
+                    ["babelify", {"presets":["es2015","react"]}]
+                  ]
+              },
+              files: {
+                  "./../../../../target/classes/public/dist/bundle.js": "app/**/*.js"
+              }
+          }
       },
       watch: {
          scripts: {
-            files: ["./app/**/*.js"],
+            files: ["./app/**/*.js","GruntFile.js"],
             tasks: ["browserify"]
          },
          sass: {
-            file: ["./style/**/*.scss"],
+            files: ["./style/**/*.scss"],
             tasks: ["sass"]
          }
       },
