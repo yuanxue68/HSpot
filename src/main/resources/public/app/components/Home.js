@@ -6,7 +6,7 @@ import HowTo from './HowTo'
 export default class Home extends Component {
 	render(){
 		return (
-			<div className="Container">
+			<div className="container body-pad">
 				<Banner/>
 				<GetStarted/>
 				<HowTo/>

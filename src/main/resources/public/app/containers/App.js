@@ -42,7 +42,7 @@ class App extends Component {
   render(){
     const { children, inputValue } = this.props
     return(
-      <div className='container-fluid'>
+      <div className="body">
         <Header/>
         {this.renderErrorMessage()}
         {children}
