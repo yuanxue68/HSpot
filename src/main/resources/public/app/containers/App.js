@@ -2,21 +2,17 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Header from './../components/Header'
 import { pushState } from 'redux-router'
-import { resetErrorMessage } from './../actions/indexAction'
+import { resetErrorMessage, userSignUp } from './../actions/indexAction'
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.handleChange = this.handleChange.bind(this)
     this.handleDismissClick = this.handleDismissClick.bind(this)
   }
 
-  handleChange(nextValue) {
-    this.this.props.pushState(null,`/${nextValue}`)
-  }
-
   handleDismissClick(e) {
-    this.props.resetErrorMessage()
+    const { dispatch } = this.props
+    dispatch(resetErrorMessage())
     e.preventDefault()
   }
 
@@ -40,10 +36,10 @@ class App extends Component {
   }
 
   render(){
-    const { children, inputValue } = this.props
+    const { dispatch, children, inputValue } = this.props
     return(
       <div className="body">
-        <Header/>
+        <Header onSignUp={(userInfo)=> dispatch(userSignUp(userInfo))}/>
         {this.renderErrorMessage()}
         {children}
       </div>
@@ -53,11 +49,8 @@ class App extends Component {
 }
 
 App.propTypes = {
-// Injected by React Redux
-  errorMessage: PropTypes.string,
-  resetErrorMessage: PropTypes.func.isRequired,
-  pushState: PropTypes.func.isRequired,
-  inputValue: PropTypes.string.isRequired,
+  // Injected by React Redux
+  dispatch: PropTypes.func.isRequired,
   // Injected by React Router
   children: PropTypes.node
 }
@@ -65,11 +58,9 @@ App.propTypes = {
 function mapStateToProps (state) {
   return {
     errorMessage: state.errorMessage,
-    inputValue: state.router.location.pathname.substring(1)
+    inputValue: state.router.location.pathname.substring(1),
+    authed: state.authed
   }
 }
 
-export default connect(mapStateToProps, {
-  resetErrorMessage,
-  pushState
-})(App)
+export default connect(mapStateToProps)(App)

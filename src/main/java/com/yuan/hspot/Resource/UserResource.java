@@ -57,7 +57,7 @@ public class UserResource {
 	@UnitOfWork
 	public Response editUser(@PathParam("id") int id, UserDetails userDetails, @Auth User user){
 		if(id != user.getUserId()){
-			Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.USER_NO_EDIT_RIGHT).build();
+			return Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.USER_NO_EDIT_RIGHT).build();
 		}
 		userDetails.setUserID(id);
 		UserDetails newUser = userDAO.update(userDetails);
@@ -68,6 +68,12 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@UnitOfWork
 	public Response createUser(UserDetails userDetails){
+		if(userDetails.getEmail().isEmpty()||userDetails.getPassword().isEmpty()){
+			return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.USER_MISSING_INFORMATION).build();
+		}
+		if(userDAO.findByEmail(userDetails.getEmail()).size()!=0){
+			return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.USER_DUPLICATE_EMAIL).build();
+		}
 		UserDetails createdUser = userDAO.create(userDetails);
 		return Response.ok(createdUser).build();
 	}

@@ -13,7 +13,7 @@ export default class Header extends Component{
 		return (
 			<div>
 				<LogInModal/>
-				<SignUpModal/>
+				<SignUpModal {...this.props}/>
 				<nav className="navbar navbar-default">
 					<div className="container">
 						<div className="navbar-header">

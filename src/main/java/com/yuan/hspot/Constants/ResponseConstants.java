@@ -13,5 +13,7 @@ public class ResponseConstants {
 	
 	//user resource constants
 	public static final String USER_NO_EDIT_RIGHT = "You do not have the right to edit this user";
+	public static final String USER_MISSING_INFORMATION = "Password and email can not be empty";
+	public static final String USER_DUPLICATE_EMAIL = "An user with this email has already been registered";
 
 }
