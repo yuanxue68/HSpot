@@ -66,10 +66,12 @@ public class UserResourceTest{
 		user1 = new UserDetails();
 		user1.setUserID(1);
 		user1.setFirstName("yuan");
+		user1.setPassword("yuan");
 		
 		user2 = new UserDetails();
 		user2.setUserID(2);
 		user2.setFirstName("changed");
+		user2.setPassword("yuan");
 	}
 	
 	@After

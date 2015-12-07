@@ -68,7 +68,7 @@ public class UserResource {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@UnitOfWork
 	public Response createUser(UserDetails userDetails){
-		if(userDetails.getEmail().isEmpty()||userDetails.getPassword().isEmpty()){
+		if((userDetails.getEmail()!=null && userDetails.getEmail().isEmpty()) || (userDetails.getPassword()!=null && userDetails.getPassword().isEmpty())){
 			return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.USER_MISSING_INFORMATION).build();
 		}
 		if(userDAO.findByEmail(userDetails.getEmail()).size()!=0){
