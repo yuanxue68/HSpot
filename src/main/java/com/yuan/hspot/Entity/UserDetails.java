@@ -13,6 +13,11 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.NaturalId;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 @Entity
 @NamedQueries({
 @NamedQuery(name="UserDetails.findAll", query="from UserDetails"),
@@ -28,24 +33,35 @@ public class UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userID;
+	
+	@NaturalId
 	@Column(unique=true)
 	private String email;
+	
 	@Column(nullable=false)
 	private String password;
+	
 	private String firstName;
+	
 	private String lastName;
+	
 	private String role;
+	
 	@ElementCollection
 	private Collection<String> skills = new ArrayList<String>();
 	
 	@OneToMany(mappedBy="reviewReceiver")
 	private Collection<Review> reviewReceived = new ArrayList<Review>();
+	
 	@OneToMany(mappedBy="reviewGiver")
 	private Collection<Review> reviewGiven = new ArrayList<Review>();
+	
 	@OneToMany(mappedBy="userOne")
 	private Collection<Conversation> userOneConversations = new ArrayList<Conversation>();
+	
 	@OneToMany(mappedBy="userTwo")
 	private Collection<Conversation> userTwoConversations = new ArrayList<Conversation>();
+	
 	@OneToMany(mappedBy="userDetails")
 	private Collection<Message> messages = new ArrayList<Message>();
 	
@@ -63,66 +79,79 @@ public class UserDetails {
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
+	
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	@JsonIgnore
 	public String getPassword() {
 		return password;
 	}
+	@JsonProperty
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+	
 	public String getLastName() {
 		return lastName;
 	}
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	
 	public String getRole() {
 		return role;
 	}
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
 	public Collection<String> getSkills() {
 		return skills;
 	}
 	public void setSkills(Collection<String> skills) {
 		this.skills = skills;
 	}
+	
 	public Collection<Review> getReviewReceived() {
 		return reviewReceived;
 	}
 	public void setReviewReceived(Collection<Review> reviewReceived) {
 		this.reviewReceived = reviewReceived;
 	}
+	
 	public Collection<Review> getReviewGiven() {
 		return reviewGiven;
 	}
 	public void setReviewGiven(Collection<Review> reviewGiven) {
 		this.reviewGiven = reviewGiven;
 	}
+	
 	public Collection<Conversation> getUserOneConversations() {
 		return userOneConversations;
 	}
 	public void setUserOneConversations(Collection<Conversation> userOneConversations) {
 		this.userOneConversations = userOneConversations;
 	}
+	
 	public Collection<Conversation> getUserTwoConversations() {
 		return userTwoConversations;
 	}
 	public void setUserTwoConversations(Collection<Conversation> userTwoConversations) {
 		this.userTwoConversations = userTwoConversations;
 	}
+	
 	public Collection<Message> getMessages() {
 		return messages;
 	}

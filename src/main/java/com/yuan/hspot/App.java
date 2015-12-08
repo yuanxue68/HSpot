@@ -62,8 +62,6 @@ public class App extends Application<HspotConfiguration>
 				Builder<User>()
 				.setAuthenticator(new BasicAuthenticator(userDAO,hibernate.getSessionFactory()))
 				.buildAuthFilter()));
-		
-		//environment.jersey().setUrlPattern("/api/*");
 		environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
 		environment.jersey().register(new UserResource(userDAO));
 		environment.jersey().register(new MessageResource(messageDAO, userDAO));

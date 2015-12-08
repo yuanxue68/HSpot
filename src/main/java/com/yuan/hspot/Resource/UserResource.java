@@ -3,7 +3,6 @@ package com.yuan.hspot.Resource;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -17,7 +16,6 @@ import javax.ws.rs.core.Response;
 import com.yuan.hspot.User;
 import com.yuan.hspot.Constants.ResponseConstants;
 import com.yuan.hspot.DAO.UserDAO;
-import com.yuan.hspot.Entity.Review;
 import com.yuan.hspot.Entity.UserDetails;
 
 import io.dropwizard.auth.Auth;
@@ -75,7 +73,7 @@ public class UserResource {
 			return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.USER_DUPLICATE_EMAIL).build();
 		}
 		UserDetails createdUser = userDAO.create(userDetails);
-		return Response.ok(createdUser).build();
+		return Response.ok().entity(createdUser).build();
 	}
 
 }
