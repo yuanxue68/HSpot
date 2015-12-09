@@ -14,6 +14,7 @@ import com.yuan.hspot.Entity.UserDetails;
 import com.yuan.hspot.Resource.ConversationResource;
 import com.yuan.hspot.Resource.MessageResource;
 import com.yuan.hspot.Resource.ReviewResource;
+import com.yuan.hspot.Resource.TokenResource;
 import com.yuan.hspot.Resource.UserResource;
 
 import io.dropwizard.Application;
@@ -67,6 +68,7 @@ public class App extends Application<HspotConfiguration>
 		environment.jersey().register(new MessageResource(messageDAO, userDAO));
 		environment.jersey().register(new ReviewResource(reviewDAO, userDAO));
 		environment.jersey().register(new ConversationResource(conversationDAO));
+		environment.jersey().register(new TokenResource());
 		
 	}
 }
