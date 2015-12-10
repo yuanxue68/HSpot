@@ -8,7 +8,7 @@ import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
-import com.yuan.hspot.User;
+import com.yuan.hspot.Auth.User;
 import com.yuan.hspot.Entity.UserDetails;
 
 import io.dropwizard.hibernate.AbstractDAO;

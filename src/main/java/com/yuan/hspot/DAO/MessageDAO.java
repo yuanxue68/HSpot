@@ -7,7 +7,7 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 
-import com.yuan.hspot.User;
+import com.yuan.hspot.Auth.User;
 import com.yuan.hspot.Entity.Message;
 
 import io.dropwizard.hibernate.AbstractDAO;

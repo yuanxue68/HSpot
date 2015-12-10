@@ -3,6 +3,8 @@ package com.yuan.hspot;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.yuan.hspot.Auth.BasicAuthenticator;
+import com.yuan.hspot.Auth.User;
 import com.yuan.hspot.DAO.ConversationDAO;
 import com.yuan.hspot.DAO.MessageDAO;
 import com.yuan.hspot.DAO.ReviewDAO;

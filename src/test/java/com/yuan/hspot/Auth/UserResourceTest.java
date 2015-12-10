@@ -19,7 +19,6 @@ import org.junit.ClassRule;
 import org.junit.Test;
 
 import com.google.common.base.Optional;
-import com.yuan.hspot.User;
 import com.yuan.hspot.DAO.UserDAO;
 import com.yuan.hspot.Entity.UserDetails;
 import com.yuan.hspot.Resource.UserResource;

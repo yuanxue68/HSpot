@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.yuan.hspot.User;
+import com.yuan.hspot.Auth.User;
 import com.yuan.hspot.DAO.ConversationDAO;
 import com.yuan.hspot.Entity.Conversation;
 

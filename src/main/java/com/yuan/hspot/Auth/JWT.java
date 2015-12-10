@@ -1,4 +1,4 @@
-package com.yuan.hspot;
+package com.yuan.hspot.Auth;
 
 import java.security.Key;
 import java.util.Date;
