@@ -7,12 +7,32 @@ import {openModal} from './../util/utils'
 export default class Header extends Component{
 	constructor(props) {
 		super(props)
+		this.submitUserSignOut = this.submitUserSignOut.bind(this)
 	}
 	
 	render() {
+		var loginOrLogOut;
+		console.log(this.props.authed.authed)
+		if(!this.props.authed.authed){
+			console.log("signedout")
+			loginOrLogOut = (	
+				<ul className="nav navbar-nav navbar-right">
+					<li><a href="#" onClick={openModal.bind(null,"#logInModal")}>Log In</a></li>
+					<li><a href="#" onClick={openModal.bind(null,"#signUpModal")}>Sign Up</a></li>
+				</ul>
+			)
+		} else {
+			console.log("signedin")
+			loginOrLogOut = 
+			(	
+				<ul className="nav navbar-nav navbar-right">
+					<li><a href="#" onClick={this.submitUserSignOut}>Log out</a></li>
+				</ul>
+			)
+		}
 		return (
 			<div>
-				<LogInModal/>
+				<LogInModal {...this.props}/>
 				<SignUpModal {...this.props}/>
 				<nav className="navbar navbar-default">
 					<div className="container">
@@ -31,14 +51,15 @@ export default class Header extends Component{
 							<ul className="nav navbar-nav">
 								<li><Link to="/explore">Explore</Link></li>
 							</ul>
-							<ul className="nav navbar-nav navbar-right">
-								<li><a href="#" onClick={openModal.bind(null,"#logInModal")}>Log In</a></li>
-								<li><a href="#" onClick={openModal.bind(null,"#signUpModal")}>Sign Up</a></li>
-							</ul>
+							{loginOrLogOut}
 						</div>
 					</div>
 				</nav>
 			</div>
 		)
+	}
+
+	submitUserSignOut(){
+		this.props.onSignOut()
 	}
 }

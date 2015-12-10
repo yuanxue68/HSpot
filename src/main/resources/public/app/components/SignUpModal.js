@@ -23,11 +23,11 @@ export default class SignUpModal extends Component{
 							</div>
 							<div className="form-group">
 								<label htmlFor="">Password</label>
-								<input id="password" className="form-control" type="password" placeholder="password"/>
+								<input id="signUpPassword" className="form-control" type="password" placeholder="password"/>
 							</div>
 							<div className="form-group">
 								<label htmlFor="">Repeat Password</label>
-								<input id="repeatPassword" className="form-control" type="password" placeholder="password"/>
+								<input id="repeatSignUpPassword" className="form-control" type="password" placeholder="password"/>
 							</div>
 						</div>
 						<div className="modal-footer">
@@ -41,8 +41,8 @@ export default class SignUpModal extends Component{
 
 	submitUserSignUp(){
 		var email = $("#signUpEmail").val()
-		var password = $("#password").val()
-		var repeatPassword = $("#repeatPassword").val()
+		var password = $("#signUpPassword").val()
+		var repeatPassword = $("#repeatSignUpPassword").val()
 		if((password!=repeatPassword)|| (!email) || (!password)){
 			return
 		}

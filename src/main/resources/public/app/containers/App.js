@@ -2,12 +2,20 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Header from './../components/Header'
 import { pushState } from 'redux-router'
-import { resetErrorMessage, userSignUp } from './../actions/indexAction'
+import { resetErrorMessage, userSignUp, userSignIn, userSignOut } from './../actions/indexAction'
 
 class App extends Component {
   constructor(props) {
     super(props)
     this.handleDismissClick = this.handleDismissClick.bind(this)
+  }
+
+  componentDidMount(){
+    const { dispatch } = this.props
+    dispatch(userSignIn({
+      email:localStorage.getItem("userName"),
+      password:localStorage.getItem("token")
+    }))
   }
 
   handleDismissClick(e) {
@@ -36,10 +44,14 @@ class App extends Component {
   }
 
   render(){
-    const { dispatch, children, inputValue } = this.props
+    const { dispatch, children, inputValue, authed, token } = this.props
     return(
       <div className="body">
-        <Header onSignUp={(userInfo)=> dispatch(userSignUp(userInfo))}/>
+        <Header onSignUp={(userInfo)=> dispatch(userSignUp(userInfo))} 
+          onSignIn={(userInfo)=> dispatch(userSignIn(userInfo))} 
+          onSignOut={()=>dispatch(userSignOut())} 
+          authed={authed}
+          token={token} />
         {this.renderErrorMessage()}
         {children}
       </div>
@@ -59,7 +71,8 @@ function mapStateToProps (state) {
   return {
     errorMessage: state.errorMessage,
     inputValue: state.router.location.pathname.substring(1),
-    authed: state.authed
+    authed: state.authed,
+    token: state.token
   }
 }
 

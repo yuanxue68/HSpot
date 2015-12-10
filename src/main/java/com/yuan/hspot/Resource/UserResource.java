@@ -1,6 +1,7 @@
 package com.yuan.hspot.Resource;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -13,10 +14,12 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.yuan.hspot.Auth.JWT;
 import com.yuan.hspot.Auth.User;
 import com.yuan.hspot.Constants.ResponseConstants;
 import com.yuan.hspot.DAO.UserDAO;
 import com.yuan.hspot.Entity.UserDetails;
+import com.yuan.hspot.JsonMapper.Token;
 
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -73,7 +76,8 @@ public class UserResource {
 			return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.USER_DUPLICATE_EMAIL).build();
 		}
 		UserDetails createdUser = userDAO.create(userDetails);
-		return Response.ok().entity(createdUser).build();
+		Token token = new Token(JWT.createJWT(createdUser.getEmail(),TimeUnit.DAYS.toMillis(365)));
+		return Response.ok().entity(token).build();
 	}
 
 }
