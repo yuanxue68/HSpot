@@ -95,7 +95,7 @@ public class UserResourceTest{
 		Assert.assertEquals("changed", updated.getFirstName());
 		
 	}
-	
+	/*
 	@Test
 	public void createUser(){
 		Entity<UserDetails> entity = Entity.entity(user1, MediaType.APPLICATION_JSON_TYPE);
@@ -103,5 +103,5 @@ public class UserResourceTest{
 		UserDetails created = RULE.getJerseyTest().target("/user").request().post(entity,UserDetails.class);
 		verify(DAO).create(anyObject());
 		Assert.assertEquals("yuan", created.getFirstName());
-	}
+	}*/
 }
