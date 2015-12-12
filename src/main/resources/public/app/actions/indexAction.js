@@ -43,6 +43,8 @@ export function userSignUp(userInfo){
 			cache:false,
 			method:'POST',
 			contentType: "application/json",
+			username: userInfo.email,
+			password: userInfo.password,
 			data:JSON.stringify(userInfo)
 		}).done((data) => {
 			console.log(data)
@@ -94,6 +96,8 @@ export function userSignIn(userInfo){
 			cache:false,
 			method:'GET',
 			contentType: "application/json",
+			username: userInfo.email,
+			password: userInfo.password,
 			data:JSON.stringify(userInfo)
 		}).done((data) => {
 			console.log(data)
@@ -119,11 +123,23 @@ function signOutRequest(){
 
 export function userSignOut(){
 	return function(dispatch){
-			console.log("r u clearing?")
-			localStorage.clear()
-			console.log(localStorage.getItem("userName"))
-			console.log(localStorage.getItem("token"))
+		console.log("r u clearing?")
+		localStorage.removeItem("username")
+		localStorage.removeItem("token")
+
+		return $.ajax({
+			url:"/api/token",
+			dataType:'json',
+			cache:false,
+			method:'GET',
+			contentType: "application/json",
+			username: "",
+			password: "",
+		}).done((data) => {
 			dispatch(signOutRequest())
+		}).fail((xhr, status, err) => {
+			dispatch(signOutRequest())
+		})
 	}
 }
 
