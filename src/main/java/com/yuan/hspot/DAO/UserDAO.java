@@ -43,7 +43,7 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 	}
 	
 	// filter user based on the criteria provided by the user such as role, skills etc
-	public List<UserDetails> filterUsers(List<String> skills, String role) {
+	public List<UserDetails> filterUsers(List<String> skills, String role, String name) {
 
 		Criteria criteria = currentSession().createCriteria(UserDetails.class);
 		criteria = criteria.setProjection(Projections.distinct(Projections.property("userID")));
@@ -60,7 +60,10 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 			}
 			criteria = criteria.add(or);
 		}
-		
+		if (name !=null){
+			criteria = criteria.add(Restrictions.eq("name",name));
+		}
+
 		List<UserDetails> result = (List<UserDetails>)criteria.list();
 		
 		return result;

@@ -41,9 +41,7 @@ public class UserDetails {
 	@Column(nullable=false)
 	private String password;
 	
-	private String firstName;
-	
-	private String lastName;
+	private String Name;
 	
 	private String role;
 	
@@ -95,21 +93,15 @@ public class UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
-	public String getFirstName() {
-		return firstName;
+
+	public String getName() {
+		return Name;
 	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+
+	public void setName(String name) {
+		Name = name;
 	}
-	
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-	
+
 	public String getRole() {
 		return role;
 	}

@@ -104,7 +104,7 @@ public class UserDAOTest extends DAOTests {
 			ArrayList<String> skills = new ArrayList<String>();
 			skills.add("Python");
 			skills.add("Ruby");
-			Assert.assertEquals(1,userDAO.filterUsers(skills, null).size());
+			Assert.assertEquals(1,userDAO.filterUsers(skills, null,null).size());
 			getSession().getTransaction().commit();		
 		} finally {
 			getSession().close();

@@ -64,12 +64,12 @@ public class UserResourceTest{
 	public void setUp(){
 		user1 = new UserDetails();
 		user1.setUserID(1);
-		user1.setFirstName("yuan");
+		user1.setName("yuan");
 		user1.setPassword("yuan");
 		
 		user2 = new UserDetails();
 		user2.setUserID(2);
-		user2.setFirstName("changed");
+		user2.setName("changed");
 		user2.setPassword("yuan");
 	}
 	
@@ -92,7 +92,7 @@ public class UserResourceTest{
 		when(DAO.update(anyObject())).thenReturn(user2);
 		UserDetails updated = RULE.getJerseyTest().target("/user/1").request().header(HttpHeaders.AUTHORIZATION, "Basic Z29vZC1ndXk6c2VjcmV0").put(entity,UserDetails.class);
 		verify(DAO).update(anyObject());
-		Assert.assertEquals("changed", updated.getFirstName());
+		Assert.assertEquals("changed", updated.getName());
 		
 	}
 	/*
