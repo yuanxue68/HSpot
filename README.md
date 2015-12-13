@@ -4,3 +4,11 @@
 
 Site that allows developer to find partners for hackthons or side projects
 
+
+
+#### Built with:
+React/Redux  
+Java/DropWizard/Hibernate  
+PostgreSQL  
+
+
