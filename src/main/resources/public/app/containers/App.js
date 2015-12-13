@@ -60,13 +60,6 @@ class App extends Component {
 
 }
 
-App.propTypes = {
-  // Injected by React Redux
-  dispatch: PropTypes.func.isRequired,
-  // Injected by React Router
-  children: PropTypes.node
-}
-
 function mapStateToProps (state) {
   return {
     errorMessage: state.errorMessage,

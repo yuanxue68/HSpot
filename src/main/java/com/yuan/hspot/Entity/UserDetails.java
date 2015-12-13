@@ -41,7 +41,7 @@ public class UserDetails {
 	@Column(nullable=false)
 	private String password;
 	
-	private String Name;
+	private String name;
 	
 	private String role;
 	
@@ -95,11 +95,11 @@ public class UserDetails {
 	}
 
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 
 	public String getRole() {

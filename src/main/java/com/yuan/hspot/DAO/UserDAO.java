@@ -1,8 +1,11 @@
 package com.yuan.hspot.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.yuan.hspot.JsonMapper.UserSummary;
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Projections;
@@ -43,30 +46,43 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 	}
 	
 	// filter user based on the criteria provided by the user such as role, skills etc
-	public List<UserDetails> filterUsers(List<String> skills, String role, String name) {
+	public List<UserSummary> filterUsers(List<String> skills, String role, String name) {
 
 		Criteria criteria = currentSession().createCriteria(UserDetails.class);
-		criteria = criteria.setProjection(Projections.distinct(Projections.property("userID")));
+		criteria = criteria.setFetchMode("skills", FetchMode.JOIN);
+        /*criteria = criteria.setProjection(Projections.distinct(Projections.projectionList()
+            .add(Projections.property("userID"))
+			.add(Projections.property("email"))
+			.add(Projections.property("name"))
+			.add(Projections.property("role"))));
+			//.add(Projections.property("skills"));*/
 		
-		if(role != null){
+		if(role != null && !role.isEmpty()){
 			criteria = criteria.add(Restrictions.eq("role", role));
 		}
 		
 		Disjunction or = Restrictions.disjunction();
 		if(skills.size() > 0){
-			criteria = criteria.createCriteria("skills");
-			for(String skill:skills){
-				or = (Disjunction) or.add(Restrictions.eq("elements", skill));
-			}
-			criteria = criteria.add(or);
+            criteria = criteria.createCriteria("skills");
+            for (String skill : skills) {
+                or = (Disjunction) or.add(Restrictions.eq("elements", skill));
+            }
+            criteria = criteria.add(or);
 		}
-		if (name !=null){
+		if (name !=null && !name.isEmpty()){
 			criteria = criteria.add(Restrictions.eq("name",name));
 		}
 
-		List<UserDetails> result = (List<UserDetails>)criteria.list();
-		
-		return result;
+		List<UserDetails> results = (List<UserDetails>)criteria.list();
+
+        List<UserSummary> userSummaries  = new ArrayList<UserSummary>();
+        for(UserDetails result : results){
+            userSummaries.add(new UserSummary(result.getName(),
+                    result.getEmail(),
+                    result.getRole(),
+                    result.getSkills()));
+        }
+		return userSummaries;
 	}
 
 	public List<UserDetails> authToConvo(User user, int convoId) {

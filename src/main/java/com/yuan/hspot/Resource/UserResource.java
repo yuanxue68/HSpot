@@ -21,6 +21,7 @@ import com.yuan.hspot.DAO.UserDAO;
 import com.yuan.hspot.Entity.UserDetails;
 import com.yuan.hspot.JsonMapper.Token;
 
+import com.yuan.hspot.JsonMapper.UserSummary;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 
@@ -37,9 +38,8 @@ public class UserResource {
 	public Response filterUsers(
 			@QueryParam("skills") final List<String> skills,
 			@QueryParam("role") final String role,
-			@QueryParam("name") final String name,
-			@Auth User user){
-		List<UserDetails> filteredUsers = userDAO.filterUsers(skills,role,name);
+			@QueryParam("name") final String name){
+		List<UserSummary> filteredUsers = userDAO.filterUsers(skills,role,name);
 		return Response.ok(filteredUsers).build();
 	}
 	
