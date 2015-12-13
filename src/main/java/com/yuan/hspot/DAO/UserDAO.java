@@ -72,8 +72,8 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 		if (name !=null && !name.isEmpty()){
 			criteria = criteria.add(Restrictions.eq("name",name));
 		}
-
-		List<UserDetails> results = (List<UserDetails>)criteria.list();
+        criteria = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        List<UserDetails> results = (List<UserDetails>)criteria.list();
 
         List<UserSummary> userSummaries  = new ArrayList<UserSummary>();
         for(UserDetails result : results){
