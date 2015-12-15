@@ -2,13 +2,15 @@ import { routerStateReducer as router } from 'redux-router'
 import { combineReducers } from 'redux'
 import * as ActionTypes from './../actions/indexAction'
 import users from './exploreReducer'
+import userProfile from './userProfileReducer'
 
 
 const rootReducer = combineReducers({
 	router,
 	errorMessage,
 	authed,
-	users
+	users,
+	userProfile
 })
 export default rootReducer
 

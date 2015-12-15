@@ -4,16 +4,14 @@ export const GET_USER_INFO_FAILURE = 'GET_USER_INFO_FAILURE'
 
 function getUserRequest(){
 	return{
-		return{
-			type: GET_USER_INFO_REQUEST
-		}
+		type: GET_USER_INFO_REQUEST
 	}
 }
 
-function getUserSucess(userProfile){
+function getUserSucess(userProfileInfo){
 	return{
-		type: GET_USER_INFO_SUCCESS
-		userProfile
+		type: GET_USER_INFO_SUCCESS,
+		userProfileInfo
 	}
 }
 

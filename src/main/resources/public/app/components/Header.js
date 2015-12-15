@@ -26,7 +26,7 @@ export default class Header extends Component{
 			loginOrLogOut = 
 			(	
 				<ul className="nav navbar-nav navbar-right">
-					<li><a href="#" onClick={this.goToUserProfile}>My Profile</a></li>
+					<li><Link to={"/user/"+this.props.authed.userID}>My Profile</Link></li>
 					<li><a href="#" onClick={this.submitUserSignOut}>Log out</a></li>
 				</ul>
 			)
@@ -50,7 +50,7 @@ export default class Header extends Component{
 						</div>
 						<div className="collapse navbar-collapse" id="login-nav">
 							<ul className="nav navbar-nav">
-								<li><Link to="/explore">Explore</Link></li>
+								<li><Link to="/user">Explore</Link></li>
 							</ul>
 							{loginOrLogOut}
 						</div>

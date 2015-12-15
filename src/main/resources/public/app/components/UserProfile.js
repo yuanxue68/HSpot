@@ -4,28 +4,29 @@ export default class UserProfile extends Component{
 	constructor(props){
 		super(props)
 	}
-	
+
 	render(){
 		var name 
 		var role
 		var skills
-		const {userProfile} = this.props
-		if(this.props.userProfileEditable.name){
+		const {userProfileInfo, userProfileEditable} = this.props
+		console.log(this.props)
+		if(userProfileEditable.name){
 			<div>{userProfile.name}</div>
 		} else {
-			<input type="text" value={userProfile.name}></input>
+			<input type="text" value={userProfileInfo.name}></input>
 		}
 
-		if(this.props.userProfileEditable.role){
+		if(userProfileEditable.role){
 			<div>{userProfile.role}</div>
 		} else {
-			<input type="text" value={userProfile.role}></input>
+			<input type="text" value={userProfileInfo.role}></input>
 		}
 
-		if(this.props.userProfileEditable.skills){
+		if(userProfileEditable.skills){
 			<div>{userProfile.skills.join(", ")}</div>
 		} else {
-			<input type="text" value={userProfile.skills.join(", ")}></input>
+			<input type="text" value={userProfileInfo.skills.join(", ")}></input>
 		}
 
 
