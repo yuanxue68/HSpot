@@ -25,7 +25,7 @@ public class TokenResource {
 	@GET
 	public Response getToken(@Auth User user){
 		String jwt = JWT.createJWT(user.getName(), TimeUnit.DAYS.toMillis(365));
-		Token token = new Token(jwt);
+		Token token = new Token(jwt,user.getUserId());
 		return Response.ok().entity(token).build();
 	}
 

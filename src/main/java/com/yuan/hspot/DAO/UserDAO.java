@@ -50,28 +50,24 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 
 		Criteria criteria = currentSession().createCriteria(UserDetails.class);
 		criteria = criteria.setFetchMode("skills", FetchMode.JOIN);
-        /*criteria = criteria.setProjection(Projections.distinct(Projections.projectionList()
-            .add(Projections.property("userID"))
-			.add(Projections.property("email"))
-			.add(Projections.property("name"))
-			.add(Projections.property("role"))));
-			//.add(Projections.property("skills"));*/
 		
 		if(role != null && !role.isEmpty()){
 			criteria = criteria.add(Restrictions.eq("role", role));
 		}
+
+        if (name !=null && !name.isEmpty()){
+            criteria = criteria.add(Restrictions.eq("name",name));
+        }
 		
 		Disjunction or = Restrictions.disjunction();
-		if(skills.size() > 0){
+		if(skills.size() > 0 && !skills.get(0).isEmpty()){
             criteria = criteria.createCriteria("skills");
             for (String skill : skills) {
                 or = (Disjunction) or.add(Restrictions.eq("elements", skill));
             }
             criteria = criteria.add(or);
 		}
-		if (name !=null && !name.isEmpty()){
-			criteria = criteria.add(Restrictions.eq("name",name));
-		}
+
         criteria = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         List<UserDetails> results = (List<UserDetails>)criteria.list();
 

@@ -26,6 +26,7 @@ export default class Header extends Component{
 			loginOrLogOut = 
 			(	
 				<ul className="nav navbar-nav navbar-right">
+					<li><a href="#" onClick={this.goToUserProfile}>My Profile</a></li>
 					<li><a href="#" onClick={this.submitUserSignOut}>Log out</a></li>
 				</ul>
 			)

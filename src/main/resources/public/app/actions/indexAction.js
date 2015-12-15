@@ -123,7 +123,6 @@ function signOutRequest(){
 
 export function userSignOut(){
 	return function(dispatch){
-		console.log("r u clearing?")
 		localStorage.removeItem("username")
 		localStorage.removeItem("token")
 

@@ -77,7 +77,7 @@ public class UserResource {
 			return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.USER_DUPLICATE_EMAIL).build();
 		}
 		UserDetails createdUser = userDAO.create(userDetails);
-		Token token = new Token(JWT.createJWT(createdUser.getEmail(),TimeUnit.DAYS.toMillis(365)));
+		Token token = new Token(JWT.createJWT(createdUser.getEmail(),TimeUnit.DAYS.toMillis(365)), createdUser.getUserID());
 		return Response.ok().entity(token).build();
 	}
 
