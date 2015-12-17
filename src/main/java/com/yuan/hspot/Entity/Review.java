@@ -1,5 +1,7 @@
 package com.yuan.hspot.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,9 +23,11 @@ public class Review {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int reviewID;
 	//person who wrote the review
+	@JsonIgnore
 	@ManyToOne
 	private UserDetails reviewReceiver;
 	//person who received the review
+	@JsonIgnore
 	@ManyToOne
 	private UserDetails reviewGiver;
 	@Column(nullable=false)

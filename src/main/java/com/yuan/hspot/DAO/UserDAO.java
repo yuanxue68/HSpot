@@ -23,8 +23,17 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 	}
 	
 	public UserDetails findById(int id){
-		return get(id);
-	}
+        /*
+        Criteria criteria = currentSession().createCriteria(UserDetails.class);
+        criteria = criteria.setFetchMode("reviewReceived", FetchMode.JOIN);
+        criteria = criteria.add(Restrictions.eq("userID",id));
+        criteria = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        */
+
+        List<UserDetails> results = list(namedQuery("UserDetails.reviewReceived").setInteger("userID", id));
+
+        return results.get(0);
+    }
 	
 	public List<UserDetails> findByEmail(String email){
 		Criteria criteria = currentSession().createCriteria(UserDetails.class);

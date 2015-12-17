@@ -21,6 +21,7 @@ import com.yuan.hspot.DAO.UserDAO;
 import com.yuan.hspot.Entity.UserDetails;
 import com.yuan.hspot.JsonMapper.Token;
 
+import com.yuan.hspot.JsonMapper.UserDetailsWithComments;
 import com.yuan.hspot.JsonMapper.UserSummary;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -49,8 +50,12 @@ public class UserResource {
 	//need to add projection to filter out password etc
 	public Response getUserById(@PathParam("id") int id){
 		UserDetails userDetails = userDAO.findById(id);
-        UserSummary userSummary = new UserSummary(userDetails.getName(), userDetails.getEmail(), userDetails.getRole(), userDetails.getSkills());
-		return Response.ok(userSummary).build();
+        UserDetailsWithComments userDetailsWithComments = new UserDetailsWithComments(userDetails.getName(),
+                userDetails.getEmail(),
+                userDetails.getRole(),
+                userDetails.getSkills(),
+                userDetails.getReviewReceived());
+		return Response.ok(userDetailsWithComments).build();
 	}
 	
 	@PUT

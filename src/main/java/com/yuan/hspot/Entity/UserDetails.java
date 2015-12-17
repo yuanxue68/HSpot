@@ -27,8 +27,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @NamedQuery(name="UserDetails.accessToMsg", query="from UserDetails u, Message m where "
 		+ "u.userID = m.userDetails  and m.messageID = :msgId and u.userID = :userId"),
 @NamedQuery(name="UserDetails.accessToEditReview", query="from UserDetails u, Review r where "
-		+ "u.userID = r.reviewGiver  and r.reviewID = :reviewId and u.userID = :userId")
+		+ "u.userID = r.reviewGiver  and r.reviewID = :reviewId and u.userID = :userId"),
+@NamedQuery(name="UserDetails.reviewReceived", query="select distinct u from UserDetails u join fetch u.reviewReceived r where u.userID = :userID and u.userID = r.reviewReceiver")
 })
+
 public class UserDetails {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
