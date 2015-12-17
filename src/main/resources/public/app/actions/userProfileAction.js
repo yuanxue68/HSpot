@@ -33,6 +33,9 @@ export function getUserInfo(userID){
 			contenttype:"application/json",
 			method:"GET",
 		}).done((data)=>{
+			if(!data.skills){
+				data.skills=[];
+			}
 			dispatch(getUserSucess(data))
 		}).fail((xhr, status, err)=>{
 			dispatch(getUserFailure(xhr.responseText))

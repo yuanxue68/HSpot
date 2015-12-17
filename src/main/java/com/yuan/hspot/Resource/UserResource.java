@@ -49,8 +49,8 @@ public class UserResource {
 	//need to add projection to filter out password etc
 	public Response getUserById(@PathParam("id") int id){
 		UserDetails userDetails = userDAO.findById(id);
-		userDetails.setPassword("");
-		return Response.ok(userDetails).build();
+        UserSummary userSummary = new UserSummary(userDetails.getName(), userDetails.getEmail(), userDetails.getRole(), userDetails.getSkills());
+		return Response.ok(userSummary).build();
 	}
 	
 	@PUT

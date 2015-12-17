@@ -17,9 +17,9 @@ public class UserSummary {
     }
 
     public UserSummary(String name, String email, String role, Collection<String> skills){
-        this.name = name;
-        this.email = email;
-        this.role = role;
+        this.name = name == null ? "" : name;
+        this.email = email == null ? "" : email;
+        this.role = role == null ? "" : role;
         this.skills = skills;
     }
 
