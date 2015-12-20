@@ -1,5 +1,7 @@
 package com.yuan.hspot;
 
+import io.dropwizard.forms.MultiPartBundle;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,6 +48,7 @@ public class App extends Application<HspotConfiguration>
 	@Override
 	public void initialize(Bootstrap<HspotConfiguration> bootstrap){
 		bootstrap.addBundle(hibernate);
+        bootstrap.addBundle(new MultiPartBundle());
 		bootstrap.addBundle(new AssetsBundle("/public","/","index.html"));
 	}
     public static void main( String[] args ) throws Exception
@@ -71,6 +74,6 @@ public class App extends Application<HspotConfiguration>
 		environment.jersey().register(new ReviewResource(reviewDAO, userDAO));
 		environment.jersey().register(new ConversationResource(conversationDAO));
 		environment.jersey().register(new TokenResource());
-		
-	}
+
+    }
 }

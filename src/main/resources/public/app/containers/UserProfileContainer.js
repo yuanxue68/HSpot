@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import UserProfile from './../components/UserProfile'
 import { connect } from 'react-redux'
-import { getUserInfo } from './../actions/userProfileAction'
+import { getUserInfo, uploadProfilePic } from './../actions/userProfileAction'
 
 
 class UserProfileContainer extends Component{
@@ -19,7 +19,8 @@ class UserProfileContainer extends Component{
 		console.log(this.props)
 	
 		return (
-			<UserProfile userProfileInfo={userProfileInfo} userProfileEditable={userProfileEditable} />
+			<UserProfile userProfileInfo={userProfileInfo} userProfileEditable={userProfileEditable} 
+			onUploadProfilePic={(file)=>dispatch(uploadProfilePic(file))} />
 		)
 
 	}

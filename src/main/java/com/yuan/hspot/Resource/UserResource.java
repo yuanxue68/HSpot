@@ -1,19 +1,14 @@
 package com.yuan.hspot.Resource;
 
+import java.io.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import com.yuan.hspot.Auth.JWT;
 import com.yuan.hspot.Auth.User;
 import com.yuan.hspot.Constants.ResponseConstants;
@@ -25,6 +20,7 @@ import com.yuan.hspot.JsonMapper.UserDetailsWithComments;
 import com.yuan.hspot.JsonMapper.UserSummary;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
@@ -85,5 +81,33 @@ public class UserResource {
 		Token token = new Token(JWT.createJWT(createdUser.getEmail(),TimeUnit.DAYS.toMillis(365)), createdUser.getUserID());
 		return Response.ok().entity(token).build();
 	}
+
+    @POST
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Path("/profilepic")
+    @UnitOfWork
+    public Response uploadProfilePic(@FormDataParam("file") InputStream uploadedInputStream,@Auth User user)throws IOException{
+        String fileDir = "ProfilePic/";
+        String fileName = user.getUserId()+".png";
+        writeToFile(uploadedInputStream, "ProfilePic", fileName);
+        userDAO.updateProfilePic(fileDir+fileName,user.getUserId());
+        return Response.ok().entity(fileDir+fileName).build();
+    }
+
+    private void writeToFile(InputStream inputStream, String fileDir, String fileName) throws IOException{
+        int read;
+        final int BUFFER_LENGTH = 1024;
+        final byte[] buffer = new byte[BUFFER_LENGTH];
+        File profileDir = new File(fileDir);
+        profileDir.mkdir();
+        File file = new File(fileDir, fileName);
+        file.createNewFile();
+        OutputStream outputStream = new FileOutputStream(file);
+        while ((read = inputStream.read(buffer)) !=-1){
+            outputStream.write(buffer, 0, read);
+        }
+        outputStream.flush();
+        outputStream.close();
+    }
 
 }

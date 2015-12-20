@@ -28,7 +28,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 		+ "u.userID = m.userDetails  and m.messageID = :msgId and u.userID = :userId"),
 @NamedQuery(name="UserDetails.accessToEditReview", query="from UserDetails u, Review r where "
 		+ "u.userID = r.reviewGiver  and r.reviewID = :reviewId and u.userID = :userId"),
-@NamedQuery(name="UserDetails.reviewReceived", query="select distinct u from UserDetails u join fetch u.reviewReceived r where u.userID = :userID and u.userID = r.reviewReceiver")
+@NamedQuery(name="UserDetails.reviewReceived", query="select distinct u from UserDetails u join fetch u.reviewReceived r where u.userID = :userID and u.userID = r.reviewReceiver"),
+@NamedQuery(name="UserDetails.updateProfilePic", query="update UserDetails set profilePicPath = :filePath where userID = :userID")
 })
 
 public class UserDetails {
@@ -46,8 +47,10 @@ public class UserDetails {
 	private String name;
 	
 	private String role;
-	
-	@ElementCollection
+
+    private String profilePicPath = "/profile/default.png";
+
+    @ElementCollection
 	private Collection<String> skills = new ArrayList<String>();
 	
 	@OneToMany(mappedBy="reviewReceiver")
@@ -104,6 +107,14 @@ public class UserDetails {
 		this.name = name;
 	}
 
+
+    public String getProfilePicPath() {
+        return profilePicPath;
+    }
+
+    public void setProfilePicPath(String profilePicPath) {
+        this.profilePicPath = profilePicPath;
+    }
 	public String getRole() {
 		return role;
 	}

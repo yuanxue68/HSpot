@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import ProfilePic from './ProfilePic'
 
 export default class UserProfile extends Component{
 	constructor(props){
@@ -9,7 +10,7 @@ export default class UserProfile extends Component{
 		var name 
 		var role
 		var skills
-		const {userProfileInfo, userProfileEditable} = this.props
+		const {userProfileInfo, userProfileEditable, onUploadProfilePic} = this.props
 		console.log(this.props)
 		if(!userProfileEditable.name){
 			name = (<div>{userProfileInfo.name}</div>)
@@ -33,6 +34,7 @@ export default class UserProfile extends Component{
 
 		return(
 			<div>
+				<ProfilePic onUploadProfilePic={onUploadProfilePic}/>
 				<div>
 					<div>My Name: </div>
 					{name}

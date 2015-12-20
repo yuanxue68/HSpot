@@ -13,14 +13,16 @@ public class UserDetailsWithComments {
     private String email;
     private String role;
     private Collection<String> skills = new ArrayList<String>();
-    private Collection<Review> reviews = new ArrayList<Review>();
+    private Collection<ReviewSummary> reviews = new ArrayList<ReviewSummary>();
 
     public UserDetailsWithComments(String name, String email, String role, Collection<String> skills, Collection<Review> reviews){
         this.name = name == null ? "" : name;
         this.email = email == null ? "" : email;
         this.role = role == null ? "" : role;
         this.skills = skills;
-        this.reviews = reviews;
+        for(Review review: reviews){
+            this.reviews.add(new ReviewSummary(review.getReviewContent(), review.getReviewGiver().getUserID(), review.getStar()));
+        }
     }
 
     public String getName() {
@@ -55,11 +57,11 @@ public class UserDetailsWithComments {
         this.skills = skills;
     }
 
-    public Collection<Review> getReviews() {
+    public Collection<ReviewSummary> getReviews() {
         return reviews;
     }
 
-    public void setReviews(Collection<Review> rewview) {
+    public void setReviews(Collection<ReviewSummary> rewview) {
         this.reviews = rewview;
     }
 }

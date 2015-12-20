@@ -40,6 +40,11 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 		List<UserDetails> result = criteria.add(Restrictions.eq("email", email)).list();
 		return result;
 	}
+
+    public void updateProfilePic(String filePath, int userID){
+        namedQuery("UserDetails.updateProfilePic").setInteger("userID", userID).setString("filePath", filePath).executeUpdate();
+        return;
+    }
 	
 	public UserDetails create(UserDetails user){
 		return persist(user);

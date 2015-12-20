@@ -30,7 +30,7 @@ export function getUserInfo(userID){
 			url: url,
 			dataType:"json",
 			cache: "false",
-			contenttype:"application/json",
+			contentType:"application/json",
 			method:"GET",
 		}).done((data)=>{
 			if(!data.skills){
@@ -39,6 +39,75 @@ export function getUserInfo(userID){
 			dispatch(getUserSucess(data))
 		}).fail((xhr, status, err)=>{
 			dispatch(getUserFailure(xhr.responseText))
+		})
+	}
+}
+
+export const UPLOAD_PROFILE_REQUEST= 'UPLOAD_PROFILE_REQUEST'
+export const UPLOAD_PROFILE_FAILURE = 'UPLOAD_PROFILE_FAILURE'
+export const UPLOAD_PROFILE_SUCCESS= 'UPLOAD_PROFILE_SUCCESS'
+
+function uploadFailure(error){
+	return {
+		type:UPLOAD_PROFILE_FAILURE,
+		error
+	}
+}
+
+function uploadRequest(error){
+	return {
+		type:UPLOAD_PROFILE_REQUEST,
+	}
+}
+
+function uploadSuccess(){
+	return {
+		type:UPLOAD_PROFILE_SUCCESS
+	}
+}
+
+export function getUserInfo(userID){
+	return function(dispatch){
+		dispatch(getUserRequest())
+		var url = '/api/user/'+userID
+		return $.ajax({
+			url: url,
+			dataType:"json",
+			cache: "false",
+			contentType:"application/json",
+			method:"GET",
+		}).done((data)=>{
+			if(!data.skills){
+				data.skills=[];
+			}
+			dispatch(getUserSucess(data))
+		}).fail((xhr, status, err)=>{
+			dispatch(getUserFailure(xhr.responseText))
+		})
+	}
+}
+
+export function uploadProfilePic(file){
+	return function(dispatch){
+		console.log("in uploadProfilePic")
+		console.log(file)
+		dispatch(uploadRequest());
+		console.log("return thunk")
+		var fd = new FormData();
+		var url = "/api/user/profilepic"
+		fd.append('file',file);
+		return $.ajax({
+			url:url,
+			data:fd,
+			processData:false,
+			contentType:false,
+			method:'POST',
+		}).done((data)=>{
+			console.log("success upload")
+			dispatch(uploadSuccess())
+		}).fail((xhr, status, err)=>{
+			console.log("fail upload")
+			dispatch(uploadFailure(xhr.responseText))
 		})
 	}
 }

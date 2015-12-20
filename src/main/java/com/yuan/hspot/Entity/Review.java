@@ -27,7 +27,6 @@ public class Review {
 	@ManyToOne
 	private UserDetails reviewReceiver;
 	//person who received the review
-	@JsonIgnore
 	@ManyToOne
 	private UserDetails reviewGiver;
 	@Column(nullable=false)
