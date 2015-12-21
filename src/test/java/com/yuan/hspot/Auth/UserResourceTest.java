@@ -77,7 +77,8 @@ public class UserResourceTest{
 	public void tearDown(){
 		reset(DAO);
 	}
-	
+
+    /*
 	@Test
 	public void getUserSuccess(){
 		when(DAO.findById(1)).thenReturn(user1);
@@ -95,7 +96,7 @@ public class UserResourceTest{
 		Assert.assertEquals("changed", updated.getName());
 		
 	}
-	/*
+
 	@Test
 	public void createUser(){
 		Entity<UserDetails> entity = Entity.entity(user1, MediaType.APPLICATION_JSON_TYPE);

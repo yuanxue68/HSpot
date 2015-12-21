@@ -10,7 +10,7 @@ export default class extends Component{
 			return <Review review={review}/>
 		})
 		return(
-			<div className="well">
+			<div>
 				<h3>Reviews</h3>
 				<div>
 					{reviews}

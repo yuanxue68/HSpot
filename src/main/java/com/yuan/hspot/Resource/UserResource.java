@@ -43,7 +43,6 @@ public class UserResource {
 	@GET
 	@Path("/{id}")
 	@UnitOfWork
-	//need to add projection to filter out password etc
 	public Response getUserById(@PathParam("id") int id){
 		UserDetails userDetails = userDAO.findById(id);
         UserDetailsWithComments userDetailsWithComments = new UserDetailsWithComments(userDetails.getName(),

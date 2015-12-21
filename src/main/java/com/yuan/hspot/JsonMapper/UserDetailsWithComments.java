@@ -21,7 +21,7 @@ public class UserDetailsWithComments {
         this.role = role == null ? "" : role;
         this.skills = skills;
         for(Review review: reviews){
-            this.reviews.add(new ReviewSummary(review.getReviewContent(), review.getReviewGiver().getUserID(), review.getStar()));
+            this.reviews.add(new ReviewSummary(review.getReviewID(),review.getReviewContent(), review.getReviewGiver().getUserID(), review.getStar()));
         }
     }
 

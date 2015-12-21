@@ -7,7 +7,7 @@ export default class extends Component{
 
 	render(){
 		return(
-			<div>
+			<div className="well">
 				<div>{this.props.review.reviewContent}</div>
 				<div>{this.props.review.star}</div>
 			</div>
