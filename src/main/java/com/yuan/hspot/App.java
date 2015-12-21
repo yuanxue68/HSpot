@@ -49,7 +49,9 @@ public class App extends Application<HspotConfiguration>
 	public void initialize(Bootstrap<HspotConfiguration> bootstrap){
 		bootstrap.addBundle(hibernate);
         bootstrap.addBundle(new MultiPartBundle());
-		bootstrap.addBundle(new AssetsBundle("/public","/","index.html"));
+        bootstrap.addBundle(new AssetsBundle("/public", "/", "index.html", "static"));
+		//bootstrap.addBundle(new AssetsBundle("/public","/*","index.html"));
+        //bootstrap.addBundle(new AssetsBundle("/public","/","index.html"));
 	}
     public static void main( String[] args ) throws Exception
     {

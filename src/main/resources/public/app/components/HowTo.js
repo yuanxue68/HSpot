@@ -8,21 +8,24 @@ export default class HowTo extends Component{
 			{
 				index:1,
 				title:"Find Developer",
-				details:"Search through the web site for a developer with suitable skillset"
+				details:"Search through the web site for a developer with suitable skillset",
+				class:"glyphicon glyphicon-search"
 			},
 			{
 				index:2,
 				title:"Contact And Collaborate",
-				details:"Message your candidate to express yoour interest and start collaborating"
+				details:"Message your candidate to express yoour interest and start collaborating",
+				class:"glyphicon glyphicon-comment"
 			},
 			{
 				index:3,
 				title:"Leave Review",
-				details:"Leave your partner a feedback after collaborating"
+				details:"Leave your partner a feedback after collaborating",
+				class:"glyphicon glyphicon-thumbs-up"
 			}
 		]
 		return (
-			<div className="col-centered">
+			<div className="col-centered row">
 				{howToInfo.map(function(info,i){
 					return <Step key={i} info={info}/>
 				})}

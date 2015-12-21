@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import ProfilePic from './ProfilePic'
+import ReviewsList from './ReviewsList'
 
 export default class UserProfile extends Component{
 	constructor(props){
@@ -33,19 +34,22 @@ export default class UserProfile extends Component{
 
 
 		return(
-			<div>
+			<div className="container">
 				<ProfilePic onUploadProfilePic={onUploadProfilePic}/>
-				<div>
-					<div>My Name: </div>
-					{name}
-				</div>
-				<div>
-					<div>My Role: </div>
-					{role}
-				</div>
-				<div>
-					<div>My Skill: </div>
-					{skills}
+				<div className="col-md-7">
+					<div>
+						<h3>My Name: </h3>
+						<div className="well">{name}</div>
+					</div>
+					<div>
+						<h3>My Role: </h3>
+						<div className="well">{role}</div>
+					</div>
+					<div>
+						<h3>My Skill: </h3>
+						<div className="well">{skills}</div>
+					</div>
+					<ReviewsList reviews={userProfileInfo.reviews}/>
 				</div>
 			</div>
 		)

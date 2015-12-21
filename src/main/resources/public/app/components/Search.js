@@ -9,13 +9,13 @@ export default class Search extends Component{
 	render(){
 		return(
 			<div>
-				<div>
-					<h3 className="col-centered">Search For Your Next Partner</h3>
-					<div className="form-group">
+				<h3 className="col-centered">Search For Your Next Partner</h3>
+				<div className="row">
+					<div className="form-group col-md-3">
 						<label htmlFor="">Name</label>
 						<input id="userName" className="form-control" type="text" placeholder="Developer name if you know it"/>
 					</div>
-					<div className="form-group">
+					<div className="form-group col-md-3">
 						<label htmlFor="">Role</label>
 						<select id="userRole" className="form-control">
 							<option ></option>
@@ -26,14 +26,16 @@ export default class Search extends Component{
 							<option >other</option>
 						</select>
 					</div>
-					<div className="form-group">
+					<div className="form-group col-md-3">
 						<label htmlFor="">Skill</label>
 						<input id="userSkills" className="form-control" type="text" placeholder="Ruby on Rails, Angular.JS etc"/>
 					</div>
+					<div className="col-md-3 form-group" onClick={this.submitUserSearch}>
+						<label htmlFor="">GO NOW!</label>
+						<div className="btn btn-default form-control">Search</div>
+					</div>
 				</div>
-				<div className="btn btn-default" onClick={this.submitUserSearch}>
-					Search
-				</div>
+
 			</div>
 		)
 	}

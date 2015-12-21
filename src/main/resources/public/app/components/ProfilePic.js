@@ -9,7 +9,7 @@ export default class ProfilePic extends Component{
 
 	render(){
 		return (
-			<div>
+			<div className="profile-pic-container col-md-3 col-md-offset-1">
 				<img className="profile-pic" src="http://cdn.cutestpaw.com/wp-content/uploads/2012/07/l-Wittle-puppy-yawning.jpg" alt="Profile Picture"></img>
 				<input id="file-upload" className="file-upload" onChange={this.readerURL} type="file" accept="image/*"></input>
 				<div onClick={this.uploadPicture}>Upload Image</div>

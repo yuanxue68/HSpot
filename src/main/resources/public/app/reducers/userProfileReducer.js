@@ -9,7 +9,8 @@ var initialState = {
 	userProfileInfo:{
 		name:"",
 		role:"",
-		skills:[]
+		skills:[],
+		reviews:[]
 	}
 }
 export default function userProfile(state = initialState, action){
@@ -20,7 +21,8 @@ export default function userProfile(state = initialState, action){
 				userProfileInfo: {
 					name:action.userProfileInfo.name,
 					role:action.userProfileInfo.role,
-					skills: action.userProfileInfo.skills
+					skills: action.userProfileInfo.skills,
+					reviews: action.userProfileInfo.reviews
 				}
 			})
 		default:

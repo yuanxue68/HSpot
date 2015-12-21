@@ -54,7 +54,7 @@ function uploadFailure(error){
 	}
 }
 
-function uploadRequest(error){
+function uploadRequest(){
 	return {
 		type:UPLOAD_PROFILE_REQUEST,
 	}
@@ -99,6 +99,7 @@ export function uploadProfilePic(file){
 		return $.ajax({
 			url:url,
 			data:fd,
+	    dataType: 'text',	
 			processData:false,
 			contentType:false,
 			method:'POST',
