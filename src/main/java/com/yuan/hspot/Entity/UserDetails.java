@@ -50,8 +50,8 @@ public class UserDetails {
 
     private String profilePicPath = "/profile/default.png";
 
-    @ElementCollection
-	private Collection<String> skills = new ArrayList<String>();
+    @OneToMany(mappedBy="userDetails")
+	private Collection<Skill> skills = new ArrayList<Skill>();
 	
 	@OneToMany(mappedBy="reviewReceiver")
 	private Collection<Review> reviewReceived = new ArrayList<Review>();
@@ -121,14 +121,15 @@ public class UserDetails {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	public Collection<String> getSkills() {
+
+	public Collection<Skill> getSkills() {
 		return skills;
 	}
-	public void setSkills(Collection<String> skills) {
+
+	public void setSkills(Collection<Skill> skills) {
 		this.skills = skills;
 	}
-	
+
 	public Collection<Review> getReviewReceived() {
 		return reviewReceived;
 	}

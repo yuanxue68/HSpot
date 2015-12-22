@@ -9,8 +9,8 @@ export default class ReviewsList extends Component{
 		console.log(this.props)
 		var reviews
 		if(this.props.reviews.length){
-	 		reviews = this.props.reviews.map(function(review){
-				return <Review review={review}/>
+	 		reviews = this.props.reviews.map(function(review, index){
+				return <Review key={index} review={review}/>
 			})
 		} else {
 			reviews=null

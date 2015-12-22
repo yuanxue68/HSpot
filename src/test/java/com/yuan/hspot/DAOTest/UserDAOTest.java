@@ -2,6 +2,7 @@ package com.yuan.hspot.DAOTest;
 
 import java.util.ArrayList;
 
+import com.yuan.hspot.Entity.*;
 import org.hibernate.Query;
 import org.junit.After;
 import org.junit.Assert;
@@ -12,10 +13,6 @@ import com.yuan.hspot.DAO.ConversationDAO;
 import com.yuan.hspot.DAO.MessageDAO;
 import com.yuan.hspot.DAO.ReviewDAO;
 import com.yuan.hspot.DAO.UserDAO;
-import com.yuan.hspot.Entity.Conversation;
-import com.yuan.hspot.Entity.Message;
-import com.yuan.hspot.Entity.Review;
-import com.yuan.hspot.Entity.UserDetails;
 
 
 public class UserDAOTest extends DAOTests {
@@ -36,9 +33,13 @@ public class UserDAOTest extends DAOTests {
 		UserDetails userOne = new UserDetails();
 		userOne.setEmail("user1@email.example.com");
 		userOne.setPassword("password");
-		ArrayList<String> skills = new ArrayList<String>();
-		skills.add("Python");
-		skills.add("Ruby");
+		ArrayList<Skill> skills = new ArrayList<Skill>();
+		Skill ruby =  new Skill();
+		Skill python =  new Skill();
+		ruby.setSkillName("ruby");
+		python.setSkillName("python");
+		skills.add(ruby);
+		skills.add(python);
 		userOne.setSkills(skills);
 		userDAO.create(userOne);
 		

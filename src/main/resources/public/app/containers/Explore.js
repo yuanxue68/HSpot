@@ -2,6 +2,7 @@ import React, {Component, Proptypes}from 'react'
 import { connect } from 'react-redux'
 import Search from './../components/Search'
 import { userSearch } from './../actions/exploreAction'
+import UserSummaryList from './../components/UserSummaryList'
 
 class Explore extends Component {
 	constructor(props) {
@@ -15,9 +16,11 @@ class Explore extends Component {
 
 	render() {
 		const { dispatch, userList } = this.props
+		console.log(userList)
 		return (
 			<div className="container">
 				<Search onUserSearch={(queryCondition)=>{dispatch(userSearch(queryCondition))}} />
+				<UserSummaryList userList={userList}/>
 			</div>
 		)
 	}

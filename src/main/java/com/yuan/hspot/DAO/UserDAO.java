@@ -32,7 +32,7 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 
         List<UserDetails> results = list(namedQuery("UserDetails.findById").setInteger("userID", id));
 		UserDetails userDetails = results.get(0);
-		UserSummary userSummary = new UserSummary(userDetails.getName(),
+		UserSummary userSummary = new UserSummary(userDetails.getUserID(),userDetails.getName(),
 				userDetails.getEmail(),
 				userDetails.getRole(),
 				userDetails.getSkills());
@@ -68,8 +68,8 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 	public List<UserSummary> filterUsers(List<String> skills, String role, String name) {
 
 		Criteria criteria = currentSession().createCriteria(UserDetails.class);
-		criteria = criteria.setFetchMode("skills", FetchMode.JOIN);
-		
+        criteria = criteria.setFetchMode("skills", FetchMode.JOIN);
+
 		if(role != null && !role.isEmpty()){
 			criteria = criteria.add(Restrictions.eq("role", role));
 		}
@@ -79,20 +79,20 @@ public class UserDAO extends AbstractDAO<UserDetails>{
         }
 		
 		Disjunction or = Restrictions.disjunction();
-		if(skills.size() > 0 && !skills.get(0).isEmpty()){
+		if(skills.size() > 0 && !skills.get(0).isEmpty()) {
             criteria = criteria.createCriteria("skills");
             for (String skill : skills) {
-                or = (Disjunction) or.add(Restrictions.eq("elements", skill));
+                or = (Disjunction) or.add(Restrictions.like("skillName", skill));
             }
             criteria = criteria.add(or);
-		}
+        }
 
         criteria = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
         List<UserDetails> results = (List<UserDetails>)criteria.list();
 
         List<UserSummary> userSummaries  = new ArrayList<UserSummary>();
         for(UserDetails result : results){
-            userSummaries.add(new UserSummary(result.getName(),
+            userSummaries.add(new UserSummary(result.getUserID(),result.getName(),
                     result.getEmail(),
                     result.getRole(),
                     result.getSkills()));

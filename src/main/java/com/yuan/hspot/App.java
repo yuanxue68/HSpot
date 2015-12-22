@@ -1,5 +1,6 @@
 package com.yuan.hspot;
 
+import com.yuan.hspot.Entity.*;
 import io.dropwizard.forms.MultiPartBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +11,6 @@ import com.yuan.hspot.DAO.ConversationDAO;
 import com.yuan.hspot.DAO.MessageDAO;
 import com.yuan.hspot.DAO.ReviewDAO;
 import com.yuan.hspot.DAO.UserDAO;
-import com.yuan.hspot.Entity.Conversation;
-import com.yuan.hspot.Entity.Message;
-import com.yuan.hspot.Entity.Review;
-import com.yuan.hspot.Entity.UserDetails;
 import com.yuan.hspot.Resource.ConversationResource;
 import com.yuan.hspot.Resource.MessageResource;
 import com.yuan.hspot.Resource.ReviewResource;
@@ -37,7 +34,12 @@ import io.dropwizard.setup.Environment;
 public class App extends Application<HspotConfiguration>
 {
 	public static final Logger LOGGER = LoggerFactory.getLogger(App.class);
-	private final HibernateBundle<HspotConfiguration> hibernate = new HibernateBundle<HspotConfiguration>(UserDetails.class,Conversation.class,Message.class,Review.class){
+	private final HibernateBundle<HspotConfiguration> hibernate = new HibernateBundle<HspotConfiguration>(
+			UserDetails.class,
+			Conversation.class,
+			Message.class,
+			Review.class,
+			Skill.class){
 		@Override
 		public DataSourceFactory getDataSourceFactory(HspotConfiguration configuration){
 			return configuration.getDatabase();

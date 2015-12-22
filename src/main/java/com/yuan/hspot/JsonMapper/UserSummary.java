@@ -1,5 +1,7 @@
 package com.yuan.hspot.JsonMapper;
 
+import com.yuan.hspot.Entity.Skill;
+
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -7,6 +9,7 @@ import java.util.Collection;
  * Created by yuanxue on 2015-12-13.
  */
 public class UserSummary {
+    private int userID;
     private String name;
     private String email;
     private String role;
@@ -16,11 +19,22 @@ public class UserSummary {
 
     }
 
-    public UserSummary(String name, String email, String role, Collection<String> skills){
+    public UserSummary(int userID, String name, String email, String role, Collection<Skill> skills){
+        this.userID = userID;
         this.name = name == null ? "" : name;
         this.email = email == null ? "" : email;
         this.role = role == null ? "" : role;
-        this.skills = skills;
+        for(Skill skill:skills){
+            this.skills.add(skill.getSkillName());
+        }
+    }
+
+    public int getUserID() {
+        return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getName() {
