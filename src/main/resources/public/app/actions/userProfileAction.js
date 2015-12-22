@@ -112,3 +112,38 @@ export function uploadProfilePic(file){
 		})
 	}
 }
+
+export const GET_USER_REVIEWS_FAILURE = 'GET_USER_REVIEWS_FAILURE'
+export const GET_USER_REVIEWS_SUCCESS= 'GET_USER_REVIEWS_SUCCESS'
+
+function getReviewsSuccess(reviews){
+	return {
+		type: GET_USER_REVIEWS_SUCCESS,
+		reviews
+	}
+}
+
+function getReviewsFailure(error){
+	return {
+		type: GET_USER_REVIEWS_FAILURE,
+		error
+	}
+}
+
+export function getUserReviews(userID){
+	return function(dispatch){
+		var url = "/api/user/"+userID+"/reviews"
+		return $.ajax({
+			url: url,
+			dataType:"json",
+			cache: "false",
+			contentType:"application/json",
+			method:"GET",
+		}).done((data)=>{
+			console.log(data)
+			dispatch(getReviewsSuccess(data))
+		}).fail((xhr, status, err)=>{
+			dispatch(getReviewsFailure(xhr.responseText))
+		})
+	}
+}

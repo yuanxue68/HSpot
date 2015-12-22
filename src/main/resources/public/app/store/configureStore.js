@@ -10,8 +10,8 @@ import rootReducer from '../reducers/indexReducer'
 const finalCreateStore = compose(
 	applyMiddleware(thunk),
 	reduxReactRouter({routes, createHistory}),
-	applyMiddleware(createLogger()),
-	DevTools.instrument()
+	applyMiddleware(createLogger())
+	//DevTools.instrument()
 )(createStore)
 
 export default function configureStore(initialState) {

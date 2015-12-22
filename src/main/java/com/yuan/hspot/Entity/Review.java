@@ -15,8 +15,7 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
 	@NamedQuery(name="Review.findAll",query="from Review"),
 	@NamedQuery(name="Review.deleteById",query="delete from Review where reviewID = :reviewId"),
-	@NamedQuery(name="Review.reviewsByUser",query="from Review r, UserDetails u where "
-			+ "r.reviewReceiver = :reviewReceiver and u.userID = :reviewReceiver")
+	@NamedQuery(name="Review.reviewsByUser",query="select distinct r from Review r left join fetch r.reviewGiver rc where r.reviewReceiver.userID = :userID")
 })
 public class Review {
 	@Id

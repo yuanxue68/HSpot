@@ -1,7 +1,6 @@
 package com.yuan.hspot;
 
 import io.dropwizard.forms.MultiPartBundle;
-import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

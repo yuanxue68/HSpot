@@ -8,7 +8,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import com.yuan.hspot.Auth.JWT;
 import com.yuan.hspot.Auth.User;
 import com.yuan.hspot.Constants.ResponseConstants;
@@ -16,7 +15,6 @@ import com.yuan.hspot.DAO.UserDAO;
 import com.yuan.hspot.Entity.UserDetails;
 import com.yuan.hspot.JsonMapper.Token;
 
-import com.yuan.hspot.JsonMapper.UserDetailsWithComments;
 import com.yuan.hspot.JsonMapper.UserSummary;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -44,13 +42,8 @@ public class UserResource {
 	@Path("/{id}")
 	@UnitOfWork
 	public Response getUserById(@PathParam("id") int id){
-		UserDetails userDetails = userDAO.findById(id);
-        UserDetailsWithComments userDetailsWithComments = new UserDetailsWithComments(userDetails.getName(),
-                userDetails.getEmail(),
-                userDetails.getRole(),
-                userDetails.getSkills(),
-                userDetails.getReviewReceived());
-		return Response.ok(userDetailsWithComments).build();
+		UserSummary userDetails = userDAO.findById(id);
+		return Response.ok(userDetails).build();
 	}
 	
 	@PUT

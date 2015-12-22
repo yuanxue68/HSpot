@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import UserProfile from './../components/UserProfile'
 import { connect } from 'react-redux'
-import { getUserInfo, uploadProfilePic } from './../actions/userProfileAction'
+import { getUserInfo, uploadProfilePic, getUserReviews } from './../actions/userProfileAction'
 
 
 class UserProfileContainer extends Component{
@@ -12,6 +12,7 @@ class UserProfileContainer extends Component{
 	componentDidMount(){
 		const { dispatch, params} = this.props
 		dispatch(getUserInfo(params.id))
+		dispatch(getUserReviews(params.id))
 	}
 
 	render(){

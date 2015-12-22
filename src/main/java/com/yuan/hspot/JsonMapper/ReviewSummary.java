@@ -6,14 +6,25 @@ package com.yuan.hspot.JsonMapper;
 public class ReviewSummary {
     private int reviewId;
     private String reviewContent;
-    private int reviewGiverID;
     private int stars;
+    private int reviewGiverID;
+    private String reviewGiverThumbNailUrl;
 
-    public ReviewSummary(int reviewId, String reviewContent, int reviewGiverID, int stars){
+    public ReviewSummary(int reviewId, String reviewContent, int reviewGiverID, String reviewGiverThumbNailUrl, int stars){
         this.reviewId = reviewId;
         this.reviewContent = reviewContent;
         this.reviewGiverID = reviewGiverID;
+        this.reviewGiverThumbNailUrl = reviewGiverThumbNailUrl;
         this.stars = stars;
+
+    }
+
+    public String getReviewGiverThumbNailUrl() {
+        return reviewGiverThumbNailUrl;
+    }
+
+    public void setReviewGiverThumbNailUrl(String reviewGiverThumbNailUrl) {
+        this.reviewGiverThumbNailUrl = reviewGiverThumbNailUrl;
     }
 
     public int getReviewId() {

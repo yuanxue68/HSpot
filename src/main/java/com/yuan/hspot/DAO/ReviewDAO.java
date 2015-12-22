@@ -1,7 +1,9 @@
 package com.yuan.hspot.DAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import com.yuan.hspot.JsonMapper.ReviewSummary;
 import org.hibernate.SessionFactory;
 
 import com.yuan.hspot.Entity.Review;
@@ -12,10 +14,6 @@ public class ReviewDAO extends AbstractDAO<Review>{
 
 	public ReviewDAO(SessionFactory sessionFactory) {
 		super(sessionFactory);
-	}
-	
-	public Review findById (int id){
-		return get(id);
 	}
 	
 	public Review create(Review review){
@@ -36,8 +34,16 @@ public class ReviewDAO extends AbstractDAO<Review>{
 		return numDeleted;
 	}
 
-	public List<Review> findReviewByUser(int userId) {
-		List<Review> reviews = list(currentSession().getNamedQuery("Review.reviewsByUser").setInteger("reviewReceiver", userId));
+	public List<ReviewSummary> findReviewByUser(int userId) {
+		List<Review> results = list(currentSession().getNamedQuery("Review.reviewsByUser").setInteger("userID", userId));
+		List<ReviewSummary> reviews = new ArrayList<ReviewSummary>();
+		for(Review result:results){
+			reviews.add(new ReviewSummary(result.getReviewID(),
+                    result.getReviewContent(),
+                    result.getReviewGiver().getUserID(),
+                    result.getReviewGiver().getProfilePicPath(),
+                    result.getStar()));
+		}
 		return reviews;
 	}
 

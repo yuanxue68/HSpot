@@ -20,6 +20,7 @@ import com.yuan.hspot.DAO.UserDAO;
 import com.yuan.hspot.Entity.Review;
 import com.yuan.hspot.Entity.UserDetails;
 
+import com.yuan.hspot.JsonMapper.ReviewSummary;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 
@@ -38,7 +39,7 @@ public class ReviewResource {
 	@Path("/")
 	@UnitOfWork
 	public Response getUserReview(@PathParam("userId") int userId, @Auth User user){
-		List<Review> reviews = reviewDAO.findReviewByUser(userId);
+		List<ReviewSummary> reviews = reviewDAO.findReviewByUser(userId);
 		return Response.ok(reviews).build();
 	}
 

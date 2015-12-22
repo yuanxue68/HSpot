@@ -22,7 +22,16 @@ export default function userProfile(state = initialState, action){
 					name:action.userProfileInfo.name,
 					role:action.userProfileInfo.role,
 					skills: action.userProfileInfo.skills,
-					reviews: action.userProfileInfo.reviews
+					reviews: state.userProfileInfo.reviews
+				}
+			})
+		case ActionTypes.GET_USER_REVIEWS_SUCCESS:
+			return Object.assign({}, state, {
+				userProfileInfo:{
+					name:state.userProfileInfo.name,
+					role:state.userProfileInfo.role,
+					skills: state.userProfileInfo.skills,
+					reviews:action.reviews
 				}
 			})
 		default:
