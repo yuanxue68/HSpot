@@ -114,7 +114,7 @@ export function uploadProfilePic(file){
 }
 
 export const GET_USER_REVIEWS_FAILURE = 'GET_USER_REVIEWS_FAILURE'
-export const GET_USER_REVIEWS_SUCCESS= 'GET_USER_REVIEWS_SUCCESS'
+export const GET_USER_REVIEWS_SUCCESS = 'GET_USER_REVIEWS_SUCCESS'
 
 function getReviewsSuccess(reviews){
 	return {
@@ -147,3 +147,56 @@ export function getUserReviews(userID){
 		})
 	}
 }
+
+export const CHANGE_USER_EDITABLE = 'CHANGE_USER_EDITABLE'
+
+export function changeUserEditable(){
+	return {
+		type: CHANGE_USER_EDITABLE
+	}
+}
+
+export const SUBMIT_EDIT_USER_REQUEST = "SUBMIT_EDIT_USER_REQUEST"
+export const SUBMIT_EDIT_USER_FAILURE = "SUBMIT_EDIT_USER_FAILURE"
+export const SUBMIT_EDIT_USER_SUCCESS = "SUBMIT_EDIT_USER_SUCCESS"
+
+export function editUserSuccess(userProfileInfo){
+	return {
+		type: SUBMIT_EDIT_USER_SUCCESS,
+		userProfileInfo
+	}
+}
+
+export function editUserFailure(error){
+	return {
+		type: SUBMIT_EDIT_USER_SUCCESS,
+		error
+	}
+}
+
+export function editUserRequest(){
+	return {
+		type: SUBMIT_EDIT_USER_REQUEST
+	}
+}
+
+export function submitEditUser(userId,userProfileInfo){
+	console.log(userProfileInfo)
+	return function (dispatch){
+		dispatch(editUserRequest())
+		var url = "/api/user/"+userId
+		return $.ajax({
+			url:url,
+			data:JSON.stringify(userProfileInfo),
+			dataType:"json",
+			traditional:true,
+			contentType:"application/json",
+			method:"PUT",
+		}).done((data)=>{
+			dispatch(editUserSuccess(userProfileInfo))
+		}).fail((xhr, status, err)=>{
+			dispatch(editUserFailure(xhr.responseText))
+		})
+	}
+}
+

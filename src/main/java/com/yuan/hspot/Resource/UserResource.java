@@ -54,9 +54,9 @@ public class UserResource {
 		if(id != user.getUserId()){
 			return Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.USER_NO_EDIT_RIGHT).build();
 		}
-		userDetails.setUserID(id);
-		UserDetails newUser = userDAO.update(userDetails);
-		return Response.ok(newUser).build();
+		userDetails.setUserID(user.getUserId());
+		userDAO.update(userDetails);
+		return Response.ok().build();
 	}
 	
 	@POST

@@ -56,7 +56,17 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 	}
 	
 	public UserDetails update(UserDetails user){
-		currentSession().merge(user);
+        List<UserDetails> results = list(namedQuery("UserDetails.findById").setInteger("userID", user.getUserID()));
+        UserDetails newUser = results.get(0);
+        newUser.setName(user.getName());
+        newUser.setRole(user.getRole());
+        if(user.getSkills().size()>0){
+            newUser.getSkills().clear();
+            newUser.getSkills().addAll(user.getSkills());
+        } else {
+            newUser.getSkills().clear();
+        }
+        currentSession().merge(newUser);
 		return user;
 	}
 	

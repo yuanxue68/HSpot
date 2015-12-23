@@ -1,11 +1,7 @@
 import * as ActionTypes from './../actions/userProfileAction'
 
 var initialState = {
-	userProfileEditable:{
-		name:false,
-		role:false,
-		skills:false
-	},
+	userProfileEditable:false,
 	userProfileInfo:{
 		name:"",
 		role:"",
@@ -34,6 +30,12 @@ export default function userProfile(state = initialState, action){
 					reviews:action.reviews
 				}
 			})
+		case ActionTypes.CHANGE_USER_EDITABLE:
+			return Object.assign({},state, {
+				userProfileEditable:true
+			})
+		case ActionTypes.SUBMIT_EDIT_USER_SUCCESS:
+			return Object.assign({}, state, action.userProfileInfo)
 		default:
 			return state
 	}

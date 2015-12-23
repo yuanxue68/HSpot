@@ -10,7 +10,7 @@ export default class UserSummaryList extends Component{
 	render(){
 		console.log(this.props)
 		var UserSummaryList = this.props.userList.map(function(user, index){
-			return <UserSummary key={index} index={index} user={user}/>
+			return <UserSummary key={index} user={user}/>
 		})
 
 		return(

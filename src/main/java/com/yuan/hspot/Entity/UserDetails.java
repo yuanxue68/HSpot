@@ -3,15 +3,7 @@ package com.yuan.hspot.Entity;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import org.hibernate.annotations.NaturalId;
 
@@ -50,7 +42,7 @@ public class UserDetails {
 
     private String profilePicPath = "/profile/default.png";
 
-    @OneToMany(mappedBy="userDetails")
+    @OneToMany(mappedBy="userDetails", orphanRemoval=true, cascade= CascadeType.ALL)
 	private Collection<Skill> skills = new ArrayList<Skill>();
 	
 	@OneToMany(mappedBy="reviewReceiver")

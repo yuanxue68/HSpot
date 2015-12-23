@@ -1,16 +1,12 @@
 package com.yuan.hspot.DAOTest;
 
+import com.yuan.hspot.Entity.*;
 import org.hibernate.Session;
 import org.hibernate.SessionException;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.service.ServiceRegistry;
-
-import com.yuan.hspot.Entity.Conversation;
-import com.yuan.hspot.Entity.Message;
-import com.yuan.hspot.Entity.Review;
-import com.yuan.hspot.Entity.UserDetails;
 
 
 public class DAOTests {
@@ -29,6 +25,7 @@ public class DAOTests {
         config.addAnnotatedClass(Message.class);
         config.addAnnotatedClass(Review.class);
         config.addAnnotatedClass(Conversation.class);
+        config.addAnnotatedClass(Skill.class);
 
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();
 	    sessionFactory = config.buildSessionFactory(serviceRegistry);

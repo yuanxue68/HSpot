@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import UserProfile from './../components/UserProfile'
 import { connect } from 'react-redux'
-import { getUserInfo, uploadProfilePic, getUserReviews } from './../actions/userProfileAction'
+import { getUserInfo, uploadProfilePic, getUserReviews, changeUserEditable, submitEditUser } from './../actions/userProfileAction'
 
 
 class UserProfileContainer extends Component{
@@ -16,12 +16,18 @@ class UserProfileContainer extends Component{
 	}
 
 	render(){
-		const {dispatch, userProfileInfo, userProfileEditable} = this.props
+		const {dispatch, userProfileInfo, userProfileEditable, authed, params} = this.props
 		console.log(this.props)
 	
 		return (
-			<UserProfile userProfileInfo={userProfileInfo} userProfileEditable={userProfileEditable} 
-			onUploadProfilePic={(file)=>dispatch(uploadProfilePic(file))} />
+			<UserProfile 
+			params={params}
+			authed={authed}
+			userProfileInfo={userProfileInfo} 
+			userProfileEditable={userProfileEditable} 
+			onUploadProfilePic={(file)=>dispatch(uploadProfilePic(file))} 
+			onChangeUserEditable = {(editable)=>dispatch( changeUserEditable(editable) )}
+			onSubmiteEditUser={(userId, userProfileInfo)=>dispatch(submitEditUser(userId, userProfileInfo))}/>
 		)
 
 	}
@@ -30,7 +36,8 @@ class UserProfileContainer extends Component{
 function mapStateToProps(state) {
 	return{
 		userProfileEditable: state.userProfile.userProfileEditable,
-		userProfileInfo: state.userProfile.userProfileInfo
+		userProfileInfo: state.userProfile.userProfileInfo,
+		authed: state.authed
 	}
 }
 
