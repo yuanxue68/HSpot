@@ -1,42 +1,28 @@
-import React, {Component} from 'react'
-import UserProfile from './../components/UserProfile'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getUserInfo, uploadProfilePic, getUserReviews, changeUserEditable, submitEditUser } from './../actions/userProfileAction'
-
-
+import { getUserReviews } from './../actions/userProfileAction'
+import UserProfile from './../components/UserProfile'
 class UserProfileContainer extends Component{
 	constructor(props){
 		super(props)
 	}
 
-	componentDidMount(){
-		const { dispatch, params} = this.props
-		dispatch(getUserInfo(params.id))
-		dispatch(getUserReviews(params.id))
-	}
-
 	render(){
-		const {dispatch, userProfileInfo, userProfileEditable, authed, params} = this.props
-		console.log(this.props)
-	
-		return (
-			<UserProfile 
-			params={params}
-			authed={authed}
-			userProfileInfo={userProfileInfo} 
-			userProfileEditable={userProfileEditable} 
-			onUploadProfilePic={(file)=>dispatch(uploadProfilePic(file))} 
-			onChangeUserEditable = {(editable)=>dispatch( changeUserEditable(editable) )}
-			onSubmiteEditUser={(userId, userProfileInfo)=>dispatch(submitEditUser(userId, userProfileInfo))}/>
+		const { dispatch, authed, userReviews, userProfileInfo } = this.props
+		return(
+			<UserProfile
+			authed = { authed }
+			userProfileInfo = { userProfileInfo }
+			userReviews = { userReviews }
+			onGetUserReview = { (userID) => dispatch(getUserReviews(userID)) }/>
 		)
-
 	}
 }
 
 function mapStateToProps(state) {
-	return{
-		userProfileEditable: state.userProfile.userProfileEditable,
+	return {
 		userProfileInfo: state.userProfile.userProfileInfo,
+		userReviews: state.userProfile.userReviews,
 		authed: state.authed
 	}
 }

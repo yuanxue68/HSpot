@@ -26,8 +26,8 @@ export default class Header extends Component{
 			loginOrLogOut = 
 			(	
 				<ul className="nav navbar-nav navbar-right">
-					<li><Link to={"/user/"+this.props.authed.userID}>My Messages</Link></li>
-					<li><Link to={"/user/"+this.props.authed.userID}>My Profile</Link></li>
+					<li><Link to={"/myprofile"}>My Messages</Link></li>
+					<li><Link to={"/myprofile"}>My Profile</Link></li>
 					<li><a href="#" onClick={this.submitUserSignOut}>Log out</a></li>
 				</ul>
 			)
