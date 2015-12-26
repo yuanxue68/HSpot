@@ -153,7 +153,6 @@ export function submitEditMyInfo(userId,myProfileInfo){
 		return $.ajax({
 			url:url,
 			data:JSON.stringify(myProfileInfo),
-			dataType:"json",
 			traditional:true,
 			contentType:"application/json",
 			method:"PUT",
@@ -162,6 +161,14 @@ export function submitEditMyInfo(userId,myProfileInfo){
 		}).fail((xhr, status, err)=>{
 			dispatch(editMyInfoFailure(xhr.responseText))
 		})
+	}
+}
+
+export const CANCEL_EDIT_MY_INFO = "CANCEL_EDIT_MY_INFO"
+
+export function cancelEditMyinfo(){
+	return {
+		type: CANCEL_EDIT_MY_INFO
 	}
 }
 

@@ -9,8 +9,8 @@ export default class MyProfile extends Component{
 	}
 
 	render(){
-		var name, role, skills, edit, save
-		const { myProfileInfo, onUploadProfilePic, onChangeMyInfoEditable, authed }= this.props
+		var name, role, skills, edit, save, cancel
+		const { myProfileInfo, onUploadProfilePic, onChangeMyInfoEditable, onCancelEditMyInfo, authed }= this.props
 
 		if( !this.props.myProfileEditable ){
 			name = (
@@ -26,6 +26,7 @@ export default class MyProfile extends Component{
 			)
 
 			save = null
+			cancel = null
 		} else {
 			name = (
 				<input id="editName" type="text" defaultValue={myProfileInfo.name}></input>
@@ -49,6 +50,12 @@ export default class MyProfile extends Component{
 			save = (
 				<div onClick={ this.onEditMyInfo } className="btn btn-default col-md-6">
 					Save
+				</div>
+			)
+
+			cancel = (
+				<div onClick={ onCancelEditMyInfo } className="btn btn-default col-md-6">
+					Cancel
 				</div>
 			)
 		}
@@ -81,6 +88,7 @@ export default class MyProfile extends Component{
 						</div>
 					</div>
 					{ save }
+					{ cancel }
 				</div>
 			</div>
 		)
@@ -98,7 +106,7 @@ export default class MyProfile extends Component{
 				console.log("in array")
 				newSkills.push({
 					user: authed.userID,
-					skillName: skill
+					skillName: skill.trim()
 				})
 			})
 		} 

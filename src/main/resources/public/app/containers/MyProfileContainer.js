@@ -1,7 +1,8 @@
 import React, { Component}  from 'react'
 import MyProfile from './../components/MyProfile'
 import { connect } from 'react-redux'
-import { getMyInfo, uploadProfilePic, changeMyInfoEditable, submitEditMyInfo } from './../actions/myProfileAction'
+import { getMyInfo, uploadProfilePic, cancelEditMyinfo } from './../actions/myProfileAction'
+import { changeMyInfoEditable, submitEditMyInfo } from './../actions/myProfileAction'
 
 
 class MyProfileContainer extends Component{
@@ -19,13 +20,14 @@ class MyProfileContainer extends Component{
 	
 		return (
 			<MyProfile 
-			params ={  params }
+			params ={ params }
 			authed = { authed }
 			myProfileInfo = { myProfileInfo } 
 			myProfileEditable = { myProfileEditable } 
 			onUploadProfilePic = { (file) => dispatch(uploadProfilePic(file)) } 
 			onChangeMyInfoEditable = { (editable) => dispatch( changeMyInfoEditable( editable )) }
-			onSubmiteEditMyInfo ={(userId, myProfileInfo) => dispatch(submitEditMyInfo(userId, myProfileInfo)) }/>
+			onSubmiteEditMyInfo ={ (userId, myProfileInfo) => dispatch(submitEditMyInfo(userId, myProfileInfo)) }
+			onCancelEditMyInfo = { () => dispatch(cancelEditMyinfo()) } />
 		)
 
 	}
