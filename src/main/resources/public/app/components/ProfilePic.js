@@ -8,11 +8,24 @@ export default class ProfilePic extends Component{
 	}
 
 	render(){
+		var upload
+		if (this.props.onUploadProfilePic){
+			upload = (
+				<div>
+					<input id="file-upload" className="file-upload" onChange={this.readerURL} type="file" accept="image/*"></input>
+					<div onClick={this.uploadPicture}>Upload Image</div>
+				</div>
+			)
+		} else {
+			upload = null
+		}
+
 		return (
-			<div className="profile-pic-container col-md-3 col-md-offset-1">
-				<img className="profile-pic" src="http://cdn.cutestpaw.com/wp-content/uploads/2012/07/l-Wittle-puppy-yawning.jpg" alt="Profile Picture"></img>
-				<input id="file-upload" className="file-upload" onChange={this.readerURL} type="file" accept="image/*"></input>
-				<div onClick={this.uploadPicture}>Upload Image</div>
+			<div>
+				<div className="profile-pic-container">
+					<img className="profile-pic" src="http://cdn.cutestpaw.com/wp-content/uploads/2012/07/l-Wittle-puppy-yawning.jpg" alt="Profile Picture"></img>
+				</div>
+				{ upload }
 			</div>
 		)
 	}

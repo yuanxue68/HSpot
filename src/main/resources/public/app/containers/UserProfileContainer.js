@@ -1,10 +1,16 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getUserReviews } from './../actions/userProfileAction'
+import { getUserReviews, getUserInfo } from './../actions/userProfileAction'
 import UserProfile from './../components/UserProfile'
 class UserProfileContainer extends Component{
 	constructor(props){
 		super(props)
+	}
+
+	componentDidMount(){
+		const { dispatch, params } = this.props
+		dispatch(getUserInfo(params.id))
+		dispatch(getUserReviews(params.id))
 	}
 
 	render(){

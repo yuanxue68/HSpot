@@ -55,7 +55,9 @@ export default class MyProfile extends Component{
 
 		return(
 			<div className="container">
-				<ProfilePic onUploadProfilePic={ onUploadProfilePic }/>
+				<div className="col-md-3 col-md-offset-1">
+					<ProfilePic onUploadProfilePic={ onUploadProfilePic } />
+				</div>
 				<div className="col-md-7">
 					<div>
 						<h3>My Name: </h3>
@@ -79,7 +81,6 @@ export default class MyProfile extends Component{
 						</div>
 					</div>
 					{ save }
-					{/*<ReviewsList reviews={myProfileInfo.reviews}/>*/}
 				</div>
 			</div>
 		)

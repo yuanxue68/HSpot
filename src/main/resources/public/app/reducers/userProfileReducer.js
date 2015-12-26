@@ -14,7 +14,7 @@ export default function userProfile (state = initialState, action){
 	switch (type) {
 		case ActionTypes.GET_USER_INFO_SUCCESS:
 			return Object.assign({}, state, {
-				ProfileInfo: {
+				userProfileInfo: {
 					name:action.userProfileInfo.name,
 					role:action.userProfileInfo.role,
 					skills: action.userProfileInfo.skills,

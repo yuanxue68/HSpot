@@ -44,10 +44,10 @@ function getUserInfoRequest(){
 	}
 }
 
-function getUserInfoSucess(myProfileInfo){
+function getUserInfoSucess(userProfileInfo){
 	return{
 		type: GET_USER_INFO_SUCCESS,
-		myProfileInfo
+		userProfileInfo
 	}
 }
 
