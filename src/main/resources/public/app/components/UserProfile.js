@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReviewsList from './ReviewsList'
 import ProfilePic from './ProfilePic'
 import UserInfoBox from './UserInfoBox'
+import ReviewTextArea from './ReviewTextArea'
 
 export default class UserProfile extends Component{
 	constructor(props){
@@ -9,7 +10,7 @@ export default class UserProfile extends Component{
 	}
 
 	render(){
-		const { authed, userReviews, userProfileInfo } = this.props
+		const { authed, userReviews, userProfileInfo, onSubmitUserReview, params } = this.props
 
 		return(
 			<div className="container">
@@ -25,6 +26,7 @@ export default class UserProfile extends Component{
 						<h3>About Me: </h3>
 					</div>
 					<ReviewsList reviews={userReviews}/>
+					<ReviewTextArea authed={ authed } params={ params } onSubmitUserReview={ onSubmitUserReview }/>
 				</div>
 			</div>
 		)

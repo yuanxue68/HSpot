@@ -49,12 +49,25 @@ public class ReviewResource {
 	@UnitOfWork
 	public Response createUserReview(@PathParam("userId") int userId, Review review, @Auth User user){
 		if(review.getReviewContent().isEmpty()){
-			Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.EMPTY_REVIEW).build();
+			return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.EMPTY_REVIEW).build();
 		}
+
+        if(user.getUserId() == userId){
+            return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.REVIEW_CANT_REVIEW_YOURSELF).build();
+        }
+
 		review.setReviewGiver(new UserDetails(user.getUserId()));
 		review.setReviewReceiver(new UserDetails(userId));
+
 		Review reviewCreated = reviewDAO.create(review);
-		return Response.ok(reviewCreated).build();
+		ReviewSummary reviewSummary = new ReviewSummary(
+				review.getReviewID(),
+				review.getReviewContent(),
+                review.getReviewGiver().getUserID(),
+                "",
+                review.getStar()
+				);
+		return Response.ok(reviewSummary).build();
 	}
 	
 	@PUT

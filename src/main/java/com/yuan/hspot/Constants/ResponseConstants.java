@@ -5,6 +5,7 @@ public class ResponseConstants {
 	public static final String EMPTY_REVIEW = "Review can not be empty";
 	public static final String REVIEW_NO_EDIT_RIGHT = "You do not have the right to edit this review";
 	public static final String REVIEW_NO_DELETE_RIGHT = "You do not have the right to delete this review";
+	public static final String REVIEW_CANT_REVIEW_YOURSELF = "You can not give review to yourself";
 	
 	//message resource constants
 	public static final String MESSAGE_NO_CREATION_RIGHT = "You cannot post message to this conversation";

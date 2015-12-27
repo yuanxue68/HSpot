@@ -24,6 +24,10 @@ export default function userProfile (state = initialState, action){
 			return Object.assign({}, state, {
 				userReviews: action.reviews
 			})
+		case ActionTypes.SUBMIT_USER_REVIEW_SUCCESS:
+			return Object.assign({},state, {
+				userReviews: [...state.userReviews, action.review]
+			})
 		default:
 			return state
 	}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getUserReviews, getUserInfo } from './../actions/userProfileAction'
+import { getUserReviews, getUserInfo, submitUserReview } from './../actions/userProfileAction'
 import UserProfile from './../components/UserProfile'
 class UserProfileContainer extends Component{
 	constructor(props){
@@ -14,13 +14,15 @@ class UserProfileContainer extends Component{
 	}
 
 	render(){
-		const { dispatch, authed, userReviews, userProfileInfo } = this.props
+		const { dispatch, authed, userReviews, userProfileInfo, params } = this.props
 		return(
 			<UserProfile
 			authed = { authed }
 			userProfileInfo = { userProfileInfo }
 			userReviews = { userReviews }
-			onGetUserReview = { (userID) => dispatch(getUserReviews(userID)) }/>
+			params = { params }
+			onGetUserReview = { (userID) => dispatch(getUserReviews(userID)) }
+			onSubmitUserReview = { (review, userID) => dispatch(submitUserReview(review, userID)) }/>
 		)
 	}
 }

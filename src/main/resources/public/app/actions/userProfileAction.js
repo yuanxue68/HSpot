@@ -78,3 +78,47 @@ export function getUserInfo(userID){
 		})
 	}
 }
+
+export const SUBMIT_USER_REVIEW_REQUEST = 'ADD_USER_REVIEW_REQUEST'
+export const SUBMIT_USER_REVIEW_SUCCESS = 'ADD_USER_REVIEW_SUCCESS'
+export const SUBMIT_USER_REVIEW_FAILURE = 'ADD_USER_REVIEW_FAILURE'
+
+function submitUserReviewSuccess(review){
+	return {
+		type:SUBMIT_USER_REVIEW_SUCCESS,
+		review
+	}
+}
+
+function submitUserReviewFailure(error){
+	return {
+		type:SUBMIT_USER_REVIEW_FAILURE,
+		error
+	}
+}
+
+function submitUserReviewRequest(){
+	return {
+		type:SUBMIT_USER_REVIEW_REQUEST
+	}
+}
+
+export function submitUserReview(review, userID){
+	return function(dispatch){
+		dispatch(submitUserReviewRequest())
+		var url = '/api/user/'+userID+'/reviews/'
+		return $.ajax({
+			url: url,
+			dataType:"json",
+			cache: "false",
+			contentType:"application/json",
+			method:"POST",
+			data:JSON.stringify(review)
+		}).done((data)=>{
+			dispatch(submitUserReviewSuccess(data))
+		}).fail((xhr, status, err)=>{
+			dispatch(submitUserReviewFailure(xhr.responseText))
+		})
+	}
+}
+
