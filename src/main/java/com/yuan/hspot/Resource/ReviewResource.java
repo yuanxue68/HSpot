@@ -61,11 +61,11 @@ public class ReviewResource {
 
 		Review reviewCreated = reviewDAO.create(review);
 		ReviewSummary reviewSummary = new ReviewSummary(
-				review.getReviewID(),
-				review.getReviewContent(),
-                review.getReviewGiver().getUserID(),
+                reviewCreated.getReviewID(),
+                reviewCreated.getReviewContent(),
+                reviewCreated.getReviewGiver().getUserID(),
                 "",
-                review.getStar()
+                reviewCreated.getStar()
 				);
 		return Response.ok(reviewSummary).build();
 	}

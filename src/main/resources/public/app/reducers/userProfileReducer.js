@@ -25,8 +25,19 @@ export default function userProfile (state = initialState, action){
 				userReviews: action.reviews
 			})
 		case ActionTypes.SUBMIT_USER_REVIEW_SUCCESS:
-			return Object.assign({},state, {
+			return Object.assign({}, state, {
 				userReviews: [...state.userReviews, action.review]
+			})
+		case ActionTypes.DELETE_USER_REVIEW_SUCCESS:
+			var newReviews = []
+			console.log(action)
+			state.userReviews.forEach((review) => {
+				if(review.reviewId != action.deletedId){				
+					newReviews.push(review)
+				}
+			})
+			return Object.assign({}, state, {
+				userReviews: newReviews
 			})
 		default:
 			return state

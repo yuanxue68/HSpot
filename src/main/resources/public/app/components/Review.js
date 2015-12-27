@@ -6,10 +6,24 @@ export default class extends Component{
 	}
 
 	render(){
+		const { authed, review, onDeleteUserReview } = this.props
+		var deleteButton, editButton
+
+		if(Number(authed.userID) === Number(review.reviewGiverID)){
+			deleteButton = (<button type="button" className="close" onClick={ onDeleteUserReview.bind(null, authed.userID, review.reviewId) } >
+				<span aria-hidden="true">&times;</span>
+			</button>)
+			editButton = (<a className="pull-right">Edit</a>)
+		} else {
+			deleteButton = null
+			editButton = null
+		}
 		return(
 			<div className="well">
-				<div>{this.props.review.reviewContent}</div>
-				<div>{this.props.review.star}</div>
+				{deleteButton}
+				{editButton}
+				<div>{review.reviewContent}</div>
+				<div>{review.star}</div>
 			</div>
 		)
 	}

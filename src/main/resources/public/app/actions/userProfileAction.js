@@ -122,3 +122,42 @@ export function submitUserReview(review, userID){
 	}
 }
 
+export const DELETE_USER_REVIEW_REQUEST = 'DELETE_USER_REVIEW_REQUEST'
+export const DELETE_USER_REVIEW_SUCCESS = 'DELETE_USER_REVIEW_SUCCESS'
+export const DELETE_USER_REVIEW_FAILURE = 'DELETE_USER_REVIEW_FAILURE'
+
+function deleteUserReviewRequest(){
+	return {
+		type:DELETE_USER_REVIEW_REQUEST,
+	}
+}
+
+function deleteUserReviewSuccess(deletedId){
+	return {
+		type:DELETE_USER_REVIEW_SUCCESS,
+		deletedId
+	}
+}
+
+function deleteUserReviewFailure(error){
+	return {
+		type:DELETE_USER_REVIEW_FAILURE,
+		error
+	}
+}
+
+export function deleteUserReview (userID, reviewID) {
+	return function(dispatch){
+		dispatch(deleteUserReviewRequest())
+		var url = "/api/user/"+userID+"/reviews/"+reviewID
+		return $.ajax({
+			url:url,
+			method: "DELETE"
+		}).done((data) => {
+			dispatch(deleteUserReviewSuccess(reviewID))
+		}).fail((xhr, status, err) => {
+			dispatch(deleteUserReviewFailure(xhr.responseText))
+		})
+	}
+}
+

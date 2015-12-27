@@ -10,7 +10,7 @@ export default class UserProfile extends Component{
 	}
 
 	render(){
-		const { authed, userReviews, userProfileInfo, onSubmitUserReview, params } = this.props
+		const { authed, userReviews, userProfileInfo, onSubmitUserReview, params, onDeleteUserReview } = this.props
 
 		return(
 			<div className="container">
@@ -25,8 +25,14 @@ export default class UserProfile extends Component{
 					<div>
 						<h3>About Me: </h3>
 					</div>
-					<ReviewsList reviews={userReviews}/>
-					<ReviewTextArea authed={ authed } params={ params } onSubmitUserReview={ onSubmitUserReview }/>
+					<ReviewsList 
+						reviews={userReviews} 
+						authed={ authed }
+						onDeleteUserReview={ onDeleteUserReview } />
+					<ReviewTextArea 
+						authed={ authed } 
+						params={ params } 
+						onSubmitUserReview={ onSubmitUserReview } />
 				</div>
 			</div>
 		)

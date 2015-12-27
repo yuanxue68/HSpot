@@ -8,9 +8,14 @@ export default class ReviewsList extends Component{
 	render(){
 		console.log(this.props)
 		var reviews
+		const { authed, onDeleteUserReview } = this.props
 		if(this.props.reviews.length){
 	 		reviews = this.props.reviews.map(function(review, index){
-				return <Review key={index} review={review}/>
+				return <Review 
+					key={index} 
+					review={review} 
+					authed={authed} 
+					onDeleteUserReview={ onDeleteUserReview } />
 			})
 		} else {
 			reviews=null
