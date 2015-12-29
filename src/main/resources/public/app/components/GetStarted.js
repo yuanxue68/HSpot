@@ -5,9 +5,9 @@ import {openModal} from './../util/utils'
 export default class GetStarted extends Component {
 	render(){
 		return (
-			<div className="col-centered">
-				<button className="btn btn-default btn-lg off" onClick={openModal.bind(null,"#signUpModal")}>Sign Up</button>
-				<Link className="btn btn-default btn-lg" to="/user">Find Partner</Link>
+			<div className="get-started">
+				<button className="btn btn-default btn-lg small-margin" onClick={openModal.bind(null,"#signUpModal")}>Sign Up</button>
+				<Link className="btn btn-default btn-lg small-margin" to="/user">Find Partner</Link>
 			</div>
 		)
 	}

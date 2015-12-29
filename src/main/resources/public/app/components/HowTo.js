@@ -25,7 +25,7 @@ export default class HowTo extends Component{
 			}
 		]
 		return (
-			<div className="col-centered row">
+			<div className="col-centered row how-to">
 				{howToInfo.map(function(info,i){
 					return <Step key={i} info={info}/>
 				})}

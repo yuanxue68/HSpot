@@ -1,9 +1,67 @@
-#step{
-	font-size: 3em;
-	margin: 10px;
+.navbar-default {
+  background-color: #352f44;
+  border-color: #352f44;
 }
 
-.step-title{
-	font-size:1.5em;
-	font-weight:900;
+.navbar {
+    border-radius: 0px;
 }
+
+.navbar-brand,
+.navbar-nav li a, .navbar-default .navbar-nav>li>a {
+    line-height: 70px;
+    height: 70px;
+    padding-top: 0;
+    color:#d1cddc;
+    font-size: 16px;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+	color:#FFFFFF;
+}
+
+.navbar-nav>li>a:visited{
+  color:#FFFFFF;
+}
+
+.banner {
+	height:70vh;
+  background-image: url("./../style/images/background.jpeg");
+	background-size: cover;   
+  color: #FFFFFF;
+  position: relative;
+  .get-started {
+		position: absolute;
+		bottom: 15%; /* position the top  edge of the element at the middle of the parent */
+	  left: 50%; /* position the left edge of the element at the middle of the parent */
+		transform: translate(-50%);
+	}
+}
+
+.how-to{
+	margin-top:30px;
+	margin-bottom:30px;
+
+	#step {
+		font-size: 3em;
+		margin: 10px;
+	}
+
+	.step-title {
+		font-size:1.5em;
+		font-weight:900;
+	}
+}
+
+.footer{
+	position: absolute;
+  width: 100%;
+  left: 0;
+	text-align:center;
+	height:80px;
+	background-color: #1b2332;
+	color: #f0f0f0;
+	padding:30px;
+}
+
+

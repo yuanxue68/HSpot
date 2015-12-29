@@ -5,6 +5,7 @@ export default class ProfilePic extends Component{
 		super(props)
 		this.readerURL = readerURL.bind(this);
 		this.uploadPicture = uploadPicture.bind(this);
+		this.clickUpload = clickUpload.bind(this);
 	}
 
 	render(){
@@ -12,8 +13,11 @@ export default class ProfilePic extends Component{
 		if (this.props.onUploadProfilePic){
 			upload = (
 				<div>
-					<input id="file-upload" className="file-upload" onChange={this.readerURL} type="file" accept="image/*"></input>
-					<div onClick={this.uploadPicture}>Upload Image</div>
+					<input id="file-upload" className="hide" onChange={this.readerURL} type="file" accept="image/*"></input>
+					<div>
+						<button className="btn btn-xs small-round-border" onClick={this.clickUpload}>Choose An Image</button>
+						<button className="btn btn-xs small-round-border" onClick={this.uploadPicture}>Upload This Image</button>
+					</div>
 				</div>
 			)
 		} else {
@@ -21,14 +25,18 @@ export default class ProfilePic extends Component{
 		}
 
 		return (
-			<div>
-				<div className="profile-pic-container">
+			<div className="profile-component">
+				<div className="profile-pic-container small-round-border">
 					<img className="profile-pic" src="http://cdn.cutestpaw.com/wp-content/uploads/2012/07/l-Wittle-puppy-yawning.jpg" alt="Profile Picture"></img>
 				</div>
 				{ upload }
 			</div>
 		)
 	}
+}
+
+function clickUpload(){
+	document.getElementById("file-upload").click();
 }
 
 function uploadPicture(){

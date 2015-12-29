@@ -1,7 +1,3 @@
-@import 'home';
-@import 'profile';
-@import 'explore';
-
 .col-centered{
 	margin:auto;
 	text-align: center;
@@ -10,3 +6,32 @@
 .body{
 	font-family: 'Open Sans', sans-serif;
 }
+
+.btn {
+	background-color: #00a8f2;
+	border-color: #00a8f2;
+	color:#FFFFFF;
+	border-radius:0px;
+}
+
+.btn:hover {
+	background-color: #427B94;
+	border-color: #427B94;
+	color:#FFFFFF;
+}
+
+.small-margin {
+	margin:2px;
+}
+
+.small-round-border {
+	border-radius:10px;
+}
+
+.hide{
+	visibility: hidden;
+}
+
+@import 'home';
+@import 'profile';
+@import 'explore';

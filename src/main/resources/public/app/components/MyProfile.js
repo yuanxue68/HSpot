@@ -67,12 +67,12 @@ export default class MyProfile extends Component{
 				</div>
 				<div className="col-md-7">
 					<div>
+							<div className="btn btn-default pull-right small-round-border" onClick={ onChangeMyInfoEditable.bind(null,"name") }>
+								Edit
+							</div>
 						<h3>My Name: </h3>
 						<div className="well">
 							{ name }
-							<div className="btn btn-default" onClick={ onChangeMyInfoEditable.bind(null,"name") }>
-								Edit
-							</div>
 						</div>
 					</div>
 					<div>

@@ -146,7 +146,7 @@ function deleteUserReviewFailure(error){
 	}
 }
 
-export function deleteUserReview (userID, reviewID) {
+export function deleteUserReview (userID, reviewID){
 	return function(dispatch){
 		dispatch(deleteUserReviewRequest())
 		var url = "/api/user/"+userID+"/reviews/"+reviewID
@@ -161,3 +161,45 @@ export function deleteUserReview (userID, reviewID) {
 	}
 }
 
+/*
+export const EDIT_USER_REVIEW_REQUEST = 'EDIT_USER_REVIEW_REQUEST'
+export const EDIT_USER_REVIEW_SUCCESS = 'EDIT_USER_REVIEW_SUCCESS'
+export const EDIT_USER_REVIEW_FAILURE = 'EDIT_USER_REVIEW_FAILURE'
+
+function editUserReviewRequest(){
+	return {
+		type: EDIT_USER_REVIEW_REQUEST
+	}
+}
+
+function editUserReviewSuccess(newReview){
+	return {
+		type: EDIT_USER_REVIEW_SUCCESS,
+		newReview
+	}
+}
+
+function editUserReviewFailure(error){
+	return {
+		type: EDIT_USER_REVIEW_FAILURE,
+		error
+	}
+}
+
+export function editUserReview(userID, newReview){
+	return function(dispatch){
+		dispatch(editUserReviewRequest())
+		var url = "/api/user/"+userID+"/reviews/"+newReview.reviewId
+		return $.ajax({
+			url: url,
+			method: "PUT",
+			contentType:"application/json",
+			data: JSON.stringify(newReview)
+		}).done((data) => {
+			dispatch(editUserReviewSuccess(data))
+		}).fail((xhr, status, err) => {
+			dispatch(editUserReviewFailure())
+		})
+	}
+}
+*/
