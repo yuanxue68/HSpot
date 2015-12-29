@@ -14,16 +14,16 @@ export default class UserProfile extends Component{
 
 		return(
 			<div className="container">
-				<div className="col-md-3 col-md-offset-1">
+				<div className="col-md-3">
 					<ProfilePic canUpload={false} />
 					<UserInfoBox userProfileInfo={userProfileInfo} />
 				</div>
-				<div className="col-md-7">
+				<div className="col-md-8">
 					<div>
-						<h1>Hey! My name is {this.props.userProfileInfo.name} </h1>
+						<h1 className="bold">Hey! My name is {this.props.userProfileInfo.name} </h1>
 					</div>
 					<div>
-						<h3>About Me: </h3>
+						<h3 className="bold">About Me: </h3>
 					</div>
 					<ReviewsList 
 						reviews={userReviews} 

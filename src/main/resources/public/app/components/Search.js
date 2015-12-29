@@ -9,7 +9,7 @@ export default class Search extends Component{
 	render(){
 		return(
 			<div>
-				<h3 className="col-centered">Search For Your Next Partner</h3>
+				<h3 className="col-centered bold">Search For Your Next Partner</h3>
 				<div className="row">
 					<div className="form-group col-md-3">
 						<label htmlFor="">Name</label>

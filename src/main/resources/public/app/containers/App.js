@@ -32,14 +32,12 @@ class App extends Component {
     }
 
     return (
-      <p style={{ backgroundColor: '#e99', padding: 10 }}>
+      <div className="col-md-10 col-md-offset-1 warning">
         <b>{errorMessage}</b>
-        {' '}
-        (<a href="#"
-            onClick={this.handleDismissClick}>
-          Dismiss
-        </a>)
-      </p>
+        <button type="button" className="close" onClick={ this.handleDismissClick } >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
     )
   }
 

@@ -29,7 +29,7 @@ export default class MyProfile extends Component{
 			cancel = null
 		} else {
 			name = (
-				<input id="editName" type="text" defaultValue={myProfileInfo.name}></input>
+				<input id="editName" className="form-control"  type="text" defaultValue={myProfileInfo.name}></input>
 			)
 
 			role = (
@@ -44,17 +44,17 @@ export default class MyProfile extends Component{
 			)
 
 			skills = (
-				<input id="editSkills" type="text" defaultValue={myProfileInfo.skills.join(", ")}></input>
+				<input id="editSkills" className="form-control" type="text" defaultValue={myProfileInfo.skills.join(", ")}></input>
 			)
 
 			save = (
-				<div onClick={ this.onEditMyInfo } className="btn btn-default col-md-6">
+				<div onClick={ this.onEditMyInfo } className="btn small-margin">
 					Save
 				</div>
 			)
 
 			cancel = (
-				<div onClick={ onCancelEditMyInfo } className="btn btn-default col-md-6">
+				<div onClick={ onCancelEditMyInfo } className="btn btn-red small-margin">
 					Cancel
 				</div>
 			)
@@ -62,33 +62,35 @@ export default class MyProfile extends Component{
 
 		return(
 			<div className="container">
-				<div className="col-md-3 col-md-offset-1">
+				<div className="col-md-3">
 					<ProfilePic onUploadProfilePic={ onUploadProfilePic } />
 				</div>
-				<div className="col-md-7">
+				<div className="col-md-8">
 					<div>
-							<div className="btn btn-default pull-right small-round-border" onClick={ onChangeMyInfoEditable.bind(null,"name") }>
+							<div className="btn pull-right" onClick={ onChangeMyInfoEditable.bind(null,"name") }>
 								Edit
 							</div>
-						<h3>My Name: </h3>
+						<h3 className="bold">My Name: </h3>
 						<div className="well">
 							{ name }
 						</div>
 					</div>
 					<div>
-						<h3>My Role: </h3>
+						<h3 className="bold">My Role: </h3>
 						<div className="well">
 							{role}
 						</div>
 					</div>
 					<div>
-						<h3>My Skill: </h3>
+						<h3 className="bold">My Skill: </h3>
 						<div className="well">
 							{skills}
 						</div>
 					</div>
+					<div className="col-centered">
 					{ save }
 					{ cancel }
+					</div>
 				</div>
 			</div>
 		)

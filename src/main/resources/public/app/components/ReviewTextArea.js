@@ -14,7 +14,7 @@ export default class ReviewTextArea extends Component{
 					<textarea id="reviewTextArea" className="form-control">
 					</textarea>
 				</div>
-				<button className="btn btn-primary" onClick={ this.submitReview } >Submit</button>
+				<button className="btn btn-default small-margin pull-right" onClick={ this.submitReview } >Submit</button>
 			</div>
 		)
 	}

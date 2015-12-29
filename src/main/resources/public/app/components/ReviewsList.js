@@ -23,7 +23,7 @@ export default class ReviewsList extends Component{
 		return(
 			<div>
 				<br></br>
-				<h3>Reviews</h3>
+				<h3 className="bold">Reviews</h3>
 				<div>
 					{reviews}
 				</div>
