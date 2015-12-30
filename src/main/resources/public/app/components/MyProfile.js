@@ -61,7 +61,7 @@ export default class MyProfile extends Component{
 		}
 
 		return(
-			<div className="container">
+			<div className="container userProfile">
 				<div className="col-md-3">
 					<ProfilePic onUploadProfilePic={ onUploadProfilePic } />
 				</div>
@@ -70,20 +70,20 @@ export default class MyProfile extends Component{
 							<div className="btn pull-right" onClick={ onChangeMyInfoEditable.bind(null,"name") }>
 								Edit
 							</div>
-						<h3 className="bold">My Name: </h3>
-						<div className="well">
+						<h3>My Name: </h3>
+						<div className="well grey-font">
 							{ name }
 						</div>
 					</div>
 					<div>
-						<h3 className="bold">My Role: </h3>
-						<div className="well">
+						<h3>My Role: </h3>
+						<div className="well grey-font">
 							{role}
 						</div>
 					</div>
 					<div>
-						<h3 className="bold">My Skill: </h3>
-						<div className="well">
+						<h3>My Skill: </h3>
+						<div className="well grey-font">
 							{skills}
 						</div>
 					</div>

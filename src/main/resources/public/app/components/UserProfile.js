@@ -13,7 +13,7 @@ export default class UserProfile extends Component{
 		const { authed, userReviews, userProfileInfo, onSubmitUserReview, params, onDeleteUserReview } = this.props
 
 		return(
-			<div className="container">
+			<div className="container userProfile">
 				<div className="col-md-3">
 					<ProfilePic canUpload={false} />
 					<UserInfoBox userProfileInfo={userProfileInfo} />
@@ -26,7 +26,7 @@ export default class UserProfile extends Component{
 						<h3 className="bold">About Me: </h3>
 					</div>
 					<ReviewsList 
-						reviews={userReviews} 
+						reviews={ userReviews } 
 						authed={ authed }
 						onDeleteUserReview={ onDeleteUserReview } />
 					<ReviewTextArea 

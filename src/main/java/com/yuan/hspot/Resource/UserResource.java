@@ -1,9 +1,12 @@
 package com.yuan.hspot.Resource;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import javax.imageio.ImageIO;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -79,11 +82,19 @@ public class UserResource {
     @Path("/profilepic")
     @UnitOfWork
     public Response uploadProfilePic(@FormDataParam("file") InputStream uploadedInputStream,@Auth User user)throws IOException{
-        String fileDir = "ProfilePic/";
+        String profileDirPath = "images/profile_pic/";
+        String thumbnailDirPath = "images/thumbnail/";
         String fileName = user.getUserId()+".png";
-        writeToFile(uploadedInputStream, "ProfilePic", fileName);
-        userDAO.updateProfilePic(fileDir+fileName,user.getUserId());
-        return Response.ok().entity(fileDir+fileName).build();
+        writeToFile(uploadedInputStream, profileDirPath, fileName);
+        //resize image to use for thumb nails
+        BufferedImage img = new BufferedImage(50, 50, BufferedImage.TYPE_INT_RGB);
+        img.createGraphics().drawImage(ImageIO.read(new File(profileDirPath+fileName)).getScaledInstance(50, 50, Image.SCALE_SMOOTH),0,0,null);
+        File thumbnailDir = new File(thumbnailDirPath);
+        thumbnailDir.mkdirs();
+        ImageIO.write(img, "png", new File(thumbnailDirPath+fileName));
+
+        userDAO.updateProfilePic(profileDirPath+fileName,user.getUserId());
+        return Response.ok().entity(profileDirPath+fileName).build();
     }
 
     private void writeToFile(InputStream inputStream, String fileDir, String fileName) throws IOException{
@@ -91,7 +102,7 @@ public class UserResource {
         final int BUFFER_LENGTH = 1024;
         final byte[] buffer = new byte[BUFFER_LENGTH];
         File profileDir = new File(fileDir);
-        profileDir.mkdir();
+        profileDir.mkdirs();
         File file = new File(fileDir, fileName);
         file.createNewFile();
         OutputStream outputStream = new FileOutputStream(file);

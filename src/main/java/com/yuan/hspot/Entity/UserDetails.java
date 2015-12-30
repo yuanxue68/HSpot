@@ -40,7 +40,10 @@ public class UserDetails {
 	
 	private String role;
 
-    private String profilePicPath = "/profile/default.png";
+    private String profilePicPath = "images/profile_pic/default.png";
+
+	@Column(columnDefinition="TEXT")
+	private String description;
 
     @OneToMany(mappedBy="userDetails", orphanRemoval=true, cascade= CascadeType.ALL)
 	private Collection<Skill> skills = new ArrayList<Skill>();
@@ -66,6 +69,14 @@ public class UserDetails {
 	
 	public UserDetails() {
 	
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public int getUserID() {

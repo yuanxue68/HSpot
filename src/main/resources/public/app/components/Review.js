@@ -17,7 +17,7 @@ export default class extends Component{
 			deleteButton = null
 		}
 		return(
-			<div className="well">
+			<div className="well grey-font">
 				{deleteButton}
 				<div>{review.reviewContent}</div>
 				<div>{review.star}</div>

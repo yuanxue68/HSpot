@@ -1,6 +1,7 @@
 package com.yuan.hspot;
 
 import com.yuan.hspot.Entity.*;
+import com.yuan.hspot.Resource.*;
 import io.dropwizard.forms.MultiPartBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,11 +12,6 @@ import com.yuan.hspot.DAO.ConversationDAO;
 import com.yuan.hspot.DAO.MessageDAO;
 import com.yuan.hspot.DAO.ReviewDAO;
 import com.yuan.hspot.DAO.UserDAO;
-import com.yuan.hspot.Resource.ConversationResource;
-import com.yuan.hspot.Resource.MessageResource;
-import com.yuan.hspot.Resource.ReviewResource;
-import com.yuan.hspot.Resource.TokenResource;
-import com.yuan.hspot.Resource.UserResource;
 
 import io.dropwizard.Application;
 import io.dropwizard.assets.AssetsBundle;
@@ -76,6 +72,7 @@ public class App extends Application<HspotConfiguration>
 		environment.jersey().register(new MessageResource(messageDAO, userDAO));
 		environment.jersey().register(new ReviewResource(reviewDAO, userDAO));
 		environment.jersey().register(new ConversationResource(conversationDAO));
+        environment.jersey().register(new ImageResource());
 		environment.jersey().register(new TokenResource());
 
     }

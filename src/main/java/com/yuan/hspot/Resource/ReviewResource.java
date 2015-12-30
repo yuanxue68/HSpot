@@ -38,7 +38,7 @@ public class ReviewResource {
 	@GET
 	@Path("/")
 	@UnitOfWork
-	public Response getUserReview(@PathParam("userId") int userId, @Auth User user){
+	public Response getUserReview(@PathParam("userId") int userId){
 		List<ReviewSummary> reviews = reviewDAO.findReviewByUser(userId);
 		return Response.ok(reviews).build();
 	}

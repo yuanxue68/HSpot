@@ -28,7 +28,7 @@ export default class UserInfoBox extends Component{
 						My Skill
 					</div>
 					<div className="grey-font">
-						{userProfileInfo.skills}
+						{userProfileInfo.skills.join(" ")}
 					</div>
 				</div>
 			</div>

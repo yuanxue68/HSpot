@@ -1,29 +1,3 @@
-.navbar-default {
-  background-color: #352f44;
-  border-color: #352f44;
-}
-
-.navbar {
-    border-radius: 0px;
-}
-
-.navbar-brand,
-.navbar-nav li a, .navbar-default .navbar-nav>li>a {
-    line-height: 70px;
-    height: 70px;
-    padding-top: 0;
-    color:#d1cddc;
-    font-size: 16px;
-}
-
-.navbar-default .navbar-nav>li>a:hover {
-	color:#FFFFFF;
-}
-
-.navbar-nav>li>a:visited{
-  color:#FFFFFF;
-}
-
 .banner {
 	height:70vh;
   background-image: url("./../style/images/background.jpeg");
@@ -49,7 +23,7 @@
 
 	.step-title {
 		font-size:1.5em;
-		font-weight:900;
+		font-weight:400;
 	}
 }
 

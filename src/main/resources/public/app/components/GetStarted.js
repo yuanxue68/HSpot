@@ -6,8 +6,8 @@ export default class GetStarted extends Component {
 	render(){
 		return (
 			<div className="get-started">
-				<button className="btn btn-default btn-lg small-margin" onClick={openModal.bind(null,"#signUpModal")}>Sign Up</button>
-				<Link className="btn btn-default btn-lg small-margin" to="/user">Find Partner</Link>
+				<button className="btn solid-btn btn-lg small-margin" onClick={openModal.bind(null,"#signUpModal")}>Sign Up</button>
+				<Link className="btn solid-btn btn-lg small-margin" to="/user">Find Partner</Link>
 			</div>
 		)
 	}

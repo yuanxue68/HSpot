@@ -35,7 +35,8 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 		UserSummary userSummary = new UserSummary(userDetails.getUserID(),userDetails.getName(),
 				userDetails.getEmail(),
 				userDetails.getRole(),
-				userDetails.getSkills());
+				userDetails.getSkills(),
+                userDetails.getProfilePicPath());
 
         return userSummary;
     }
@@ -105,7 +106,8 @@ public class UserDAO extends AbstractDAO<UserDetails>{
             userSummaries.add(new UserSummary(result.getUserID(),result.getName(),
                     result.getEmail(),
                     result.getRole(),
-                    result.getSkills()));
+                    result.getSkills(),
+                    result.getProfilePicPath()));
         }
 		return userSummaries;
 	}

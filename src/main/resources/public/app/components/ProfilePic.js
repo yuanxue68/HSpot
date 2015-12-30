@@ -15,8 +15,8 @@ export default class ProfilePic extends Component{
 				<div>
 					<input id="file-upload" className="hide" onChange={this.readerURL} type="file" accept="image/*"></input>
 					<div>
-						<button className="btn btn-xs small-round-border" onClick={this.clickUpload}>Choose An Image</button>
-						<button className="btn btn-xs small-round-border" onClick={this.uploadPicture}>Upload This Image</button>
+						<button className="btn btn-xs btn-white small-round-border small-margin" onClick={this.clickUpload}>Choose An Image</button>
+						<button className="btn btn-xs btn-white small-round-border small-margin" onClick={this.uploadPicture}>Upload This Image</button>
 					</div>
 				</div>
 			)
@@ -26,7 +26,7 @@ export default class ProfilePic extends Component{
 
 		return (
 			<div className="profile-component">
-				<div className="profile-pic-container small-round-border">
+				<div className="profile-pic-container">
 					<img className="profile-pic" src="http://cdn.cutestpaw.com/wp-content/uploads/2012/07/l-Wittle-puppy-yawning.jpg" alt="Profile Picture"></img>
 				</div>
 				{ upload }

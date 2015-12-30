@@ -16,19 +16,19 @@ export default class Header extends Component{
 		if(!this.props.authed.authed){
 			console.log("signedout")
 			loginOrLogOut = (	
-				<ul className="nav navbar-nav navbar-right">
-					<li><a href="#" onClick={openModal.bind(null,"#logInModal")}>Log In</a></li>
-					<li><a href="#" onClick={openModal.bind(null,"#signUpModal")}>Sign Up</a></li>
-				</ul>
+				<div className="nav navbar-nav navbar-right">
+					<li><a className="btn btn-white" href="#" onClick={openModal.bind(null,"#logInModal")}>Log In</a></li>
+					<li><a className="btn btn-white" href="#" onClick={openModal.bind(null,"#signUpModal")}>Sign Up</a></li>
+				</div>
 			)
 		} else {
 			console.log("signedin")
 			loginOrLogOut = 
 			(	
 				<ul className="nav navbar-nav navbar-right">
-					<li><Link to={"/myprofile"}>My Messages</Link></li>
-					<li><Link to={"/myprofile"}>My Profile</Link></li>
-					<li><a href="#" onClick={this.submitUserSignOut}>Log out</a></li>
+					<li><Link className="btn btn-white" to={"/myprofile"}>My Messages</Link></li>
+					<li><Link className="btn btn-white" to={"/myprofile"}>My Profile</Link></li>
+					<li><a className="btn btn-white" href="#" onClick={this.submitUserSignOut}>Log out</a></li>
 				</ul>
 			)
 		}
@@ -46,13 +46,13 @@ export default class Header extends Component{
 								<span className="icon-bar"></span>
 							</button>
 							<Link className="navbar-brand" to="/">
-								<img alt="Brand" />
+								<img alt="Brand" src="./../style/images/logo.png"/>
 							</Link>
 						</div>
 						<div className="collapse navbar-collapse" id="login-nav">
-							<ul className="nav navbar-nav">
-								<li><Link to="/user">Explore</Link></li>
-							</ul>
+							<div className="nav navbar-nav">
+								<li><Link className="btn btn-green" to="/user">Explore</Link></li>
+							</div>
 							{loginOrLogOut}
 						</div>
 					</div>
