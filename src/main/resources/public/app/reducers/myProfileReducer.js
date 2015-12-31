@@ -5,7 +5,8 @@ var initialState = {
 	myProfileInfo:{
 		name:"",
 		role:"",
-		skills:[]
+		skills:[],
+		description:""
 	}
 }
 export default function myProfile(state = initialState, action){
@@ -16,7 +17,8 @@ export default function myProfile(state = initialState, action){
 				myProfileInfo: {
 					name:action.myProfileInfo.name,
 					role:action.myProfileInfo.role,
-					skills: action.myProfileInfo.skills
+					skills: action.myProfileInfo.skills,
+					description: action.myProfileInfo.description
 				}
 			})
 		case ActionTypes.CHANGE_MY_INFO_EDITABLE:
@@ -32,7 +34,8 @@ export default function myProfile(state = initialState, action){
 				myProfileInfo:{
 					name: action.myProfileInfo.name,
 					role: action.myProfileInfo.role,
-					skills: skills
+					skills: skills,
+					description: action.myProfileInfo.description
 				},
 				myProfileEditable:false
 			})

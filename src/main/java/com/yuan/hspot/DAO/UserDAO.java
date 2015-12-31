@@ -23,17 +23,11 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 	}
 	
 	public UserSummary findById(int id){
-        /*
-        Criteria criteria = currentSession().createCriteria(UserDetails.class);
-        criteria = criteria.setFetchMode("reviewReceived", FetchMode.JOIN);
-        criteria = criteria.add(Restrictions.eq("userID",id));
-        criteria = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
-        */
-
         List<UserDetails> results = list(namedQuery("UserDetails.findById").setInteger("userID", id));
 		UserDetails userDetails = results.get(0);
 		UserSummary userSummary = new UserSummary(userDetails.getUserID(),userDetails.getName(),
 				userDetails.getEmail(),
+                userDetails.getDescription(),
 				userDetails.getRole(),
 				userDetails.getSkills(),
                 userDetails.getProfilePicPath());
@@ -60,6 +54,7 @@ public class UserDAO extends AbstractDAO<UserDetails>{
         List<UserDetails> results = list(namedQuery("UserDetails.findById").setInteger("userID", user.getUserID()));
         UserDetails newUser = results.get(0);
         newUser.setName(user.getName());
+        newUser.setDescription(user.getDescription());
         newUser.setRole(user.getRole());
         if(user.getSkills().size()>0){
             newUser.getSkills().clear();
@@ -76,7 +71,7 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 	}
 	
 	// filter user based on the criteria provided by the user such as role, skills etc
-	public List<UserSummary> filterUsers(List<String> skills, String role, String name) {
+	public List<UserSummary> filterUsers(List<String> skills, String role, String name, int page) {
 
 		Criteria criteria = currentSession().createCriteria(UserDetails.class);
         criteria = criteria.setFetchMode("skills", FetchMode.JOIN);
@@ -99,12 +94,15 @@ public class UserDAO extends AbstractDAO<UserDetails>{
         }
 
         criteria = criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+        criteria.setFirstResult(page*10);
+        criteria.setMaxResults(10);
         List<UserDetails> results = (List<UserDetails>)criteria.list();
 
         List<UserSummary> userSummaries  = new ArrayList<UserSummary>();
         for(UserDetails result : results){
             userSummaries.add(new UserSummary(result.getUserID(),result.getName(),
                     result.getEmail(),
+                    result.getDescription(),
                     result.getRole(),
                     result.getSkills(),
                     result.getProfilePicPath()));

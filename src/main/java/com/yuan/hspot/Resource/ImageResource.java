@@ -15,7 +15,8 @@ public class ImageResource {
     public Response getProfilePic(@PathParam("id") String id){
         File file = new File("images/profile_pic/"+id+".png");
         if(!file.exists()){
-            return Response.ok("images/profile_pic/default.png").build();
+            file = new File("src/main/resources/public/style/images/defaultProfile.png");
+            return Response.ok(file).build();
         }
         return Response.ok(file).build();
     }
@@ -25,7 +26,8 @@ public class ImageResource {
     public Response getThumbnail(@PathParam("id") String id){
         File file = new File("images/thumbnail/"+id+".png");
         if(!file.exists()){
-            return Response.ok("images/thumbnail/default.png").build();
+            file = new File("src/main/resources/public/style/images/defaultThumbnail.png");
+            return Response.ok(file).build();
         }
         return Response.ok(file).build();
     }

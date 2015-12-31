@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import Thumbnail from './Thumbnail'
 
 export default class extends Component{
 	constructor(props){
@@ -19,7 +20,8 @@ export default class extends Component{
 		return(
 			<div className="well grey-font">
 				{deleteButton}
-				<div>{review.reviewContent}</div>
+				<Thumbnail userID={review.reviewGiverID} />
+				<span>{review.reviewContent}</span>
 				<div>{review.star}</div>
 			</div>
 		)

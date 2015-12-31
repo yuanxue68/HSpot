@@ -10,6 +10,7 @@ export default class ProfilePic extends Component{
 
 	render(){
 		var upload
+		const { userID } = this.props
 		if (this.props.onUploadProfilePic){
 			upload = (
 				<div>
@@ -27,7 +28,7 @@ export default class ProfilePic extends Component{
 		return (
 			<div className="profile-component">
 				<div className="profile-pic-container">
-					<img className="profile-pic" src="http://cdn.cutestpaw.com/wp-content/uploads/2012/07/l-Wittle-puppy-yawning.jpg" alt="Profile Picture"></img>
+					<img className="profile-pic" src={"/api/images/profile/"+userID} alt="Profile Picture"></img>
 				</div>
 				{ upload }
 			</div>

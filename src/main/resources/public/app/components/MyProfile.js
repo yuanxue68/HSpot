@@ -9,12 +9,16 @@ export default class MyProfile extends Component{
 	}
 
 	render(){
-		var name, role, skills, edit, save, cancel
+		var name, role, skills, edit, description, save, cancel
 		const { myProfileInfo, onUploadProfilePic, onChangeMyInfoEditable, onCancelEditMyInfo, authed }= this.props
 
 		if( !this.props.myProfileEditable ){
 			name = (
 				<div>{ myProfileInfo.name }</div>
+			)
+
+			description = (
+				<div>{ myProfileInfo.description }</div>
 			)
 
 			role = (
@@ -30,6 +34,10 @@ export default class MyProfile extends Component{
 		} else {
 			name = (
 				<input id="editName" className="form-control"  type="text" defaultValue={myProfileInfo.name}></input>
+			)
+
+			description = (
+				<textarea id="descriptionTextArea" className="form-control" rows="6" defaultValue={myProfileInfo.description}></textarea>
 			)
 
 			role = (
@@ -63,7 +71,7 @@ export default class MyProfile extends Component{
 		return(
 			<div className="container userProfile">
 				<div className="col-md-3">
-					<ProfilePic onUploadProfilePic={ onUploadProfilePic } />
+					<ProfilePic userID={authed.userID} onUploadProfilePic={ onUploadProfilePic } />
 				</div>
 				<div className="col-md-8">
 					<div>
@@ -73,6 +81,12 @@ export default class MyProfile extends Component{
 						<h3>My Name: </h3>
 						<div className="well grey-font">
 							{ name }
+						</div>
+					</div>
+					<div>
+						<h3>About Me: </h3>
+						<div className="well grey-font">
+							{ description }
 						</div>
 					</div>
 					<div>
@@ -100,6 +114,7 @@ export default class MyProfile extends Component{
 		const { authed, onSubmiteEditMyInfo } = this.props
 		var newName = $("#editName").val()
 		var newRole = $("#editRole").val()
+		var description = $("#descriptionTextArea").val()
 		var newSkills =[]
 
 		if($("#editSkills").val().split(",").length>0)
@@ -115,7 +130,8 @@ export default class MyProfile extends Component{
 		var newMyProfileInfo = {
 			name:newName,
 			role:newRole,
-			skills:newSkills
+			skills:newSkills,
+			description: description.trim()
 		}
 		console.log(newMyProfileInfo)
 		onSubmiteEditMyInfo(authed.userID, newMyProfileInfo)

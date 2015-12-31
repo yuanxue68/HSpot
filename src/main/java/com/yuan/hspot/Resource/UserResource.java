@@ -36,8 +36,9 @@ public class UserResource {
 	public Response filterUsers(
 			@QueryParam("skills") final List<String> skills,
 			@QueryParam("role") final String role,
-			@QueryParam("name") final String name){
-		List<UserSummary> filteredUsers = userDAO.filterUsers(skills,role,name);
+			@QueryParam("name") final String name,
+            @QueryParam("page") final int page){
+		List<UserSummary> filteredUsers = userDAO.filterUsers(skills, role, name, page);
 		return Response.ok(filteredUsers).build();
 	}
 	

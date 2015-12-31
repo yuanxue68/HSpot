@@ -45,7 +45,6 @@ export default class Search extends Component{
 		var role = $("#userRole").val();
 		var skills = []
 		skills.push.apply(skills, ($("#userSkills").val().split(",")));
-		console.log(skills)
 		var queryCondition = {
 			name,
 			role,

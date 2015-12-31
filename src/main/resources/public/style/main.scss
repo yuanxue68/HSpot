@@ -5,6 +5,7 @@
 }
 
 .well {
+	vertical-align: middle;
 	background-color:#FFFFFF;
 	-webkit-border-radius: 0px;
 	-moz-border-radius: 0px;
@@ -178,6 +179,15 @@ h1, h2, h3, h4, h5, h6, label {
 	text-align:center;
 }
 
+.notification{
+	border-radius:10px;
+	background-color: rgb(229, 244, 250);
+	padding: 10px;
+	margin-bottom:20px;
+	text-align:center;
+}
+
+@import 'spinner';
 @import 'home';
 @import 'profile';
 @import 'explore';

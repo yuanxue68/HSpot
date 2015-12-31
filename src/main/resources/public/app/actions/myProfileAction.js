@@ -61,8 +61,10 @@ function uploadRequest(){
 }
 
 function uploadSuccess(){
+	var notification="Profile Picture Updated Successfully"
 	return {
-		type:UPLOAD_PROFILE_SUCCESS
+		type:UPLOAD_PROFILE_SUCCESS,
+		notification
 	}
 }
 

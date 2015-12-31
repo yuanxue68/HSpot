@@ -1,12 +1,13 @@
 import React, {Component, Proptypes}from 'react'
 import { connect } from 'react-redux'
 import Search from './../components/Search'
-import { userSearch } from './../actions/exploreAction'
+import { userSearch, fetchUserIfNeeded } from './../actions/exploreAction'
 import UserSummaryList from './../components/UserSummaryList'
 
 class Explore extends Component {
 	constructor(props) {
 		super(props)
+		this.scrollFunc = this.handleScroll.bind(this)
 	}
 
 	componentDidMount(){
@@ -14,13 +15,29 @@ class Explore extends Component {
 		dispatch(userSearch({}))
 	}
 
+	handleScroll(){
+		const { dispatch, userPageNumber } = this.props
+
+		var name = $("#userName").val();
+		var role = $("#userRole").val();
+		var skills = []
+		skills.push.apply(skills, ($("#userSkills").val().split(",")));
+		var queryCondition = {
+			name,
+			role,
+			skills
+		}
+
+		dispatch(fetchUserIfNeeded(queryCondition, userPageNumber))
+	}
+
 	render() {
-		const { dispatch, userList } = this.props
-		console.log(userList)
+		const { dispatch, users, isFetchingUser } = this.props
+		console.log(users)
 		return (
 			<div className="container">
-				<Search onUserSearch={(queryCondition)=>{dispatch(userSearch(queryCondition))}} />
-				<UserSummaryList userList={userList}/>
+				<Search onUserSearch={(queryCondition, userPageNumber)=>{dispatch(userSearch(queryCondition, userPageNumber))}} />
+				<UserSummaryList users={users} isFetchingUser={isFetchingUser} scrollFunc={this.scrollFunc} />
 			</div>
 		)
 	}
@@ -28,7 +45,9 @@ class Explore extends Component {
 
 function mapStateToProps(state){
 	return {
-		userList: state.userList
+		users: state.userList.users,
+		isFetchingUser: state.userList.isFetchingUser,
+		userPageNumber: state.userList.userPageNumber
 	}
 }
 

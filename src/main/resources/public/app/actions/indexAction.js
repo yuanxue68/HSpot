@@ -1,9 +1,16 @@
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'
+export const RESET_NOTIFICATION_MESSAGE = 'RESET_NOTIFICATION_MESSAGE'
 
 // Resets the currently visible error message.
 export function resetErrorMessage() {
   return {
     type: RESET_ERROR_MESSAGE
+  }
+}
+
+export function resetNotificationMessage() {
+  return {
+    type: RESET_NOTIFICATION_MESSAGE
   }
 }
 

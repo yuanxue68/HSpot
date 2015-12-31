@@ -15,12 +15,13 @@ public class UserSummary {
     private String role;
     private Collection<String> skills = new ArrayList<String>();
     private String profilePicPath;
+    private String description;
 
     public UserSummary(){
 
     }
 
-    public UserSummary(int userID, String name, String email, String role, Collection<Skill> skills, String profilePicPath){
+    public UserSummary(int userID, String name, String email, String description, String role, Collection<Skill> skills, String profilePicPath){
         this.userID = userID;
         this.name = name == null ? "" : name;
         this.email = email == null ? "" : email;
@@ -29,6 +30,15 @@ public class UserSummary {
             this.skills.add(skill.getSkillName());
         }
         this.profilePicPath = profilePicPath == null ? "profile_pic/default.png" : profilePicPath;
+        this.description = description==null ? "" : description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getProfilePicPath() {

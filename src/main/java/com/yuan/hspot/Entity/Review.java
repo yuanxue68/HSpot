@@ -30,7 +30,7 @@ public class Review {
 	private UserDetails reviewGiver;
 	@Column(nullable=false)
 	private int star;
-	@Column(nullable=false)
+	@Column(nullable=false, columnDefinition="TEXT")
 	private String reviewContent;
 	
 	public int getReviewID() {

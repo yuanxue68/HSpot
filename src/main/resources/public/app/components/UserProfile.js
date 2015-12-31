@@ -15,15 +15,16 @@ export default class UserProfile extends Component{
 		return(
 			<div className="container userProfile">
 				<div className="col-md-3">
-					<ProfilePic canUpload={false} />
+					<ProfilePic userID={params.id} canUpload={false} />
 					<UserInfoBox userProfileInfo={userProfileInfo} />
 				</div>
 				<div className="col-md-8">
 					<div>
-						<h1 className="bold">Hey! My name is {this.props.userProfileInfo.name} </h1>
+						<h1>Hey! My name is {this.props.userProfileInfo.name} </h1>
 					</div>
 					<div>
-						<h3 className="bold">About Me: </h3>
+						<h3>About Me: </h3>
+						<div className="grey-font">{this.props.userProfileInfo.description}</div>
 					</div>
 					<ReviewsList 
 						reviews={ userReviews } 

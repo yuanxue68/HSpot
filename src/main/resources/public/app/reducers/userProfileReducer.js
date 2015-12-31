@@ -5,7 +5,8 @@ var initialState = {
 	userProfileInfo: {
 		name: "",
 		role: "",
-		skills: []
+		skills: [],
+		description: ""
 	}
 }
 
@@ -18,6 +19,7 @@ export default function userProfile (state = initialState, action){
 					name:action.userProfileInfo.name,
 					role:action.userProfileInfo.role,
 					skills: action.userProfileInfo.skills,
+					description: action.userProfileInfo.description
 				}
 			})
 		case ActionTypes.GET_USER_REVIEWS_SUCCESS:

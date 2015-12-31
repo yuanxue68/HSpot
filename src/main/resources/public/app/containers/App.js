@@ -2,12 +2,14 @@ import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Header from './../components/Header'
 import { pushState } from 'redux-router'
-import { resetErrorMessage, userSignUp, userSignIn, userSignOut } from './../actions/indexAction'
+import { resetErrorMessage, resetNotificationMessage } from './../actions/indexAction'
+import { userSignUp, userSignIn, userSignOut } from './../actions/indexAction'
 
 class App extends Component {
   constructor(props) {
     super(props)
-    this.handleDismissClick = this.handleDismissClick.bind(this)
+    this.handleDismissErrorClick = this.handleDismissErrorClick.bind(this)
+    this.handleDismissNotificationClick = this.handleDismissNotificationClick.bind(this)
   }
 
   componentDidMount(){
@@ -18,9 +20,15 @@ class App extends Component {
     }))
   }
 
-  handleDismissClick(e) {
+  handleDismissErrorClick(e) {
     const { dispatch } = this.props
     dispatch(resetErrorMessage())
+    e.preventDefault()
+  }
+
+  handleDismissNotificationClick(e) {
+    const { dispatch } = this.props
+    dispatch(resetNotificationMessage())
     e.preventDefault()
   }
 
@@ -33,8 +41,26 @@ class App extends Component {
 
     return (
       <div className="col-md-10 col-md-offset-1 warning">
-        <b>{errorMessage}</b>
-        <button type="button" className="close" onClick={ this.handleDismissClick } >
+        <span>{errorMessage}</span>
+        <button type="button" className="close" onClick={ this.handleDismissErrorClick } >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    )
+  }
+
+
+  renderNotification() {
+    const { notificationMessage } = this.props
+
+    if (!notificationMessage){
+      return null
+    }
+
+    return (
+      <div className="col-md-10 col-md-offset-1 notification">
+        <span>{notificationMessage}</span>
+        <button type="button" className="close" onClick={ this.handleDismissNotificationClick } >
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -51,6 +77,7 @@ class App extends Component {
           authed={authed}
           token={token} />
         {this.renderErrorMessage()}
+        {this.renderNotification()}
         {children}
       </div>
     )
@@ -61,6 +88,7 @@ class App extends Component {
 function mapStateToProps (state) {
   return {
     errorMessage: state.errorMessage,
+    notificationMessage: state.notificationMessage,
     inputValue: state.router.location.pathname.substring(1),
     authed: state.authed,
     token: state.token

@@ -9,6 +9,7 @@ import myProfile from './myProfileReducer'
 const rootReducer = combineReducers({
 	router,
 	errorMessage,
+	notificationMessage,
 	authed,
 	userList,
 	myProfile,
@@ -22,6 +23,16 @@ function errorMessage(state = null, action) {
 		return null
 	} else if (error) {
 		return action.error
+	}
+	return state
+}
+
+function notificationMessage(state = null, action) {
+	const {type, notification} = action
+	if (type === ActionTypes.RESET_NOTIFICATION_MESSAGE) {
+		return null
+	} else if (notification) {
+		return action.notification
 	}
 	return state
 }
