@@ -2,13 +2,7 @@ package com.yuan.hspot.Resource;
 
 import java.util.List;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -21,7 +15,7 @@ import com.yuan.hspot.Entity.Message;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 
-@Path("/conversation/{convoId}/message/")
+@Path("/user/{userId}/messages/")
 @Produces(MediaType.APPLICATION_JSON)
 public class MessageResource {
 	private MessageDAO messageDAO;
@@ -35,12 +29,11 @@ public class MessageResource {
 	@GET
 	@Path("/")
 	@UnitOfWork
-	public Response getConvoById(@PathParam("convoId") int convoId,@Auth User user){
-		if(userDAO.authToConvo(user, convoId).size()<1) {
+	public Response getConvoById(@PathParam("userId") int userId,@QueryParam("type") String type, @Auth User user){
+		if(user.getUserId() != userId) {
 			return Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.MESSAGE_NO_VIEW_RIGHT).build();
 		}
-		userDAO.authToConvo(user, convoId);
-		List<Message> messages = messageDAO.findMessageByConvoId(convoId, user);
+		List<Message> messages = messageDAO.findMessageByUserId(user.getUserId(), type);
 		return Response.ok(messages).build();
 	}
 	
@@ -50,13 +43,10 @@ public class MessageResource {
 	@UnitOfWork
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createNewMessage(@PathParam("convoId") int convoId, @Auth User user, Message message){
-		if(userDAO.authToConvo(user, convoId).size()<1) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.MESSAGE_NO_CREATION_RIGHT).build();
-		}
 		Message newMessage = messageDAO.create(message);
 		return Response.ok(newMessage).build();
 	}
-	
+	/*
 	@DELETE
 	@Path("/{msgId}")
 	@UnitOfWork
@@ -67,5 +57,5 @@ public class MessageResource {
 		int numDeleted = messageDAO.deleteMessageById(msgId);
 		return Response.ok(numDeleted).build();
 	}
-
+	*/
 }

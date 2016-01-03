@@ -5,6 +5,7 @@ import Home from './components/Home'
 import Explore from './containers/Explore'
 import MyProfileContainer from './containers/MyProfileContainer'
 import UserProfileContainer from './containers/UserProfileContainer'
+import MyMessagesContainer from './containers/MyMessagesContainer'
 
 
 
@@ -13,6 +14,7 @@ export default (
 		<IndexRoute component={Home}/>
 		<Route path="user" component={Explore}/>
 		<Route path="myprofile" component={MyProfileContainer}/>
+		<Route path="mymessages" component={MyMessagesContainer}/>
 		<Route path="user/:id" component={UserProfileContainer}/>
 	</Route>
 )

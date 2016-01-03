@@ -21,22 +21,15 @@ public class Message {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int messageID;
 	@Column(nullable=false)
-	private Date created;
+	private Date created = new Date();
 	@Column(nullable=false)
-	private String messageContent;
-	
-	@ManyToOne
-	private Conversation conversation;
-	@ManyToOne
-	private UserDetails userDetails;
-	
-	public UserDetails getUserDetails() {
-		return userDetails;
-	}
+	private String content;
 
-	public void setUserDetails(UserDetails userDetails) {
-		this.userDetails = userDetails;
-	}
+	@ManyToOne
+	private UserDetails sender;
+
+	@ManyToOne
+	private UserDetails receiver;
 
 	public int getMessageID() {
 		return messageID;
@@ -54,21 +47,27 @@ public class Message {
 		this.created = created;
 	}
 
-	public String getMessageContent() {
-		return messageContent;
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public UserDetails getSender() {
+		return sender;
 	}
 
-	public void setMessageContent(String messageContent) {
-		this.messageContent = messageContent;
+	public void setSender(UserDetails sender) {
+		this.sender = sender;
 	}
 
-	public Conversation getConversation() {
-		return conversation;
+	public UserDetails getReceiver() {
+		return receiver;
 	}
 
-	public void setConversation(Conversation conversation) {
-		this.conversation = conversation;
+	public void setReceiver(UserDetails receiver) {
+		this.receiver = receiver;
 	}
-
-
 }

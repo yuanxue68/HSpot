@@ -1,4 +1,4 @@
-import React, {Component, Proptypes}from 'react'
+import React, {Component, Proptypes} from 'react'
 import { connect } from 'react-redux'
 import Search from './../components/Search'
 import { userSearch, fetchUserIfNeeded } from './../actions/exploreAction'
@@ -33,7 +33,6 @@ class Explore extends Component {
 
 	render() {
 		const { dispatch, users, isFetchingUser } = this.props
-		console.log(users)
 		return (
 			<div className="container">
 				<Search onUserSearch={(queryCondition, userPageNumber)=>{dispatch(userSearch(queryCondition, userPageNumber))}} />

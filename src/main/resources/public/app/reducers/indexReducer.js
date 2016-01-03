@@ -4,6 +4,7 @@ import * as ActionTypes from './../actions/indexAction'
 import userProfile from './userProfileReducer'
 import userList from './exploreReducer'
 import myProfile from './myProfileReducer'
+import messageList from './MessagesReducer'
 
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
 	errorMessage,
 	notificationMessage,
 	authed,
+	messageList,
 	userList,
 	myProfile,
 	userProfile

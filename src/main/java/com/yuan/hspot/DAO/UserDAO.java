@@ -110,9 +110,6 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 		return userSummaries;
 	}
 
-	public List<UserDetails> authToConvo(User user, int convoId) {
-		return list(namedQuery("UserDetails.accessToConvo").setInteger("convoId", convoId).setInteger("userId",user.getUserId()));
-	}
 	
 	public List<UserDetails> authToMsg(User user, int msgId) {
 		return list(namedQuery("UserDetails.accessToMsg").setInteger("msgId", msgId).setInteger("userId",user.getUserId() ));

@@ -14,10 +14,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @NamedQueries({
 @NamedQuery(name="UserDetails.findAll", query="from UserDetails"),
 @NamedQuery(name="UserDetails.deleteAll", query="delete from UserDetails"),
-@NamedQuery(name="UserDetails.accessToConvo", query="from UserDetails u, Conversation c where"
-		+ "(u.userID = c.userOne or u.userID = c.userTwo) and c.conversationID = :convoId and u.userID = :userId"),
-@NamedQuery(name="UserDetails.accessToMsg", query="from UserDetails u, Message m where "
-		+ "u.userID = m.userDetails  and m.messageID = :msgId and u.userID = :userId"),
+/*@NamedQuery(name="UserDetails.accessToMsg", query="from UserDetails u, Message m where "
+		+ "u.userID = m.userDetails  and m.messageID = :msgId and u.userID = :userId"),*/
 @NamedQuery(name="UserDetails.accessToEditReview", query="from UserDetails u, Review r where "
 		+ "u.userID = r.reviewGiver  and r.reviewID = :reviewId and u.userID = :userId"),
 @NamedQuery(name="UserDetails.findById", query="select distinct u from UserDetails u where u.userID = :userID"),
@@ -54,16 +52,13 @@ public class UserDetails {
 	@OneToMany(mappedBy="reviewGiver")
 	private Collection<Review> reviewGiven = new ArrayList<Review>();
 	
-	@OneToMany(mappedBy="userOne")
-	private Collection<Conversation> userOneConversations = new ArrayList<Conversation>();
-	
-	@OneToMany(mappedBy="userTwo")
-	private Collection<Conversation> userTwoConversations = new ArrayList<Conversation>();
-	
-	@OneToMany(mappedBy="userDetails")
-	private Collection<Message> messages = new ArrayList<Message>();
-	
-	public UserDetails(int id){
+	@OneToMany(mappedBy="sender")
+	private Collection<Message> messageSent= new ArrayList<Message>();
+
+    @OneToMany(mappedBy="receiver")
+    private Collection<Message> MessageReceived = new ArrayList<Message>();
+
+    public UserDetails(int id){
 		this.userID=id;
 	}
 	
@@ -146,28 +141,20 @@ public class UserDetails {
 	public void setReviewGiven(Collection<Review> reviewGiven) {
 		this.reviewGiven = reviewGiven;
 	}
-	
-	public Collection<Conversation> getUserOneConversations() {
-		return userOneConversations;
-	}
-	public void setUserOneConversations(Collection<Conversation> userOneConversations) {
-		this.userOneConversations = userOneConversations;
-	}
-	
-	public Collection<Conversation> getUserTwoConversations() {
-		return userTwoConversations;
-	}
-	public void setUserTwoConversations(Collection<Conversation> userTwoConversations) {
-		this.userTwoConversations = userTwoConversations;
-	}
-	
-	public Collection<Message> getMessages() {
-		return messages;
-	}
-	public void setMessages(Collection<Message> messages) {
-		this.messages = messages;
-	}
-	
-	
 
+    public Collection<Message> getMessageSent() {
+        return messageSent;
+    }
+
+    public void setMessageSent(Collection<Message> messageSent) {
+        this.messageSent = messageSent;
+    }
+
+    public Collection<Message> getMessageReceived() {
+        return MessageReceived;
+    }
+
+    public void setMessageReceived(Collection<Message> messageReceived) {
+        MessageReceived = messageReceived;
+    }
 }

@@ -9,7 +9,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.yuan.hspot.DAO.ConversationDAO;
 import com.yuan.hspot.DAO.MessageDAO;
 import com.yuan.hspot.DAO.ReviewDAO;
 import com.yuan.hspot.DAO.UserDAO;
@@ -19,7 +18,6 @@ public class UserDAOTest extends DAOTests {
 	private UserDAO userDAO;
 	private MessageDAO messageDAO;
 	private ReviewDAO reviewDAO;
-	private ConversationDAO conversationDAO;
 
 	@Before
 	public void setUp() {
@@ -48,21 +46,6 @@ public class UserDAOTest extends DAOTests {
 		userTwo.setPassword("password");
 		userDAO.create(userTwo);
 		
-		//create conversation
-		conversationDAO = new ConversationDAO(sessionFactory);
-		Conversation conversation = new Conversation();
-		conversation.setUserOne(userOne);
-		conversation.setUserTwo(userTwo);
-		conversationDAO.create(conversation);
-		
-		//create conversation
-		messageDAO = new MessageDAO(sessionFactory);
-		Message message = new Message();
-		message.setConversation(conversation);
-		message.setMessageContent("hey");
-		message.setUserDetails(userOne);
-		messageDAO.create(message);
-		
 		//create review
 		reviewDAO = new ReviewDAO(sessionFactory);
 		Review review = new Review();
@@ -84,12 +67,9 @@ public class UserDAOTest extends DAOTests {
 		try{
 			getSession().beginTransaction();
 			userDAO = new UserDAO(sessionFactory);
-			conversationDAO = new ConversationDAO(sessionFactory);
 			messageDAO = new MessageDAO(sessionFactory);
 			reviewDAO = new ReviewDAO(sessionFactory);
 			Assert.assertEquals(2,userDAO.findAll().size());
-			Assert.assertEquals(1,messageDAO.findAll().size());
-			Assert.assertEquals(1,conversationDAO.findAll().size());
 			Assert.assertEquals(1,reviewDAO.findAll().size());
 			getSession().getTransaction().commit();
 		} finally{

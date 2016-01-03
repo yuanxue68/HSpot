@@ -24,7 +24,6 @@ public class DAOTests {
         config.addAnnotatedClass(UserDetails.class);
         config.addAnnotatedClass(Message.class);
         config.addAnnotatedClass(Review.class);
-        config.addAnnotatedClass(Conversation.class);
         config.addAnnotatedClass(Skill.class);
 
         ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder().applySettings(config.getProperties()).build();

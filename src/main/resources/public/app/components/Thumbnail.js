@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router'
 
 export default class Thumbnail extends Component {
 	constructor(props){
@@ -7,9 +8,9 @@ export default class Thumbnail extends Component {
 
 	render(){
 		return(
-			<div className="thumbnail-container">
+			<Link to={"/user/"+this.props.userID} className="thumbnail-container">
 				<img src={"/api/images/thumbnail/"+this.props.userID}></img>
-			</div>
+			</Link>
 		)
 	}
 }

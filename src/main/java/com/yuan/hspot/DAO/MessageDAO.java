@@ -31,9 +31,9 @@ public class MessageDAO extends AbstractDAO<Message>{
 		return list(namedQuery("Message.findAll"));
 	}
 	
-	public List<Message> findMessageByConvoId(int convoId, User user){
+	public List<Message> findMessageByUserId(int userId, String type){
 		Criteria criteria = currentSession().createCriteria(Message.class);
-		criteria = criteria.add(Restrictions.eq("conversation.conversationID", convoId));
+		//criteria = criteria.add(Restrictions.eq("conversation.conversationID", convoId));
 		List<Message> messages = criteria.list();
 		return messages;
 	}
