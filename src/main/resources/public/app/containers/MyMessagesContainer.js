@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getMessages } from './../actions/MessagesAction'
+import { getMessages, changeMessageTab } from './../actions/MessagesAction'
 import MessagesTab from './../components/MessagesTab'
 
 class MyMessages extends Component {
@@ -8,18 +8,27 @@ class MyMessages extends Component {
 		super(props)
 	}
 
-	componentDidMount() {
+	componentDidMount(){
+		const { params, authed, dispatch } = this.props
+		dispatch(getMessages(authed.userID, params.messagetype))
+	}
 
+	componentWillReceiveProps(nextProps){
+		const { params, authed, dispatch } = this.props
+		if ( params.page !=  nextProps.params.page ) {
+			dispatch(getMessages(authed.userID, params.messagetype))
+		}
 	}
 
 	render(){
-		const { dispatch, authed, sentOrReceived, messages, messagePageNumber } = this.props
+		const { dispatch, authed, messages, params } = this.props
 		return(
-			<MessagesTab onGetMessages={ (userID, type)=> {dispatch(getMessages(userID, type))} }
+			<MessagesTab 
+				onChangeMessageTab = { (userID, tab) => {dispatch(changeMessageTab(userID, tab))} }
+				onGetMessages = { (userID, type)=> {dispatch(getMessages(userID, type))} }
 				authed = { authed }
-				sentOrReceived = { sentOrReceived }
 				messages = { messages }
-				messagePageNumber = { messagePageNumber }/>
+				params = { params }/>
 		)
 	}
 }

@@ -54,14 +54,10 @@ export function userSignUp(userInfo){
 			password: userInfo.password,
 			data:JSON.stringify(userInfo)
 		}).done((data) => {
-			console.log(data)
 			localStorage.setItem("userName",userInfo.email)
 			localStorage.setItem("token",data.token)
 			dispatch(signUpSuccess(data))
 		}).fail((xhr, status, err) => {
-			console.log(err)
-			console.log(status)
-			console.log(xhr)
 			dispatch(signUpFailure(xhr.responseText))
 		})
 

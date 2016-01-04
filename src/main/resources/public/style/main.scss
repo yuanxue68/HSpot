@@ -139,6 +139,15 @@ h1, h2, h3, h4, h5, h6, label {
 	color:#000000;
 }
 
+select {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.form-control {
+	border-radius:20px;
+}
+
 /* common utility that can be used anywhere*/
 
 .col-centered{
@@ -191,3 +200,4 @@ h1, h2, h3, h4, h5, h6, label {
 @import 'home';
 @import 'profile';
 @import 'explore';
+@import 'message';

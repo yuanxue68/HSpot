@@ -22,6 +22,8 @@ public class Message {
 	private int messageID;
 	@Column(nullable=false)
 	private Date created = new Date();
+
+    private String title;
 	@Column(nullable=false)
 	private String content;
 
@@ -35,7 +37,15 @@ public class Message {
 		return messageID;
 	}
 
-	public void setMessageID(int messageID) {
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setMessageID(int messageID) {
 		this.messageID = messageID;
 	}
 

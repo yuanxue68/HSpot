@@ -8,8 +8,7 @@ public class ResponseConstants {
 	public static final String REVIEW_CANT_REVIEW_YOURSELF = "You can not give review to yourself";
 	
 	//message resource constants
-	public static final String MESSAGE_NO_CREATION_RIGHT = "You cannot post message to this conversation";
-	public static final String MESSAGE_NO_DELETE_RIGHT = "You do not have the right to delete this message";
+	public static final String MESSAGE_INVALID_TYPE = "Type can only be 'sent' or 'received'";
 	public static final String MESSAGE_NO_VIEW_RIGHT = "You do not have the right to view this message";
 	
 	//user resource constants

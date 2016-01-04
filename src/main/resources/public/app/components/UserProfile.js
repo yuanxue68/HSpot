@@ -12,11 +12,12 @@ export default class UserProfile extends Component{
 	}
 
 	render(){
-		const { authed, userReviews, userProfileInfo, onSubmitUserReview, params, onDeleteUserReview } = this.props
+		const { authed, userReviews, userProfileInfo, params } = this.props
+		const { onSubmitUserReview, onSendMessage, onDeleteUserReview } = this.props
 
 		return(
 			<div className="container userProfile">
-				<MessageModal/>
+				<MessageModal onSendMessage={onSendMessage} authed={authed} userID={params.id} />
 				<div className="col-md-3">
 					<ProfilePic userID={params.id} canUpload={false} />
 					<UserInfoBox userProfileInfo={userProfileInfo} />

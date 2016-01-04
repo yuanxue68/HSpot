@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Spinner from './Spinner'
 import Message from './Message'
 
 export default class MessagesList extends Component {
@@ -8,14 +7,16 @@ export default class MessagesList extends Component {
 	}
 
 	render(){
-		var MessagesList = this.props.messages.map(function(message, index){
-			return <Message key={index} message={message}/>
+		const { messages, params } = this.props
+
+		var MessagesList = messages.map(function(message, index){
+			return <Message key={index} params={params} message={message}/>
 		})
 
 		return(
 			<div>
+				{messages.length === 0 ? <h2 className="grey-font">This Message Box Is Empty At the Moment</h2> : null}
 				{MessagesList}
-				<Spinner/>
 			</div>
 		)
 		

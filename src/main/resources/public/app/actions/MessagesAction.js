@@ -45,3 +45,58 @@ export function getMessages(userID, type){
 		})
 	}
 }
+
+export const SEND_MESSAGE_REQUEST = 'SEND_MESSAGE_REQUEST'
+export const SEND_MESSAGE_SUCCESS = 'SEND_MESSAGE_SUCCESS'
+export const SEND_MESSAGE_FAILURE = 'SEND_MESSAGE_FAILURE'
+
+function sendMessageRequest(){
+	return {
+		type:SEND_MESSAGE_REQUEST
+	}
+}
+
+function sendMessageSuccess(){
+	return {
+		type:SEND_MESSAGE_SUCCESS,
+		notification: "Message was sent successfully!"
+	}
+}
+
+function sendMessageFailure(error){
+	return {
+		type: SEND_MESSAGE_FAILURE,
+		error
+	}
+}
+
+export function sendMessage(userID, content){
+	return function(dispatch){
+		dispatch(sendMessageRequest())
+		return $.ajax({
+			url:"/api/user/"+userID+"/messages",
+			dataType:"json",
+			contentType:"application/json",
+			method:"POST",
+			data: JSON.stringify(content)
+		}).done((data) => {
+			dispatch(sendMessageSuccess())
+		}).fail((xhr, status, err) => {
+			dispatch(sendMessageFailure(xhr.responseText))
+		})
+	}
+}
+
+export const CHANGE_MESSAGE_TAB = 'CHANGE_MESSAGE_TAB'
+function changeTab(tab){
+	return {
+		type: CHANGE_MESSAGE_TAB,
+		tab
+	}
+}
+export function changeMessageTab(userID, tab){
+	return function(dispatch){
+		dispatch(changeTab(tab))
+		dispatch(getMessages(userID, tab))
+	}
+}

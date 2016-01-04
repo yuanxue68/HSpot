@@ -40,11 +40,13 @@ class App extends Component {
     }
 
     return (
-      <div className="col-md-10 col-md-offset-1 warning">
-        <span>{errorMessage}</span>
-        <button type="button" className="close" onClick={ this.handleDismissErrorClick } >
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div className="row">
+        <div className="col-md-10 col-md-offset-1 warning">
+          <span>{errorMessage}</span>
+          <button type="button" className="close" onClick={ this.handleDismissErrorClick } >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
     )
   }
@@ -58,11 +60,13 @@ class App extends Component {
     }
 
     return (
-      <div className="col-md-10 col-md-offset-1 notification">
-        <span>{notificationMessage}</span>
-        <button type="button" className="close" onClick={ this.handleDismissNotificationClick } >
-          <span aria-hidden="true">&times;</span>
-        </button>
+      <div className="row">
+        <div className="col-md-10 col-md-offset-1 notification">
+          <span>{notificationMessage}</span>
+          <button type="button" className="close" onClick={ this.handleDismissNotificationClick } >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       </div>
     )
   }

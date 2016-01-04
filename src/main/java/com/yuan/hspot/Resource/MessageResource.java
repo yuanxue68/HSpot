@@ -12,6 +12,8 @@ import com.yuan.hspot.DAO.MessageDAO;
 import com.yuan.hspot.DAO.UserDAO;
 import com.yuan.hspot.Entity.Message;
 
+import com.yuan.hspot.Entity.UserDetails;
+import com.yuan.hspot.JsonMapper.MessageSummary;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 
@@ -33,7 +35,10 @@ public class MessageResource {
 		if(user.getUserId() != userId) {
 			return Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.MESSAGE_NO_VIEW_RIGHT).build();
 		}
-		List<Message> messages = messageDAO.findMessageByUserId(user.getUserId(), type);
+		if(type.equals("sent") && type.equals("received")){
+			return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.MESSAGE_INVALID_TYPE).build();
+		}
+		List<MessageSummary> messages = messageDAO.findMessageByUserId(user.getUserId(), type);
 		return Response.ok(messages).build();
 	}
 	
@@ -42,7 +47,9 @@ public class MessageResource {
 	@Path("/")
 	@UnitOfWork
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createNewMessage(@PathParam("convoId") int convoId, @Auth User user, Message message){
+	public Response createNewMessage(@PathParam("userId") int userId, @Auth User user, Message message){
+		message.setSender(new UserDetails(user.getUserId()));
+		message.setReceiver(new UserDetails(userId));
 		Message newMessage = messageDAO.create(message);
 		return Response.ok(newMessage).build();
 	}

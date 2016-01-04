@@ -14,7 +14,7 @@ export default (
 		<IndexRoute component={Home}/>
 		<Route path="user" component={Explore}/>
 		<Route path="myprofile" component={MyProfileContainer}/>
-		<Route path="mymessages" component={MyMessagesContainer}/>
+		<Route path="mymessages/:messagetype/:page" component={MyMessagesContainer}/>
 		<Route path="user/:id" component={UserProfileContainer}/>
 	</Route>
 )

@@ -4,6 +4,7 @@ import {closeModal} from './../util/utils'
 export default class MessageModal extends Component{
 	constructor(props){
 		super(props)
+		this.sendMessage = this.sendMessage.bind(this)
 	}
 
 	render(){
@@ -18,19 +19,38 @@ export default class MessageModal extends Component{
 					<div className="modal-body">
 						<div className="form-group">
 							<label htmlFor="">Title</label>
-							<input id="" className="form-control" type="text" placeholder="Message Title"/>
+							<input id="messageTitle" className="form-control" type="text" placeholder="Message Title"/>
 						</div>
 						<div className="form-group">
 							<label htmlFor="">Content</label>
-							<textarea id="" className="form-control" rows="6" placeholder="Message Content"/>
+							<textarea id="messageContent" className="form-control" rows="6" placeholder="Message Content"/>
 						</div>
 					</div>
 					<div className="modal-footer">
-						<div type="button" className="btn" >Send</div>
+						<div type="button" className="btn" onClick={this.sendMessage}>Send</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		)
+	}
+
+	sendMessage(){
+		const { userID, authed, onSendMessage } = this.props
+
+		var content = {
+			title:$("#messageTitle").val(),
+			content:$("#messageContent").val(),
+			sender:{
+				userID:authed.userID
+			},
+			receiver:{
+				userID
+			}
+		}
+		$("#messageTitle").val("")
+		$("#messageContent").val("")
+		closeModal("#messageModal")
+		onSendMessage(userID, content)
 	}
 }

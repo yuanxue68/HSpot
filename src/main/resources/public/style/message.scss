@@ -1,0 +1,36 @@
+@mixin common-tab-props($width){
+	display:block;
+	padding:10px;
+	border-left: $width solid;
+	border-top: $width solid;
+	border-bottom: $width solid;
+	border-top-left-radius: 20px;
+	border-bottom-left-radius: 20px;
+}
+
+.active-tab {
+	@include common-tab-props(1px);
+	border-color: #00a8f2;
+}
+
+.tab {
+	@include common-tab-props(1px);
+	border-color: rgba(0, 0, 0, 0);
+}
+
+.tab:hover {
+	border-color: rgba(0, 0, 0, 0.4);
+}
+
+.fa-angle-right, .fa-angle-left{
+	font-size: 24px;
+	padding:10px;
+}
+
+.fa-angle-right {
+	margin-right:80px;
+}
+
+.message-nav{
+	display:inline-block !important;
+}

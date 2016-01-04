@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { getUserReviews, getUserInfo, submitUserReview, deleteUserReview } from './../actions/userProfileAction'
 import UserProfile from './../components/UserProfile'
+import { sendMessage } from './../actions/MessagesAction'
+
 class UserProfileContainer extends Component{
 	constructor(props){
 		super(props)
@@ -23,7 +25,8 @@ class UserProfileContainer extends Component{
 			params = { params }
 			onGetUserReview = { (userID) => dispatch(getUserReviews(userID)) }
 			onSubmitUserReview = { (review, userID) => dispatch(submitUserReview(review, userID)) }
-			onDeleteUserReview = { (userID, reviewID) => dispatch(deleteUserReview(userID, reviewID)) } />
+			onDeleteUserReview = { (userID, reviewID) => dispatch(deleteUserReview(userID, reviewID)) }
+			onSendMessage = { (userID, content) => dispatch(sendMessage(userID, content))} />
 		)
 	}
 }
