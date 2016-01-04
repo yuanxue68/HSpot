@@ -25,7 +25,7 @@ function getMessagesSuccess(messages){
 	}
 }
 
-export function getMessages(userID, type){
+export function getMessages(userID, type, page = 0){
 	return function(dispatch){
 		dispatch(getMessagesRequest())
 
@@ -36,7 +36,8 @@ export function getMessages(userID, type){
 			method:"GET",
 			traditonal:true,
 			data:{
-				type
+				type,
+				page
 			}
 		}).done((data) => {
 			dispatch(getMessagesSuccess(data))

@@ -31,14 +31,14 @@ public class MessageResource {
 	@GET
 	@Path("/")
 	@UnitOfWork
-	public Response getConvoById(@PathParam("userId") int userId,@QueryParam("type") String type, @Auth User user){
+	public Response getConvoById(@PathParam("userId") int userId,@QueryParam("type") String type,@QueryParam("page") int page, @Auth User user){
 		if(user.getUserId() != userId) {
 			return Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.MESSAGE_NO_VIEW_RIGHT).build();
 		}
 		if(type.equals("sent") && type.equals("received")){
 			return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.MESSAGE_INVALID_TYPE).build();
 		}
-		List<MessageSummary> messages = messageDAO.findMessageByUserId(user.getUserId(), type);
+		List<MessageSummary> messages = messageDAO.findMessageByUserId(user.getUserId(), type, page);
 		return Response.ok(messages).build();
 	}
 	

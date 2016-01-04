@@ -19,7 +19,7 @@ export default class MessagesTab extends Component {
 	}
 
 	render(){
-		const { params } = this.props
+		const { params, messages } = this.props
 		return(
 			<div>
 				<div className="row">
@@ -27,7 +27,7 @@ export default class MessagesTab extends Component {
 				</div>
 				<div className="row">
 					<div className="pull-right">
-						<PageNavigator params={params} url={"/mymessages/"+params.messagetype+"/"} />
+						<PageNavigator params={params} messages={messages} url={"/mymessages/"+params.messagetype+"/"} />
 					</div>
 					<div className="pull-right">
 						<input type="text" className="form-control" placeholder="Search Messages"/>
@@ -41,7 +41,7 @@ export default class MessagesTab extends Component {
 					<div className="col-md-9">
 						<MessageList {...this.props}/>
 						<div className="col-centered">
-							<PageNavigator params={params} url={"/mymessages/"+params.messagetype+"/"} />
+							<PageNavigator params={params} messages={messages} url={"/mymessages/"+params.messagetype+"/"} />
 						</div>
 					</div>
 				</div>

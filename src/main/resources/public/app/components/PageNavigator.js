@@ -7,8 +7,8 @@ export default class PageNavigator extends Component {
 	}
 
 	render(){
-		const { params, url } = this.props
-		var nextPage = Number(params.page) + 1
+		const { params, url, messages } = this.props
+		var nextPage = messages.length === 0 ? Number(params.page) : Number(params.page) + 1
 		var prevPage = params.page === "0" ? 0 : Number(params.page) - 1
 		return(
 			<div>

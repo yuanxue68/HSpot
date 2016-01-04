@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {closeModal} from './../util/utils'
 
-export default class MessageModal extends Component{
+export default class SendMessageModal extends Component{
 	constructor(props){
 		super(props)
 		this.sendMessage = this.sendMessage.bind(this)
@@ -9,21 +9,21 @@ export default class MessageModal extends Component{
 
 	render(){
 		return(
-		<div className="modal fade" id="messageModal">
+		<div className="modal fade" id="sendmessageModal">
 			<div className="modal-dialog modal-md">
 				<div className="modal-content">
 					<div className="modal-header">
-						<button type="button" className="close"><span onClick={closeModal.bind(null,"#messageModal")}>&times;</span></button>
+						<button type="button" className="close"><span onClick={closeModal.bind(null,"#sendmessageModal")}>&times;</span></button>
 						<h4 className="modal-title">Message</h4>
 					</div>
 					<div className="modal-body">
 						<div className="form-group">
 							<label htmlFor="">Title</label>
-							<input id="messageTitle" className="form-control" type="text" placeholder="Message Title"/>
+							<input id="sendmessageTitle" className="form-control" type="text" placeholder="Message Title"/>
 						</div>
 						<div className="form-group">
 							<label htmlFor="">Content</label>
-							<textarea id="messageContent" className="form-control" rows="6" placeholder="Message Content"/>
+							<textarea id="sendmessageContent" className="form-control" rows="6" placeholder="Message Content"/>
 						</div>
 					</div>
 					<div className="modal-footer">
@@ -39,8 +39,8 @@ export default class MessageModal extends Component{
 		const { userID, authed, onSendMessage } = this.props
 
 		var content = {
-			title:$("#messageTitle").val(),
-			content:$("#messageContent").val(),
+			title:$("#sendmessageTitle").val(),
+			content:$("#sendmessageContent").val(),
 			sender:{
 				userID:authed.userID
 			},
@@ -48,9 +48,9 @@ export default class MessageModal extends Component{
 				userID
 			}
 		}
-		$("#messageTitle").val("")
-		$("#messageContent").val("")
-		closeModal("#messageModal")
+		$("#sendmessageTitle").val("")
+		$("#sendmessageContent").val("")
+		closeModal("#sendmessageModal")
 		onSendMessage(userID, content)
 	}
 }

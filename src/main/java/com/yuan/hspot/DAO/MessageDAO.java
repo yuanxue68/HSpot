@@ -35,13 +35,13 @@ public class MessageDAO extends AbstractDAO<Message>{
 		return list(namedQuery("Message.findAll"));
 	}
 	
-	public List<MessageSummary> findMessageByUserId(int userId, String type){
+	public List<MessageSummary> findMessageByUserId(int userId, String type, int page){
 		Criteria criteria = currentSession().createCriteria(Message.class);
 		//criteria = criteria.add(Restrictions.eq("conversation.conversationID", convoId));
 		if(type.equals("sent")){
             criteria = criteria.add(Restrictions.eq("sender",new UserDetails(userId)));
             criteria = criteria.addOrder(Order.desc("created"));
-            criteria = criteria.setFirstResult(0);
+            criteria = criteria.setFirstResult(page*10);
             criteria = criteria.setMaxResults(10);
             List<Message> messages = criteria.list();
             List<MessageSummary> messageSummaries = new ArrayList<MessageSummary>();

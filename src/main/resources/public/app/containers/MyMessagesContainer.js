@@ -16,7 +16,7 @@ class MyMessages extends Component {
 	componentWillReceiveProps(nextProps){
 		const { params, authed, dispatch } = this.props
 		if ( params.page !=  nextProps.params.page ) {
-			dispatch(getMessages(authed.userID, params.messagetype))
+			dispatch(getMessages(authed.userID, nextProps.params.messagetype, nextProps.params.page))
 		}
 	}
 

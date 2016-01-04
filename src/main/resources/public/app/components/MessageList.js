@@ -15,7 +15,7 @@ export default class MessagesList extends Component {
 
 		return(
 			<div>
-				{messages.length === 0 ? <h2 className="grey-font">This Message Box Is Empty At the Moment</h2> : null}
+				{messages.length === 0 ? <h2 className="grey-font"><i className="fa fa-frown-o"></i> No More Messages <i className="fa fa-frown-o"></i></h2> : null}
 				{MessagesList}
 			</div>
 		)
