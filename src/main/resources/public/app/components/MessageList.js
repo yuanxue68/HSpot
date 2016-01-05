@@ -7,10 +7,10 @@ export default class MessagesList extends Component {
 	}
 
 	render(){
-		const { messages, params } = this.props
+		const { messages, params, onGetMessageDetail } = this.props
 
 		var MessagesList = messages.map(function(message, index){
-			return <Message key={index} params={params} message={message}/>
+			return <Message key={index} params={params} message={message} onGetMessageDetail={onGetMessageDetail}/>
 		})
 
 		return(

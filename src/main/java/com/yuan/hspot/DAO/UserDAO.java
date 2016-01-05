@@ -81,14 +81,14 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 		}
 
         if (name !=null && !name.isEmpty()){
-            criteria = criteria.add(Restrictions.eq("name",name));
+            criteria = criteria.add(Restrictions.like("name","%"+name+"%"));
         }
 		
 		Disjunction or = Restrictions.disjunction();
 		if(skills.size() > 0 && !skills.get(0).isEmpty()) {
             criteria = criteria.createCriteria("skills");
             for (String skill : skills) {
-                or = (Disjunction) or.add(Restrictions.like("skillName", skill));
+                or = (Disjunction) or.add(Restrictions.like("skillName", "%"+skill+"%"));
             }
             criteria = criteria.add(or);
         }

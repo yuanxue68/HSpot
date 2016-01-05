@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { getMessages, changeMessageTab } from './../actions/MessagesAction'
+import { getMessages, changeMessageTab, getMessageDetail } from './../actions/MessagesAction'
 import MessagesTab from './../components/MessagesTab'
 
 class MyMessages extends Component {
@@ -9,35 +9,38 @@ class MyMessages extends Component {
 	}
 
 	componentDidMount(){
-		const { params, authed, dispatch } = this.props
-		dispatch(getMessages(authed.userID, params.messagetype))
+		const { params, dispatch } = this.props
+		dispatch(getMessages(params.messagetype))
 	}
 
 	componentWillReceiveProps(nextProps){
-		const { params, authed, dispatch } = this.props
+		const { params, dispatch } = this.props
+		var searchString = document.getElementById('searchMessage').value
+
 		if ( params.page !=  nextProps.params.page ) {
-			dispatch(getMessages(authed.userID, nextProps.params.messagetype, nextProps.params.page))
+			dispatch(getMessages(nextProps.params.messagetype, nextProps.params.page, searchString))
 		}
 	}
 
 	render(){
-		const { dispatch, authed, messages, params } = this.props
+		const { dispatch, authed, messages, params, activeMessage } = this.props
 		return(
 			<MessagesTab 
 				onChangeMessageTab = { (userID, tab) => {dispatch(changeMessageTab(userID, tab))} }
-				onGetMessages = { (userID, type)=> {dispatch(getMessages(userID, type))} }
+				onGetMessages = { (type, page, searchString)=> {dispatch(getMessages(type, page, searchString))} }
+				onGetMessageDetail = { (messageID) => {dispatch(getMessageDetail(messageID))} }
 				authed = { authed }
 				messages = { messages }
-				params = { params }/>
+				params = { params }
+				activeMessage= { activeMessage }/>
 		)
 	}
 }
 
 function mapStateToProps(state){
 	return {
-		sentOrReceived: state.messageList.sentOrReceived,
 		messages: state.messageList.messages,
-		messagePageNumber: state.messageList.messagePageNumber,
+		activeMessage: state.messageList.activeMessage,
 		authed: state.authed
 	}
 }

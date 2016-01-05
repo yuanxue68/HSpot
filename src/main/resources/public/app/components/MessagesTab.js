@@ -2,26 +2,35 @@ import React, { Component } from 'react'
 import MessageList from './MessageList'
 import Spinner from './Spinner'
 import PageNavigator from './PageNavigator'
+import MessageViewerModal from './MessageViewerModal'
 import { Link } from 'react-router'
 
 export default class MessagesTab extends Component {
 	constructor(props) {
 		super(props)
 		this.changeTab = this.changeTab.bind(this)
+		this.onSearchStringChange = this.onSearchStringChange.bind(this)
 	}
 
 	changeTab(tab){
-		const { params, authed, onChangeMessageTab } = this.props
+		const { params, onChangeMessageTab } = this.props
 		if(tab===params.messagetype){
 			return
 		}
-		onChangeMessageTab(authed.userID, tab)
+		onChangeMessageTab(tab)
+	}
+
+	onSearchStringChange(){
+		const { params, onGetMessages } = this.props
+		var searchString = document.getElementById('searchMessage').value
+		onGetMessages(params.messagetype, 0, searchString)
 	}
 
 	render(){
-		const { params, messages } = this.props
+		const { params, messages, activeMessage } = this.props
 		return(
 			<div>
+				<MessageViewerModal activeMessage={activeMessage}/>
 				<div className="row">
 					<h3 className="col-md-12 col-centered">{params.messagetype==="received" ? "Received Messages" : "Sent Messages"}</h3>
 				</div>
@@ -30,7 +39,7 @@ export default class MessagesTab extends Component {
 						<PageNavigator params={params} messages={messages} url={"/mymessages/"+params.messagetype+"/"} />
 					</div>
 					<div className="pull-right">
-						<input type="text" className="form-control" placeholder="Search Messages"/>
+						<input id="searchMessage" type="text" className="form-control" placeholder="Search Messages" onKeyUp={this.onSearchStringChange}/>
 					</div>
 				</div>
 				<div className="row">

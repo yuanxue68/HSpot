@@ -8,6 +8,7 @@ import com.yuan.hspot.Entity.UserDetails;
 import com.yuan.hspot.JsonMapper.MessageSummary;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
@@ -35,9 +36,15 @@ public class MessageDAO extends AbstractDAO<Message>{
 		return list(namedQuery("Message.findAll"));
 	}
 	
-	public List<MessageSummary> findMessageByUserId(int userId, String type, int page){
+	public List<MessageSummary> findMessageByUserId(int userId, String type, int page, String searchString){
+        searchString = "%"+searchString+"%";
 		Criteria criteria = currentSession().createCriteria(Message.class);
 		//criteria = criteria.add(Restrictions.eq("conversation.conversationID", convoId));
+        Criterion likeTitle= Restrictions.like("title",searchString);
+        Criterion likeContent= Restrictions.like("content",searchString);
+        if(!searchString.isEmpty()) {
+            criteria = criteria.add(Restrictions.or(likeContent, likeTitle));
+        }
 		if(type.equals("sent")){
             criteria = criteria.add(Restrictions.eq("sender",new UserDetails(userId)));
             criteria = criteria.addOrder(Order.desc("created"));
@@ -47,6 +54,7 @@ public class MessageDAO extends AbstractDAO<Message>{
             List<MessageSummary> messageSummaries = new ArrayList<MessageSummary>();
             for(Message message:messages){
                 messageSummaries.add(new MessageSummary(
+                        message.getMessageID(),
                         message.getTitle(),
                         message.getReceiver().getUserID(),
                         message.getReceiver().getEmail(),
@@ -63,6 +71,7 @@ public class MessageDAO extends AbstractDAO<Message>{
             List<MessageSummary> messageSummaries = new ArrayList<MessageSummary>();
             for(Message message:messages){
                 messageSummaries.add(new MessageSummary(
+                        message.getMessageID(),
                         message.getTitle(),
                         message.getSender().getUserID(),
                         message.getSender().getEmail(),

@@ -17,7 +17,7 @@ import com.yuan.hspot.JsonMapper.MessageSummary;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 
-@Path("/user/{userId}/messages/")
+@Path("/messages/")
 @Produces(MediaType.APPLICATION_JSON)
 public class MessageResource {
 	private MessageDAO messageDAO;
@@ -31,25 +31,31 @@ public class MessageResource {
 	@GET
 	@Path("/")
 	@UnitOfWork
-	public Response getConvoById(@PathParam("userId") int userId,@QueryParam("type") String type,@QueryParam("page") int page, @Auth User user){
-		if(user.getUserId() != userId) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.MESSAGE_NO_VIEW_RIGHT).build();
-		}
+	public Response getMessages(@QueryParam("type") String type, @QueryParam("page") int page, @QueryParam("searchString") String searchString, @Auth User user){
 		if(type.equals("sent") && type.equals("received")){
 			return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.MESSAGE_INVALID_TYPE).build();
 		}
-		List<MessageSummary> messages = messageDAO.findMessageByUserId(user.getUserId(), type, page);
+		List<MessageSummary> messages = messageDAO.findMessageByUserId(user.getUserId(), type, page, searchString);
 		return Response.ok(messages).build();
 	}
-	
+
+    @GET
+    @Path("/{id}")
+    @UnitOfWork
+    public Response getMessagesById(@PathParam("id") int messageId, @Auth User user){
+        Message message = messageDAO.findById(messageId);
+        if(user.getUserId() != message.getReceiver().getUserID() && user.getUserId() != message.getSender().getUserID()) {
+            return Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.MESSAGE_NO_VIEW_RIGHT).build();
+        }
+        return Response.ok(message).build();
+    }
 	
 	@POST
 	@Path("/")
 	@UnitOfWork
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response createNewMessage(@PathParam("userId") int userId, @Auth User user, Message message){
+	public Response createNewMessage(@Auth User user, Message message){
 		message.setSender(new UserDetails(user.getUserId()));
-		message.setReceiver(new UserDetails(userId));
 		Message newMessage = messageDAO.create(message);
 		return Response.ok(newMessage).build();
 	}

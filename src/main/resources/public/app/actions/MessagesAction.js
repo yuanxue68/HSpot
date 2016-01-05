@@ -25,19 +25,20 @@ function getMessagesSuccess(messages){
 	}
 }
 
-export function getMessages(userID, type, page = 0){
+export function getMessages(type, page = 0, searchString = ''){
 	return function(dispatch){
 		dispatch(getMessagesRequest())
 
 		return $.ajax({
-			url:"/api/user/"+userID+"/messages",
+			url:"/api/messages",
 			dataType:"json",
 			contenttype:"application/json",
 			method:"GET",
 			traditonal:true,
 			data:{
 				type,
-				page
+				page,
+				searchString
 			}
 		}).done((data) => {
 			dispatch(getMessagesSuccess(data))
@@ -71,11 +72,11 @@ function sendMessageFailure(error){
 	}
 }
 
-export function sendMessage(userID, content){
+export function sendMessage(content){
 	return function(dispatch){
 		dispatch(sendMessageRequest())
 		return $.ajax({
-			url:"/api/user/"+userID+"/messages",
+			url:"/api/messages",
 			dataType:"json",
 			contentType:"application/json",
 			method:"POST",
@@ -89,15 +90,48 @@ export function sendMessage(userID, content){
 }
 
 export const CHANGE_MESSAGE_TAB = 'CHANGE_MESSAGE_TAB'
+
 function changeTab(tab){
 	return {
 		type: CHANGE_MESSAGE_TAB,
 		tab
 	}
 }
-export function changeMessageTab(userID, tab){
+export function changeMessageTab(tab){
 	return function(dispatch){
 		dispatch(changeTab(tab))
-		dispatch(getMessages(userID, tab))
+		dispatch(getMessages(tab))
+	}
+}
+
+export const GET_MESSAGE_DETAIL_SUCCESS = 'GET_MESSAGES_SUCCESS'
+export const GET_MESSAGE_DETAIL_FAILURE = 'GET_MESSAGES_FAILURE'
+
+function getMessageDetailSuccess(message){
+	return {
+		type:GET_MESSAGE_DETAIL_SUCCESS,
+		message
+	}
+}
+
+function getMessageDetailFailure(error){
+	return {
+		type:GET_MESSAGE_DETAIL_FAILURE,
+		error
+	}
+}
+
+export function getMessageDetail(messageID){
+	return function(dispatch){
+		return $.ajax({
+			url:"/api/messages/"+messageID,
+			contentType:"application/json",
+			dataType:"json",
+			method: "GET"
+		}).done((data) => {
+			dispatch(getMessageDetailSuccess(data))
+		}).fail((xhr, status, err) => {
+			dispatch(getMessageDetailFailure(xhr.responseText))
+		})
 	}
 }

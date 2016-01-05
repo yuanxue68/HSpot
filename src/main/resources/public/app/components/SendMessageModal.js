@@ -51,6 +51,6 @@ export default class SendMessageModal extends Component{
 		$("#sendmessageTitle").val("")
 		$("#sendmessageContent").val("")
 		closeModal("#sendmessageModal")
-		onSendMessage(userID, content)
+		onSendMessage(content)
 	}
 }

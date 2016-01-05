@@ -15,6 +15,14 @@ class UserProfileContainer extends Component{
 		dispatch(getUserReviews(params.id))
 	}
 
+	componentWillReceiveProps(nextProps){
+		const { params, dispatch } = this.props
+		if ( params.id !=  nextProps.params.id ) {
+			dispatch(getUserInfo(nextProps.params.id))
+			dispatch(getUserReviews(nextProps.params.id))
+		}
+	}
+
 	render(){
 		const { dispatch, authed, userReviews, userProfileInfo, params } = this.props
 		return(

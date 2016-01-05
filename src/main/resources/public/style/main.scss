@@ -149,6 +149,9 @@ select {
 }
 
 /* common utility that can be used anywhere*/
+.clickable{
+	cursor: pointer;
+}
 
 .col-centered{
 	margin:auto;
