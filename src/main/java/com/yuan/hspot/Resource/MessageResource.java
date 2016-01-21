@@ -55,20 +55,16 @@ public class MessageResource {
 	@UnitOfWork
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response createNewMessage(@Auth User user, Message message){
+        if(message.getContent().isEmpty() || message.getTitle().isEmpty()){
+            return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.MESSAGE_NOT_ENOUGH_INFORMATION).build();
+        }
+        if(userDAO.findById(message.getReceiver().getUserID())==null){
+            return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.MESSAGE_NO_SUCH_USER).build();
+
+        }
+
 		message.setSender(new UserDetails(user.getUserId()));
 		Message newMessage = messageDAO.create(message);
 		return Response.ok(newMessage).build();
 	}
-	/*
-	@DELETE
-	@Path("/{msgId}")
-	@UnitOfWork
-	public Response deleteMessage(@PathParam("convoId") int convoId,@PathParam("msgId") int msgId, @Auth User user){
-		if(userDAO.authToMsg(user, msgId).size()<1) {
-			return Response.status(Response.Status.UNAUTHORIZED).entity(ResponseConstants.MESSAGE_NO_DELETE_RIGHT).build();
-		}
-		int numDeleted = messageDAO.deleteMessageById(msgId);
-		return Response.ok(numDeleted).build();
-	}
-	*/
 }

@@ -10,7 +10,10 @@ public class ResponseConstants {
 	//message resource constants
 	public static final String MESSAGE_INVALID_TYPE = "Type can only be 'sent' or 'received'";
 	public static final String MESSAGE_NO_VIEW_RIGHT = "You do not have the right to view this message";
-	
+	public static final String MESSAGE_NO_SUCH_USER = "You are trying to send message to a user that does not exist";
+	public static final String MESSAGE_NOT_ENOUGH_INFORMATION = "the content of your message can not be empty";
+
+
 	//user resource constants
 	public static final String USER_NO_EDIT_RIGHT = "You do not have the right to edit this user";
 	public static final String USER_MISSING_INFORMATION = "Password and email can not be empty";

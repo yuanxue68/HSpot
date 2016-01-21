@@ -30,7 +30,7 @@ export default class MessagesTab extends Component {
 		const { params, messages, activeMessage } = this.props
 		return(
 			<div>
-				<MessageViewerModal activeMessage={activeMessage}/>
+				<MessageViewerModal activeMessage={activeMessage} params={params}/>
 				<div className="row">
 					<h3 className="col-md-12 col-centered">{params.messagetype==="received" ? "Received Messages" : "Sent Messages"}</h3>
 				</div>

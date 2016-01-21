@@ -21,7 +21,8 @@ export default rootReducer
 
 function errorMessage(state = null, action) {
 	const {type, error} = action
-	if (type === ActionTypes.RESET_ERROR_MESSAGE) {
+	if (type === ActionTypes.RESET_ERROR_MESSAGE
+		|| type === ActionTypes.RESET_ALL_MESSAGE) {
 		return null
 	} else if (error) {
 		return action.error
@@ -31,7 +32,8 @@ function errorMessage(state = null, action) {
 
 function notificationMessage(state = null, action) {
 	const {type, notification} = action
-	if (type === ActionTypes.RESET_NOTIFICATION_MESSAGE) {
+	if (type === ActionTypes.RESET_NOTIFICATION_MESSAGE 
+		|| type === ActionTypes.RESET_ALL_MESSAGE) {
 		return null
 	} else if (notification) {
 		return action.notification

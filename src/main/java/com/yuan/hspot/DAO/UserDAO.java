@@ -24,7 +24,12 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 	
 	public UserSummary findById(int id){
         List<UserDetails> results = list(namedQuery("UserDetails.findById").setInteger("userID", id));
-		UserDetails userDetails = results.get(0);
+        UserDetails userDetails;
+        if(results.size()>0){
+            userDetails = results.get(0);
+        } else {
+            return null;
+        }
 		UserSummary userSummary = new UserSummary(userDetails.getUserID(),userDetails.getName(),
 				userDetails.getEmail(),
                 userDetails.getDescription(),

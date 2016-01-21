@@ -65,7 +65,7 @@ public class MessageDAO extends AbstractDAO<Message>{
 		} else {
 			criteria = criteria.add(Restrictions.eq("receiver",new UserDetails(userId)));
             criteria = criteria.addOrder(Order.desc("created"));
-            criteria = criteria.setFirstResult(0);
+            criteria = criteria.setFirstResult(page*10);
             criteria = criteria.setMaxResults(10);
             List<Message> messages = criteria.list();
             List<MessageSummary> messageSummaries = new ArrayList<MessageSummary>();

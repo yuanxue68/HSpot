@@ -4,10 +4,14 @@ import HowTo from './HowTo'
 import Footer from './Footer'
 
 export default class Home extends Component {
+	constructor(props){
+		super(props)
+	}
+	
 	render(){
 		return (
 			<div className="container body-pad">
-				<Banner/>
+				<Banner {...this.props}/>
 				<HowTo/>
 				<Footer/>
 			</div>
