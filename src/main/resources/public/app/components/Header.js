@@ -12,9 +12,7 @@ export default class Header extends Component{
 	
 	render() {
 		var loginOrLogOut;
-		console.log(this.props.authed.authed)
 		if(!this.props.authed.authed){
-			console.log("signedout")
 			loginOrLogOut = (	
 				<div className="nav navbar-nav navbar-right">
 					<li><a className="btn btn-white" href="#" onClick={openModal.bind(null,"#logInModal")}>Log In</a></li>
@@ -22,7 +20,6 @@ export default class Header extends Component{
 				</div>
 			)
 		} else {
-			console.log("signedin")
 			loginOrLogOut = 
 			(	
 				<ul className="nav navbar-nav navbar-right">

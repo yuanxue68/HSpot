@@ -70,12 +70,19 @@ public class UserResource {
 		if((userDetails.getEmail()!=null && userDetails.getEmail().isEmpty()) || (userDetails.getPassword()!=null && userDetails.getPassword().isEmpty())){
 			return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.USER_MISSING_INFORMATION).build();
 		}
+		if(userDetails.getPassword().length()<6){
+			return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.USER_PASSWORD_NOT_LONG_ENOUGH).build();
+		}
 		if(userDAO.findByEmail(userDetails.getEmail()).size()!=0){
 			return Response.status(Response.Status.BAD_REQUEST).entity(ResponseConstants.USER_DUPLICATE_EMAIL).build();
 		}
-		UserDetails createdUser = userDAO.create(userDetails);
-		Token token = new Token(JWT.createJWT(createdUser.getEmail(),TimeUnit.DAYS.toMillis(365)), createdUser.getUserID());
-		return Response.ok().entity(token).build();
+        try {
+            UserDetails createdUser = userDAO.create(userDetails);
+            Token token = new Token(JWT.createJWT(createdUser.getEmail(), TimeUnit.DAYS.toMillis(365)), createdUser.getUserID());
+            return Response.ok().entity(token).build();
+        } catch (Exception e){
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
 	}
 
     @POST

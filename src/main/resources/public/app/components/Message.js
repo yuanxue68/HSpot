@@ -20,8 +20,8 @@ export default class Message extends Component {
 		return(
 			<div className="well grey-font clickable" onClick={this.onOpenModal}>
 				<Thumbnail userID={message.sender} />
+				<div className="bold">Subject: {message.title}</div>
 				<div>{params.messagetype === "sent" ? "To" : "From"}: {message.userEmail}</div>
-				<div>Title: {message.title}</div>
 				<div>{params.messagetype === "sent" ? "Sent On" : "Received On"}: { timeConverter(message.created) }</div>
 			</div>
 		)

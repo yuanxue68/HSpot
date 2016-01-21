@@ -1,5 +1,6 @@
 package com.yuan.hspot.DAOTest;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 import com.yuan.hspot.Entity.*;
@@ -20,7 +21,7 @@ public class UserDAOTest extends DAOTests {
 	private ReviewDAO reviewDAO;
 
 	@Before
-	public void setUp() {
+	public void setUp() throws NoSuchAlgorithmException {
 		// Delete all the old junk...
 		getSession().beginTransaction();
 		Query q = getSession().createQuery("delete from UserDetails");

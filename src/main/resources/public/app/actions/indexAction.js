@@ -1,5 +1,8 @@
+import {pushState} from 'redux-router'
+
 export const RESET_ERROR_MESSAGE = 'RESET_ERROR_MESSAGE'
 export const RESET_NOTIFICATION_MESSAGE = 'RESET_NOTIFICATION_MESSAGE'
+export const RESET_ALL_MESSAGE = 'RESET_ALL_MESSAGE'
 
 // Resets the currently visible error message.
 export function resetErrorMessage() {
@@ -12,6 +15,12 @@ export function resetNotificationMessage() {
   return {
     type: RESET_NOTIFICATION_MESSAGE
   }
+}
+
+export function resetAllMessage(){
+	return{
+		type: RESET_ALL_MESSAGE
+	} 
 }
 
 export const SIGN_UP_REQUEST = 'SIGN_UP_REQUEST'
@@ -89,7 +98,7 @@ function signInSuccess(token){
 	}
 }
 
-export function userSignIn(userInfo){
+export function userSignIn(userInfo, showError = true){
 	return function(dispatch){
 		dispatch(signInRequest())
 
@@ -103,15 +112,12 @@ export function userSignIn(userInfo){
 			password: userInfo.password,
 			data:JSON.stringify(userInfo)
 		}).done((data) => {
-			console.log(data)
 			localStorage.setItem("userName",userInfo.email)
 			localStorage.setItem("token",data.token)
 			dispatch(signInSuccess(data))
 		}).fail((xhr, status, err) => {
-			console.log(err)
-			console.log(status)
-			console.log(xhr)
-			dispatch(signInFailure(xhr.responseText))
+			if(showError)
+				dispatch(signInFailure(xhr.responseText))
 		})
 	}
 }
@@ -128,20 +134,10 @@ export function userSignOut(){
 	return function(dispatch){
 		localStorage.removeItem("username")
 		localStorage.removeItem("token")
-
-		return $.ajax({
-			url:"/api/token",
-			dataType:'json',
-			cache:false,
-			method:'GET',
-			contentType: "application/json",
-			username: "",
-			password: "",
-		}).done((data) => {
-			dispatch(signOutRequest())
-		}).fail((xhr, status, err) => {
-			dispatch(signOutRequest())
-		})
+		return Promise.all([
+							dispatch(signOutRequest()),
+							dispatch(pushState(null,"/",""))
+						])
 	}
 }
 

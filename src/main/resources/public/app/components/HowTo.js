@@ -9,19 +9,19 @@ export default class HowTo extends Component{
 				index:1,
 				title:"Find Developer",
 				details:"Search through the web site for a developer with suitable skillset",
-				class:"glyphicon glyphicon-search"
+				class:"fa fa-search"
 			},
 			{
 				index:2,
 				title:"Contact And Collaborate",
 				details:"Message your candidate to express yoour interest and start collaborating",
-				class:"glyphicon glyphicon-comment"
+				class:"fa fa-comments"
 			},
 			{
 				index:3,
 				title:"Leave Review",
 				details:"Leave your partner a feedback after collaborating",
-				class:"glyphicon glyphicon-thumbs-up"
+				class:"fa fa-thumbs-o-up"
 			}
 		]
 		return (

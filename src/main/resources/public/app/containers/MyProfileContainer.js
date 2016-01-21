@@ -11,8 +11,18 @@ class MyProfileContainer extends Component{
 	}
 
 	componentDidMount(){
-		const { dispatch, params, authed } = this.props
-		dispatch(getMyInfo(authed.userID))
+		const { dispatch, authed } = this.props
+		if(authed.authed){
+			dispatch(getMyInfo(authed.userID))
+		}
+	}
+
+	componentWillReceiveProps(nextProps){
+		const { dispatch, authed } = this.props
+		if(nextProps.authed && nextProps.authed.userID != authed.userID && nextProps.authed.authed){
+			dispatch(getMyInfo(nextProps.authed.userID))
+		}
+
 	}
 
 	render(){

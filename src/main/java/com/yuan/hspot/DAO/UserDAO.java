@@ -1,5 +1,7 @@
 package com.yuan.hspot.DAO;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +10,6 @@ import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Disjunction;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.yuan.hspot.Auth.User;
@@ -24,7 +25,12 @@ public class UserDAO extends AbstractDAO<UserDetails>{
 	
 	public UserSummary findById(int id){
         List<UserDetails> results = list(namedQuery("UserDetails.findById").setInteger("userID", id));
-		UserDetails userDetails = results.get(0);
+        UserDetails userDetails;
+        if(results.size()>0){
+            userDetails = results.get(0);
+        } else {
+            return null;
+        }
 		UserSummary userSummary = new UserSummary(userDetails.getUserID(),userDetails.getName(),
 				userDetails.getEmail(),
                 userDetails.getDescription(),
@@ -46,8 +52,19 @@ public class UserDAO extends AbstractDAO<UserDetails>{
         return;
     }
 	
-	public UserDetails create(UserDetails user){
-		return persist(user);
+	public UserDetails create(UserDetails user) throws NoSuchAlgorithmException{
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] passBytes = user.getPassword().getBytes();
+        md.reset();
+        byte[] digested = md.digest(passBytes);
+        StringBuffer sb = new StringBuffer();
+        for(int i=0;i<digested.length;i++){
+            sb.append(Integer.toHexString(0xff & digested[i]));
+        }
+        user.setPassword(sb.toString());
+
+        return persist(user);
 	}
 	
 	public UserDetails update(UserDetails user){
@@ -108,11 +125,6 @@ public class UserDAO extends AbstractDAO<UserDetails>{
                     result.getProfilePicPath()));
         }
 		return userSummaries;
-	}
-
-	
-	public List<UserDetails> authToMsg(User user, int msgId) {
-		return list(namedQuery("UserDetails.accessToMsg").setInteger("msgId", msgId).setInteger("userId",user.getUserId() ));
 	}
 	
 	public List<UserDetails> authToReview(User user, int reviewId) {

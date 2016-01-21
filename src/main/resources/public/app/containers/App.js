@@ -12,12 +12,12 @@ class App extends Component {
     this.handleDismissNotificationClick = this.handleDismissNotificationClick.bind(this)
   }
 
-  componentDidMount(){
+  componentWillMount(){
     const { dispatch } = this.props
     dispatch(userSignIn({
       email:localStorage.getItem("userName"),
       password:localStorage.getItem("token")
-    }))
+    }, false))
   }
 
   handleDismissErrorClick(e) {
@@ -73,8 +73,9 @@ class App extends Component {
 
   render(){
     const { dispatch, children, inputValue, authed, token } = this.props
+
     return(
-      <div className="body">
+      <div>
         <Header onSignUp={(userInfo)=> dispatch(userSignUp(userInfo))} 
           onSignIn={(userInfo)=> dispatch(userSignIn(userInfo))} 
           onSignOut={()=>dispatch(userSignOut())} 

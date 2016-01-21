@@ -1,5 +1,7 @@
 package com.yuan.hspot.Auth;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -46,11 +48,24 @@ public class BasicAuthenticator implements Authenticator<BasicCredentials, User>
                         transaction.commit();
             			return Optional.absent();
             		}
-    	
-               		if (userDetails.get(0).getPassword().equals(password)) {
-                        transaction.commit();
-            			return Optional.of(new User(userDetails.get(0).getUserID(),username));
-            		}	
+                    try {
+                        MessageDigest md = MessageDigest.getInstance("MD5");
+                        byte[] passBytes = credentials.getPassword().getBytes();
+                        md.reset();
+                        byte[] digested = md.digest(passBytes);
+                        StringBuffer sb = new StringBuffer();
+                        for(int i=0;i<digested.length;i++) {
+                            sb.append(Integer.toHexString(0xff & digested[i]));
+                        }
+                        password = sb.toString();
+
+                        if (userDetails.get(0).getPassword().equals(password)) {
+                            transaction.commit();
+                            return Optional.of(new User(userDetails.get(0).getUserID(),username));
+                        }
+                    } catch (NoSuchAlgorithmException noAlgoEx){
+
+                    }
         		}
 
  

@@ -43,7 +43,8 @@ function clickUpload(){
 function uploadPicture(){
 		const {onUploadProfilePic, dispatch} = this.props
 		var input = document.getElementById('file-upload')
-		onUploadProfilePic(input.files[0])
+		if(input.files[0])
+			onUploadProfilePic(input.files[0])
 }
 
 function readerURL (){
