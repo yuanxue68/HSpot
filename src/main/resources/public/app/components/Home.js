@@ -16,7 +16,6 @@ export default class Home extends Component {
 						<HowTo/>
 					</div>
 				</div>
-			</div>
 		)
 	}
 }
